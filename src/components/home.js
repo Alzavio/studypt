@@ -17,6 +17,7 @@ import {
   OverlayTrigger,
 } from 'react-bootstrap';
 import { Image, Transformation } from 'cloudinary-react';
+import { Helmet } from "react-helmet";
 import Twemoji from 'react-twemoji';
 
 
@@ -35,11 +36,16 @@ function App() {
     setCitizenship(citizenship.filter(citizenship => citizenship !== value));
     setCitizenship(citizenship => [...citizenship, activeVal]);
     setActiveVal(value);
+    setDescent(0);
   }
 
   
   return (
     <div className="min-vh-100 d-flex">
+      <Helmet>
+        <title>Study in Portugal</title>
+        <meta name="description" content="Find information on how to study in Portugal at any of the more than 130 universities and polytechnics. From bachelors degrees, to language programs, to student visa information." />
+      </Helmet>
       <div bg="dark" style={{position: 'absolute', backgroundColor: 'black', width: '100%', height: '100%'}}>
         <Image cloudName="studyportugal-pt" crop="scale" className="w-100 h-100" secure="true" publicId="coimbra2" dpr="auto" responsive width="auto" crop="scale" alt="Background" style={{opacity: .9}}>
           <Transformation quality="auto" crop="scale"  />
@@ -86,27 +92,35 @@ function App() {
                 { activeVal == "Non-EU citizen" &&
                 <Dropdown drop="up" className="mx-2 shadow">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    {descent ? "Portuguese descendent" : "Not a relative of an EU member"} 
+                    {descent ? "Relative of EU member" : "Not a relative of an EU member"} 
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Portuguese descendent"}</Dropdown.Item>
+                    <div className="mx-3">
+                        Tuition may be lower if you have a parent or grandparent who's a citizen of an EU country
+                      <hr />
+                    </div>
+                    <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Relative of EU member"}</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 }
               </div>
 
-              <InputGroup className="mb-3 shadow">
-                <FormControl
-                  placeholder="Search a degree or course..."
-                  aria-label="Search a degree"
-                  aria-describedby="searchbtn"
-                  className="p-2 border-0"
-                />
-                <Button variant="secondary" id="searchbtn">
-                  Search
-                </Button>
-              </InputGroup>
+              <form>
+                <input type="hidden" value={activeVal} name="citizenship" />
+                <input type="hidden" value={descent} name="descent" />
+                <InputGroup className="mb-3 shadow">
+                  <FormControl
+                    placeholder="Search a degree or course..."
+                    aria-label="Search a degree"
+                    aria-describedby="searchbtn"
+                    className="p-2 border-0"
+                  />
+                  <Button variant="secondary" id="searchbtn">
+                    Search
+                  </Button>
+                </InputGroup>
+              </form>
               
               <Row>
                 <Col xs={4}>
@@ -148,7 +162,7 @@ function App() {
                           delay={{ show: 250, hide: 400 }}
                           overlay={polytechnics}
                         >
-                          <abbr title="attribute">polytechnics</abbr>
+                          <abbr title="">polytechnics</abbr>
                         </OverlayTrigger>
                         , and institutions.
                       </Card.Text>
