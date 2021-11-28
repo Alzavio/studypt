@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/home.css';
 import { Navbar, Container, Nav, Card, NavDropdown, Dropdown, Button, InputGroup, FormControl, Row, Col } from 'react-bootstrap';
@@ -6,10 +6,19 @@ import { Image, Transformation } from 'cloudinary-react';
 import Twemoji from 'react-twemoji';
 
 function App() {
+  const [citizenship, setCitizenship] = useState(["EU citizen", "CPLP citizen"]);
+  const [activeVal, setActiveVal] = useState("Non-EU citizen");
+  const [descent, setDescent] = useState(0);
+  function changeActiveVal(value) {
+    // value is the item clicked
+    setCitizenship(citizenship.filter(citizenship => citizenship !== value));
+    setCitizenship(citizenship => [...citizenship, activeVal]);
+    setActiveVal(value);
+  }
   return (
     <div className="min-vh-100 d-flex">
       <div bg="dark" style={{position: 'absolute', backgroundColor: 'black', width: '100%', height: '100%'}}>
-        <Image cloudName="studyportugal-pt" crop="scale" className="w-100 h-100" secure="true" publicId="coimbra2" dpr="auto" responsive width="auto" crop="scale" alt="Background" style={{opacity: .8}}>
+        <Image cloudName="studyportugal-pt" crop="scale" className="w-100 h-100" secure="true" publicId="coimbra2" dpr="auto" responsive width="auto" crop="scale" alt="Background" style={{opacity: .9}}>
           <Transformation quality="auto" crop="scale"  />
           <Transformation fetchFormat="auto" />
         </Image>
@@ -42,24 +51,26 @@ function App() {
               <div className="mb-2 d-flex">
                 <Dropdown drop="up" className="shadow">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Non-EU citizen
+                    {activeVal}
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">CPLP</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">EU member</Dropdown.Item>
+                    {citizenship.map((citizenship) =>        
+                      <Dropdown.Item href="#/action-2" onClick={() => changeActiveVal(citizenship)}>{citizenship}</Dropdown.Item>
+                    )}
                   </Dropdown.Menu>
                 </Dropdown>
-
+                { activeVal == "Non-EU citizen" &&
                 <Dropdown drop="up" className="mx-2 shadow">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
-                    Portuguese descent
+                    {descent ? "Portuguese descendent" : "Not a relative of an EU member"} 
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1">Not a relative of an EU member</Dropdown.Item>
+                    <Dropdown.Item href="#/action-1" onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Portuguese descendent"}</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
+                }
               </div>
 
               <InputGroup className="mb-3 shadow">
@@ -69,7 +80,9 @@ function App() {
                   aria-describedby="searchbtn"
                   className="p-2 border-0"
                 />
-                <InputGroup.Text id="searchbtn" className="border-0">Search</InputGroup.Text>
+                <Button variant="secondary" id="searchbtn">
+                  Search
+                </Button>
               </InputGroup>
               
               <Row>
