@@ -1,9 +1,30 @@
 import React, { useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/home.css';
-import { Navbar, Container, Nav, Card, NavDropdown, Dropdown, Button, InputGroup, FormControl, Row, Col } from 'react-bootstrap';
+import { 
+  Navbar,
+  Container, 
+  Nav, 
+  Card, 
+  NavDropdown, 
+  Dropdown, 
+  Button, 
+  InputGroup, 
+  FormControl, 
+  Row, 
+  Col,
+  Tooltip,
+  OverlayTrigger,
+} from 'react-bootstrap';
 import { Image, Transformation } from 'cloudinary-react';
 import Twemoji from 'react-twemoji';
+
+
+const polytechnics = (props) => (
+  <Tooltip id="button-tooltip" {...props}>
+    A polytechnic is a higher education institution in Portugal which can give licentiates (similar to a Bachelors), and masters degrees.
+  </Tooltip>
+);
 
 function App() {
   const [citizenship, setCitizenship] = useState(["EU citizen", "CPLP citizen"]);
@@ -15,6 +36,8 @@ function App() {
     setCitizenship(citizenship => [...citizenship, activeVal]);
     setActiveVal(value);
   }
+
+  
   return (
     <div className="min-vh-100 d-flex">
       <div bg="dark" style={{position: 'absolute', backgroundColor: 'black', width: '100%', height: '100%'}}>
@@ -100,7 +123,7 @@ function App() {
                         </div>
                         </Card.Title>
                       <Card.Text>
-                        English degrees at accredited Portuguese universities.
+                        Courses taught in English at accredited Portuguese universities.
                       </Card.Text>
                     </Card.Body>
                   </Card>
@@ -119,7 +142,15 @@ function App() {
                         </div>
                       </Card.Title>
                       <Card.Text>
-                        Available from 20 Portuguese universities.
+                        Available from 20 Portuguese universities,&nbsp;
+                        <OverlayTrigger
+                          placement="top"
+                          delay={{ show: 250, hide: 400 }}
+                          overlay={polytechnics}
+                        >
+                          <abbr title="attribute">polytechnics</abbr>
+                        </OverlayTrigger>
+                        , and institutions.
                       </Card.Text>
                     </Card.Body>
                   </Card>
