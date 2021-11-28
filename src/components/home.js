@@ -56,7 +56,7 @@ function App() {
 
                   <Dropdown.Menu>
                     {citizenship.map((citizenship) =>        
-                      <Dropdown.Item href="#/action-2" onClick={() => changeActiveVal(citizenship)}>{citizenship}</Dropdown.Item>
+                      <Dropdown.Item onClick={() => changeActiveVal(citizenship)}>{citizenship}</Dropdown.Item>
                     )}
                   </Dropdown.Menu>
                 </Dropdown>
@@ -67,7 +67,7 @@ function App() {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item href="#/action-1" onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Portuguese descendent"}</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Portuguese descendent"}</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
                 }
