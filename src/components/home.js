@@ -19,9 +19,7 @@ function App() {
       <Navbar style={{position: 'absolute', width: '100%'}}>
         <Container>
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto">
-
-            </Nav>
+            <Nav className="me-auto"></Nav>
             <Nav>
               <Nav.Link href="#deets" className="mx-4" style={{color: 'white'}}>
                 University List
@@ -38,8 +36,11 @@ function App() {
         <Row className="w-100">
           <Col xs={9} className="d-flex" style={{display: 'flex', alignItems:'center', justifyContent: 'center'}}>
             <div className="w-100">
+              <h1 className="position-relative display-2 text-light">
+                Study in Portugal
+              </h1>
               <div className="mb-2 d-flex">
-                <Dropdown drop="up">
+                <Dropdown drop="up" className="shadow">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                     Non-EU citizen
                   </Dropdown.Toggle>
@@ -50,7 +51,7 @@ function App() {
                   </Dropdown.Menu>
                 </Dropdown>
 
-                <Dropdown drop="up" className="mx-2">
+                <Dropdown drop="up" className="mx-2 shadow">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                     Portuguese descent
                   </Dropdown.Toggle>
@@ -61,19 +62,19 @@ function App() {
                 </Dropdown>
               </div>
 
-              <InputGroup className="mb-3">
+              <InputGroup className="mb-3 shadow">
                 <FormControl
-                  placeholder="Search a degree"
-                  aria-label="Recipient's username"
-                  aria-describedby="basic-addon2"
-                  className="p-2"
+                  placeholder="Search a degree or course..."
+                  aria-label="Search a degree"
+                  aria-describedby="searchbtn"
+                  className="p-2 border-0"
                 />
-                <InputGroup.Text id="basic-addon2">Search</InputGroup.Text>
+                <InputGroup.Text id="searchbtn" className="border-0">Search</InputGroup.Text>
               </InputGroup>
               
               <Row>
                 <Col xs={4}>
-                  <Card className="p-1 h-100">
+                  <Card className="p-1 h-100 border-0 shadow">
                     <Card.Body>
                       <Card.Title>
                         <div className="d-flex">
@@ -92,7 +93,7 @@ function App() {
                   </Card>
                 </Col>
                 <Col xs={4}>
-                  <Card className="p-1 h-100">
+                  <Card className="p-1 h-100 border-0 shadow">
                     <Card.Body>
                       <Card.Title>
                         <div className="d-flex">
