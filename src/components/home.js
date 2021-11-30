@@ -19,6 +19,9 @@ import {
 import { Image, Transformation } from 'cloudinary-react';
 import { Helmet } from "react-helmet";
 import Twemoji from 'react-twemoji';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import 'font-awesome/css/font-awesome.css';
 
 
 const polytechnics = (props) => (
@@ -31,12 +34,19 @@ function App() {
   const [citizenship, setCitizenship] = useState(["EU citizen", "CPLP citizen"]);
   const [activeVal, setActiveVal] = useState("Non-EU citizen");
   const [descent, setDescent] = useState(0);
+  const [loading, setLoading] = useState(0);
   function changeActiveVal(value) {
     // value is the item clicked
     setCitizenship(citizenship.filter(citizenship => citizenship !== value));
     setCitizenship(citizenship => [...citizenship, activeVal]);
     setActiveVal(value);
     setDescent(0);
+  }
+
+  const requestData = function (e) {
+    setLoading(1);
+    alert('it works!');
+    e.preventDefault();
   }
 
   
@@ -97,7 +107,7 @@ function App() {
 
                   <Dropdown.Menu>
                     <div className="mx-3">
-                        Tuition may be lower if you have a parent or grandparent who's a citizen of an EU country
+                        Tuition may be lower if you have a parent or grandparent who's a citizen of an EU country<FontAwesomeIcon icon={faCoffee} />
                       <hr />
                     </div>
                     <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Relative of EU member"}</Dropdown.Item>
@@ -106,7 +116,7 @@ function App() {
                 }
               </div>
 
-              <form>
+              <form onSubmit={requestData}>
                 <input type="hidden" value={activeVal} name="citizenship" />
                 <input type="hidden" value={descent} name="descent" />
                 <InputGroup className="mb-3 shadow">
@@ -115,8 +125,9 @@ function App() {
                     aria-label="Search a degree"
                     aria-describedby="searchbtn"
                     className="p-2 border-0"
+                    name="search"
                   />
-                  <Button variant="secondary" id="searchbtn">
+                  <Button variant="secondary" type="submit" id="searchbtn">
                     Search
                   </Button>
                 </InputGroup>
