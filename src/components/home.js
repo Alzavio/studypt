@@ -11,16 +11,17 @@ import {
   Button, 
   InputGroup, 
   FormControl, 
-  Row, 
+  Row,
   Col,
   Tooltip,
   OverlayTrigger,
+  Spinner,
 } from 'react-bootstrap';
 import { Image, Transformation } from 'cloudinary-react';
 import { Helmet } from "react-helmet";
 import Twemoji from 'react-twemoji';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.css';
 
 
@@ -45,7 +46,11 @@ function App() {
 
   const requestData = function (e) {
     setLoading(1);
-    alert('it works!');
+    const search = e.target.search.value;
+    const citizenship = e.target.citizenship.value;
+    const byDescent = e.target.descent.value;
+    
+    console.log(search);
     e.preventDefault();
   }
 
@@ -107,7 +112,7 @@ function App() {
 
                   <Dropdown.Menu>
                     <div className="mx-3">
-                        Tuition may be lower if you have a parent or grandparent who's a citizen of an EU country<FontAwesomeIcon icon={faCoffee} />
+                        Tuition may be lower if you have a parent or grandparent who's a citizen of an EU country
                       <hr />
                     </div>
                     <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Not a relative of an EU member" : "Relative of EU member"}</Dropdown.Item>
@@ -127,9 +132,18 @@ function App() {
                     className="p-2 border-0"
                     name="search"
                   />
+                  {
+                    !loading ?
                   <Button variant="secondary" type="submit" id="searchbtn">
                     Search
                   </Button>
+                    :
+                  <Button variant="secondary" type="submit" id="loadingbtn">
+                    <Spinner animation="border" role="status">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                  </Button>
+                  }
                 </InputGroup>
               </form>
               
