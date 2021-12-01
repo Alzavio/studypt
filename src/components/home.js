@@ -23,7 +23,7 @@ import Twemoji from 'react-twemoji';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCoffee } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.css';
-
+import axios from "axios";
 
 const polytechnics = (props) => (
   <Tooltip id="button-tooltip" {...props}>
@@ -49,8 +49,17 @@ function App() {
     const search = e.target.search.value;
     const citizenship = e.target.citizenship.value;
     const byDescent = e.target.descent.value;
-    
     console.log(search);
+    axios.get('https://api.studyportugal.pt', {
+      params: {
+        search: search,
+        citizenship: citizenship,
+        descent: byDescent
+      }
+    })
+    .then(function (response) {
+      console.log(response);
+    })
     e.preventDefault();
   }
 
