@@ -149,7 +149,7 @@ function App() {
                     className="p-2 border-0"
                     name="search"
                   />
-                  <Button variant="secondary" className="border-0 bg-white">
+                  <Button variant="secondary" className="border-0 bg-white" type="submit">
                     <FontAwesomeIcon icon={faSearch} flip="horizontal" color="#6c757d"/>
                   </Button>
                 </InputGroup>
