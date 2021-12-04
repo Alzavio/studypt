@@ -21,7 +21,7 @@ import { Image, Transformation } from 'cloudinary-react';
 import { Helmet } from "react-helmet";
 import Twemoji from 'react-twemoji';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.css';
 import axios from "axios";
 
@@ -73,23 +73,24 @@ function App() {
         <title>Study in Portugal</title>
         <meta name="description" content="Find information on how to study in Portugal at any of the more than 130 universities and polytechnics. From bachelors degrees, to language programs, to student visa information." />
       </Helmet>
-      <div bg="dark" style={{position: 'absolute', backgroundColor: 'black', width: '100%', height: '100%'}}>
-        <Image cloudName="studyportugal-pt" crop="scale" className="w-100 h-100" secure="true" publicId="coimbra2" dpr="auto" responsive width="auto" crop="scale" alt="Background" style={{opacity: .9}}>
-          <Transformation quality="auto" crop="scale"  />
-          <Transformation fetchFormat="auto" />
-        </Image>
-      </div>
 
-
-      <Navbar style={{position: 'absolute', width: '100%'}}>
+      <Navbar style={{position: 'absolute', width: '100%', marginTop: '.75rem'}}>
         <Container>
           <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto"></Nav>
+            <Nav className="me-auto text-secondary"> 
+              Developed in <Twemoji options={{ className: 'twemoji' }} style={{margin: '0 .25rem 0 .25rem'}}>🇵🇹</Twemoji> by Alzavio
+            </Nav>
             <Nav>
-              <Nav.Link href="#deets" className="mx-4" style={{color: 'white'}}>
-                University List
+              <Nav.Link href="#deets" className="mx-2 text-dark">
+                Visa info
               </Nav.Link>
-              <Nav.Link href="#memes" style={{color: 'white'}}>
+              <Nav.Link href="#deets" className="mx-2 text-dark">
+                Universities
+              </Nav.Link>
+              <Nav.Link href="#deets" className="mx-2 text-dark">
+                FAQ
+              </Nav.Link>
+              <Nav.Link href="#memes" className="mx-2 text-dark">
                 Contact
               </Nav.Link>
             </Nav>
@@ -97,15 +98,20 @@ function App() {
         </Container>
       </Navbar>
       
-      <Container className="d-flex" style={{flex:1, justifyContent: 'center'}}>
-        <Row className="w-100">
-          <Col xs={9} className="d-flex" style={{display: 'flex', alignItems:'center', justifyContent: 'center'}}>
-            <div className="w-100">
-              <h1 className="position-relative display-2 text-light">
-                Study in Portugal
+      <div className="w-100 mx-5" style={{marginTop: '7.5rem'}}>
+        <div className="d-flex" style={{flex:1, flexDirection: 'row', position: 'relative', backgroundColor: '#046535', padding: '20px'}}>
+          <div style={{padding: '87px 42px 87px 55px', flexBasis:'45%', backgroundColor: '#e6f7f5', marginTop:'-40px', zIndex: '2'}}>
+              <h1 className="position-relative bold">
+                Discover Portugal
               </h1>
-              <div className="mb-2 d-flex">
-                <Dropdown drop="up" className="shadow">
+              <h3 className="mb-4">
+                Study at any of 200+ available programs 
+              </h3>
+              <div
+                className="d-flex mb-2"
+              >
+                <h4 style={{whiteSpace:'nowrap', marginRight:'.25rem'}}>I'm a...</h4>
+                <Dropdown drop="up" className="ml-2">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                     {activeVal}
                   </Dropdown.Toggle>
@@ -117,7 +123,7 @@ function App() {
                   </Dropdown.Menu>
                 </Dropdown>
                 { activeVal == "Non-EU citizen" &&
-                <Dropdown drop="up" className="mx-2 shadow">
+                <Dropdown drop="up" className="mx-2">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                     {descent ? "Relative of EU member" : "Not a relative of an EU member"} 
                   </Dropdown.Toggle>
@@ -132,11 +138,10 @@ function App() {
                 </Dropdown>
                 }
               </div>
-
               <form onSubmit={requestData}>
                 <input type="hidden" value={activeVal} name="citizenship" />
                 <input type="hidden" value={descent} name="descent" />
-                <InputGroup className="mb-3 shadow">
+                <InputGroup className="mb-3 shadow rounded border">
                   <FormControl
                     placeholder="Search a degree or course..."
                     aria-label="Search a degree"
@@ -144,74 +149,22 @@ function App() {
                     className="p-2 border-0"
                     name="search"
                   />
-                  {
-                    !loading ?
-                  <Button variant="secondary" type="submit" id="searchbtn">
-                    Search
+                  <Button variant="outline-secondary" className="border-0 bg-white">
+                    <FontAwesomeIcon icon={faSearch} flip="horizontal" />
                   </Button>
-                    :
-                  <Button variant="secondary" type="submit" id="loadingbtn">
-                    <Spinner animation="border" role="status">
-                      <span className="visually-hidden">Loading...</span>
-                    </Spinner>
-                  </Button>
-                  }
                 </InputGroup>
               </form>
-              
-              <Row>
-                <Col xs={4}>
-                  <Card className="p-1 h-100 border-0 shadow">
-                    <Card.Body>
-                      <Card.Title>
-                        <div className="d-flex">
-                          <Twemoji options={{ className: 'twemoji' }} style={{width:'2rem'}}>
-                            🇬🇧
-                          </Twemoji>
-                          <div className="mx-2 d-flex align-items-center">
-                            In English
-                          </div>
-                        </div>
-                        </Card.Title>
-                      <Card.Text>
-                        Courses taught in English at accredited Portuguese universities.
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                <Col xs={4}>
-                  <Card className="p-1 h-100 border-0 shadow">
-                    <Card.Body>
-                      <Card.Title>
-                        <div className="d-flex">
-                          <Twemoji options={{ className: 'twemoji' }}>
-                            🇵🇹
-                          </Twemoji>
-                          <div className="mx-2 d-flex align-items-center">
-                            Study Portuguese
-                          </div>
-                        </div>
-                      </Card.Title>
-                      <Card.Text>
-                        Available from 20 Portuguese universities,&nbsp;
-                        <OverlayTrigger
-                          placement="top"
-                          delay={{ show: 250, hide: 400 }}
-                          overlay={polytechnics}
-                        >
-                          <abbr title="">polytechnics</abbr>
-                        </OverlayTrigger>
-                        , and institutions.
-                      </Card.Text>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-          </Col>
-          <Col></Col>
-        </Row>
-      </Container>
+          </div>  
+          <div bg="dark" className="d-flex" style={{position: 'absolute', top: '-60px', alignItems:'center', width:'70%', height:'calc(100% + 100px)', right: '0', padding: 'inherit', objectFit:'cover'}}>
+              <Image cloudName="studyportugal-pt" className="h-100 w-100" publicId="castle" alt="Background">
+                <Transformation fetchFormat="auto" />
+              </Image>
+              <div>
+                
+              </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
