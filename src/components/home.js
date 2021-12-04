@@ -149,8 +149,8 @@ function App() {
                     className="p-2 border-0"
                     name="search"
                   />
-                  <Button variant="outline-secondary" className="border-0 bg-white">
-                    <FontAwesomeIcon icon={faSearch} flip="horizontal" />
+                  <Button variant="secondary" className="border-0 bg-white">
+                    <FontAwesomeIcon icon={faSearch} flip="horizontal" color="#6c757d"/>
                   </Button>
                 </InputGroup>
               </form>
@@ -159,9 +159,6 @@ function App() {
               <Image cloudName="studyportugal-pt" className="h-100 w-100" publicId="castle" alt="Background">
                 <Transformation fetchFormat="auto" />
               </Image>
-              <div>
-                
-              </div>
           </div>
         </div>
       </div>
