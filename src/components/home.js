@@ -159,6 +159,9 @@ function App() {
               <Image cloudName="studyportugal-pt" className="h-100 w-100" publicId="castle" alt="Background">
                 <Transformation fetchFormat="auto" />
               </Image>
+              <div style={{position:'absolute', bottom: '1.5rem', right: '25px', opacity: '.7'}} className="bg-light rounded">
+                &nbsp;Sintra, Portugal&nbsp;
+              </div>
           </div>
         </div>
       </div>
