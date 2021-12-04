@@ -17,12 +17,14 @@ import {
   OverlayTrigger,
   Spinner,
 } from 'react-bootstrap';
-import { Image, Transformation } from 'cloudinary-react';
-import { Helmet } from "react-helmet";
-import Twemoji from 'react-twemoji';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { Image, Transformation } from 'cloudinary-react';
 import 'font-awesome/css/font-awesome.css';
+import { useCookies } from 'react-cookie';
+import Cookies from 'universal-cookie';
+import { Helmet } from "react-helmet";
+import Twemoji from 'react-twemoji';
 import axios from "axios";
 
 const polytechnics = (props) => (
@@ -36,6 +38,7 @@ function App() {
   const [activeVal, setActiveVal] = useState("Non-EU citizen");
   const [descent, setDescent] = useState(0);
   const [loading, setLoading] = useState(0);
+  const [cookies, setCookie] = useCookies();
   function changeActiveVal(value) {
     // value is the item clicked
     setCitizenship(citizenship.filter(citizenship => citizenship !== value));
@@ -58,8 +61,11 @@ function App() {
         citizenship: citizenship,
         descent: byDescent
       }
-    })
-    .then(function (response) {
+    }).then(function (response) {
+      if (response.success) {
+        setCookie('citizenship', citizenship, { path: '/' });
+        setCookie('descent', byDescent, { path: '/' });
+      }
       console.log(response);
     });
 
@@ -150,7 +156,13 @@ function App() {
                     name="search"
                   />
                   <Button variant="secondary" className="border-0 bg-white" type="submit">
-                    <FontAwesomeIcon icon={faSearch} flip="horizontal" color="#6c757d"/>
+                    { loading ? 
+                    <Spinner animation="border" role="status" style={{color:'grey'}} className="d-flex align-items-center">
+                      <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                    :
+                      <FontAwesomeIcon icon={faSearch} flip="horizontal" color="grey"/>
+                    }
                   </Button>
                 </InputGroup>
               </form>
