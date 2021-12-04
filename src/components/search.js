@@ -16,7 +16,7 @@ import {
     Spinner,
   } from 'react-bootstrap';
 
-function Search() {
+export default function Search() {
     return (
         <div>
 

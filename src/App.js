@@ -6,12 +6,17 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import Home from './components/home.js';
+import Home from './components/home';
+import Search from './components/search';
+
 
 function App() {
   return (
     <Router>
       <Switch>
+        <Route path="/search">
+          <Search />
+        </Route>
         <Route path="/">
           <Home />
         </Route>
