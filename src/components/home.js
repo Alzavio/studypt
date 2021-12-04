@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../css/home.css';
 import { 
@@ -20,12 +20,15 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Image, Transformation } from 'cloudinary-react';
+import { useStore } from '../state/searchResults';
 import 'font-awesome/css/font-awesome.css';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { Helmet } from "react-helmet";
 import Twemoji from 'react-twemoji';
+import { SetState } from "zustand";
 import axios from "axios";
+
 
 const polytechnics = (props) => (
   <Tooltip id="button-tooltip" {...props}>
@@ -62,17 +65,23 @@ function App() {
         descent: byDescent
       }
     }).then(function (response) {
-      if (response.success) {
+      if (response.data.success) {
         setCookie('citizenship', citizenship, { path: '/' });
         setCookie('descent', byDescent, { path: '/' });
+        useStore.setState({ search: citizenship, results: byDescent });
+        setLoading(2);
       }
-      console.log(response);
+      console.log(response.data);
     });
-
     e.preventDefault();
   }
 
-  
+  useEffect(() => {    
+     if (loading == 2) {
+
+     }
+  }, [loading]);
+
   return (
     <div className="min-vh-100 d-flex">
       <Helmet>
