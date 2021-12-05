@@ -59,7 +59,7 @@ export default function Search() {
                                     <div className="my-2">
                                         Language
                                     </div>
-                                    <select class="form-select" aria-label="Select language" value={language}>
+                                    <select class="form-select" aria-label="Select language" value={language} onChange={e => setLanguage(e.target.value)}>
                                         <option>Any</option>
                                         <option>English</option>
                                         <option>Portuguese</option>
