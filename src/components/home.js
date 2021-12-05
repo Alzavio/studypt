@@ -22,19 +22,13 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Image, Transformation } from 'cloudinary-react';
 import { useStore } from '../state/searchResults';
 import Navibar from "./microComponents/navbar"; 
+import { useNavigate } from "react-router-dom";
 import 'font-awesome/css/font-awesome.css';
 import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { Helmet } from "react-helmet";
 import { SetState } from "zustand";
 import axios from "axios";
-
-
-const polytechnics = (props) => (
-  <Tooltip id="button-tooltip" {...props}>
-    A polytechnic is a higher education institution in Portugal which can give licentiates (similar to a Bachelors), and masters degrees.
-  </Tooltip>
-);
 
 function App() {
   const [citizenship, setCitizenship] = useState(["EU citizen", "CPLP citizen"]);
@@ -78,7 +72,6 @@ function App() {
 
   useEffect(() => {    
      if (loading == 2) {
-
      }
   }, [loading]);
 
