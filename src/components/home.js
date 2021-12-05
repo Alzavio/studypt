@@ -36,6 +36,7 @@ function App() {
   const [descent, setDescent] = useState(0);
   const [loading, setLoading] = useState(0);
   const [cookies, setCookie] = useCookies();
+  const navigate = useNavigate();
   function changeActiveVal(value) {
     // value is the item clicked
     setCitizenship(citizenship.filter(citizenship => citizenship !== value));
@@ -72,6 +73,7 @@ function App() {
 
   useEffect(() => {    
      if (loading == 2) {
+      navigate('/search');
      }
   }, [loading]);
 
