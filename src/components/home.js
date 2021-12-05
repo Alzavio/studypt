@@ -63,6 +63,8 @@ function App() {
       if (response.data.success) {
         setCookie('citizenship', citizenship, { path: '/' });
         setCookie('descent', byDescent, { path: '/' });
+        localStorage.setItem('searchQuery', search);
+        localStorage.setItem('searchResults', response.data.data);
         useStore.setState({ search: search, results: response.data.data });
         setLoading(2);
       }
