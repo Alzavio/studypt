@@ -63,7 +63,7 @@ function App() {
       if (response.data.success) {
         setCookie('citizenship', citizenship, { path: '/' });
         setCookie('descent', byDescent, { path: '/' });
-        useStore.setState({ search: citizenship, results: byDescent });
+        useStore.setState({ search: citizenship, results: response.data.data });
         setLoading(2);
       }
       console.log(response.data);
@@ -73,7 +73,7 @@ function App() {
 
   useEffect(() => {    
      if (loading == 2) {
-      navigate('/search');
+        navigate('/search');
      }
   }, [loading]);
 

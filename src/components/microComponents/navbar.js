@@ -8,7 +8,7 @@ import Twemoji from 'react-twemoji';
 
 export default function Navibar() {
     return (
-        <Navbar style={{position: 'absolute', width: '100%', marginTop: '.75rem'}}>
+        <Navbar style={{position: 'absolute', width: '100%', marginTop: '.75rem', top: 0}}>
             <Container>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto text-secondary"> 

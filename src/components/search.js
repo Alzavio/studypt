@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { 
     Navbar,
     Container, 
@@ -15,11 +15,74 @@ import {
     OverlayTrigger,
     Spinner,
   } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { useStore } from '../state/searchResults';
+import 'font-awesome/css/font-awesome.css';
+import Navibar from "./microComponents/navbar";
+import '../css/search.css';
 
 export default function Search() {
+    const [loading, setLoading] = useState(0);
+    const results = useStore(state => state.results);
+    console.log(results);
     return (
-        <div>
-            hi
-        </div>
+    <>
+        <Navibar />
+        <Container>
+            <Row className="mt-nav">
+                <Col xs={3}>
+                    <div className="bg-success h-100 position-relative" style={{marginLeft: '-10px'}}>
+                        <div className="bg-light position-absolute h-100 w-100 px-4 pt-3" style={{marginTop: '-10px', marginLeft: '10px'}}> 
+                            <h5>
+                                Filters
+                            </h5>
+                        </div>
+                    </div>
+                </Col>
+                <Col xs={9}>
+                    <InputGroup className="mb-3 shadow-sm rounded border">
+                        <FormControl
+                            placeholder="Search a degree or course..."
+                            aria-label="Search a degree"
+                            aria-describedby="searchbtn"
+                            className="p-2 border-0"
+                            name="search"
+                        />
+                        <Button variant="secondary" className="border-0 bg-white" type="submit">
+                            { loading ? 
+                            <Spinner animation="border" role="status" style={{color:'grey'}} className="d-flex align-items-center">
+                            <span className="visually-hidden">Loading...</span>
+                            </Spinner>
+                            :
+                            <FontAwesomeIcon icon={faSearch} flip="horizontal" color="grey"/>
+                            }
+                        </Button>
+                    </InputGroup>
+
+                    <Card className="shadow-sm p-2">
+                        <Row className="mx-1">
+                            <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
+                                <div style={{minWidth:'7rem', backgroundImage:'url("https://upload.wikimedia.org/wikipedia/commons/5/50/Ual_600px.png")', backgroundSize:'cover', aspectRatio: '1 / 1'}} className="rounded shadow-sm">
+
+                                </div>
+                            </div>
+                            <Col className="mt-2" xs={9}>
+                                <h4>Computer Science </h4>
+                                University of Braga
+                                <p className="text-muted">
+                                    Braga
+                                </p>
+                                <div className="d-flex">
+                                    <div className="bg-success text-light rounded">&nbsp;Portuguese&nbsp;</div>
+                                    <div className="bg-success text-light rounded mx-2">&nbsp;English&nbsp;</div>
+                                </div>
+                            </Col>
+                        </Row>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
+    </>
     );
 }
