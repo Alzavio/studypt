@@ -60,7 +60,12 @@ export default function Search() {
                 <form method="POST">
                     <Row className="mt-nav">
                         <Col xs={3}>
-                            <div className="bg-success position-relative" style={{marginLeft: '-10px', minHeight: '342px'}}>
+                            <div className="bg-success position-relative" 
+                                style={{
+                                    marginLeft: '-10px', 
+                                    minHeight: citizenship != "Non-EU citizen" ? '295px': '342px'
+                                }}
+                            >
                                 <div className="bg-light position-absolute w-100 px-4 py-3" style={{marginTop: '-10px', marginLeft: '10px'}}> 
                                     <h5 className="pb-1">
                                         Filters
@@ -73,10 +78,12 @@ export default function Search() {
                                         <option>CPLP citizen</option>
                                         <option>EU citizen</option>
                                     </select>
-                                    <select class="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => setDescent(e.target.value)}>
-                                        <option value={0}>Non-relative of EU member</option>
-                                        <option value={1}>Relative of EU member</option>
-                                    </select>
+                                    { citizenship == "Non-EU citizen" &&
+                                        <select class="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => setDescent(e.target.value)}>
+                                            <option value={0}>Non-relative of EU member</option>
+                                            <option value={1}>Relative of EU member</option>
+                                        </select>
+                                    }
                                     <div className="my-2">
                                         Language
                                     </div>
