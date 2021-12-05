@@ -22,6 +22,7 @@ import 'font-awesome/css/font-awesome.css';
 import Navibar from "./microComponents/navbar";
 import '../css/search.css';
 import { Helmet } from "react-helmet";
+import axios from "axios";
 
 export default function Search() {
     const [loading, setLoading] = useState(0);
@@ -45,6 +46,28 @@ export default function Search() {
         }
     }, []);
 
+    const requestData = function (e) {
+        setLoading(1);
+        axios.get('https://api.studyportugal.pt/search.php', {
+            params: {
+              search: searchQuery,
+              citizenship: citizenship,
+              descent: descent
+            }
+        }).then(function (response) {
+            if (response.data.success) {
+                localStorage.setItem('citizenship', citizenship);
+                localStorage.setItem('descent', descent);
+                localStorage.setItem('searchQuery', searchQuery);
+                localStorage.setItem('searchResults', response.data.data);
+                useStore.setState({ search: searchQuery, results: response.data.data });
+                setLoading(2);
+            }
+        });
+        // check if succeeded, then reset loading
+        e.preventDefault();
+    }
+
     function languageSwitcher(language) {
         console.log(language);
         // filter the .map in the future
@@ -67,7 +90,7 @@ export default function Search() {
             </Helmet>
             <Navibar />
             <Container>
-                <form method="POST">
+                <form onSubmit={requestData}>
                     <Row className="mt-nav">
                         <Col xs={3}>
                             <div className="bg-success position-relative" 
@@ -107,6 +130,7 @@ export default function Search() {
                                         Degree
                                     </div>
                                     <select class="form-select" aria-label="Select degree">
+                                        <option>Any</option>
                                         <option>Bachelor's</option>
                                         <option>Master's</option>
                                         <option>PHd</option>
