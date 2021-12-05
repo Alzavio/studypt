@@ -32,15 +32,36 @@ export default function Search() {
         <Container>
             <Row className="mt-nav">
                 <Col xs={3}>
-                    <div className="bg-success h-100 position-relative" style={{marginLeft: '-10px'}}>
-                        <div className="bg-light position-absolute h-100 w-100 px-4 pt-3" style={{marginTop: '-10px', marginLeft: '10px'}}> 
-                            <h5>
+                    <div className="bg-success position-relative" style={{marginLeft: '-10px', minHeight: '265px'}}>
+                        <div className="bg-light position-absolute w-100 px-4 py-3" style={{marginTop: '-10px', marginLeft: '10px'}}> 
+                            <h5 className="pb-1">
                                 Filters
                             </h5>
+                            <div className="mb-2">
+                                Personal
+                            </div>
+                            <select class="form-select mb-2" aria-label="Whether relative of EU member">
+                                <option selected>Non-EU citizen</option>
+                                <option selected>CPLP citizen</option>
+                                <option selected>EU citizen</option>
+                            </select>
+                            <select class="form-select" aria-label="Whether relative of EU member">
+                                <option selected>Non-relative of EU member</option>
+                                <option selected>Relative of EU member</option>
+                            </select>
+                            <div className="my-2">
+                                Language
+                            </div>
+                            <select class="form-select" aria-label="Select language">
+                                <option selected>All</option>
+                                <option>English</option>
+                                <option>Portuguese</option>
+                                <option>French</option>
+                            </select>
                         </div>
                     </div>
                 </Col>
-                <Col xs={9}>
+                <Col xs={9} style={{minHeight: '20rem'}}>
                     <InputGroup className="mb-3 shadow-sm rounded border">
                         <FormControl
                             placeholder="Search a degree or course..."
