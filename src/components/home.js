@@ -60,8 +60,8 @@ function App() {
       }
     }).then(function (response) {
       if (response.data.success) {
-        setCookie('citizenship', citizenship, { path: '/' });
-        setCookie('descent', byDescent, { path: '/' });
+        localStorage.setItem('citizenship', citizenship);
+        localStorage.setItem('descent', byDescent);
         localStorage.setItem('searchQuery', search);
         localStorage.setItem('searchResults', response.data.data);
         useStore.setState({ search: search, results: response.data.data });

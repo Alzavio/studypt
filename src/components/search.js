@@ -26,6 +26,8 @@ import { Helmet } from "react-helmet";
 export default function Search() {
     const [loading, setLoading] = useState(0);
     const [language, setLanguage] = useState("Any");
+    const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
+    const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
 
@@ -67,13 +69,13 @@ export default function Search() {
                                         Citizenship
                                     </div>
                                     <select class="form-select mb-2" aria-label="Whether relative of EU member">
-                                        <option selected>Non-EU citizen</option>
-                                        <option selected>CPLP citizen</option>
-                                        <option selected>EU citizen</option>
+                                        <option>Non-EU citizen</option>
+                                        <option>CPLP citizen</option>
+                                        <option>EU citizen</option>
                                     </select>
-                                    <select class="form-select" aria-label="Whether relative of EU member">
-                                        <option selected>Non-relative of EU member</option>
-                                        <option selected>Relative of EU member</option>
+                                    <select class="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => setDescent(e.target.value)}>
+                                        <option value={0}>Non-relative of EU member</option>
+                                        <option value={1}>Relative of EU member</option>
                                     </select>
                                     <div className="my-2">
                                         Language
