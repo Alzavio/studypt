@@ -51,7 +51,6 @@ function App() {
     const citizenship = e.target.citizenship.value;
     const byDescent = e.target.descent.value;
     const data = {search, citizenship, byDescent};
-    console.log(search);
 
     axios.get('https://api.studyportugal.pt/search.php', {
       params: {
@@ -68,7 +67,6 @@ function App() {
         useStore.setState({ search: search, results: response.data.data });
         setLoading(2);
       }
-      console.log(response.data);
     });
     e.preventDefault();
   }

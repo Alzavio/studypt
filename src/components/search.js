@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { 
     Navbar,
     Container, 
@@ -26,9 +26,23 @@ import { Helmet } from "react-helmet";
 export default function Search() {
     const [loading, setLoading] = useState(0);
     const [language, setLanguage] = useState("Any");
-    const results = useStore(state => state.results);
-    const searchQuery = useStore(state => state.search);
-    console.log(results);
+    const [results, setResults] = useState(useStore(state => state.results));
+    const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
+
+    // For if the user refreshes, data is recovered from localstorage
+    useEffect(() => {
+        // this will probably erase the other value if only one is "missing"
+        // learn to fix
+        if (!results.length) {
+            setResults(localStorage.getItem('searchResults'));
+            useStore.setState({ results: localStorage.getItem('searchResults')});
+        }
+        if (searchQuery == "" || searchQuery == null) {
+            setSearchQuery(localStorage.getItem('searchQuery'));
+            useStore.setState({ search: localStorage.getItem('searchQuery')});
+        }
+    }, []);
+
     function languageSwitcher(language) {
         console.log(language);
         // filter the .map in the future
