@@ -16,7 +16,7 @@ import {
     Spinner,
   } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../state/searchResults';
 import 'font-awesome/css/font-awesome.css';
 import Navibar from "./microComponents/navbar";
@@ -95,7 +95,7 @@ export default function Search() {
 
                                         </div>
                                     </div>
-                                    <Col className="mt-2" xs={9}>
+                                    <Col className="mt-2" xs={7}>
                                         <h4>Computer Science </h4>
                                         University of Braga
                                         <p className="text-muted">
@@ -105,6 +105,14 @@ export default function Search() {
                                             <div className="bg-success text-light rounded pointer" onClick={() => languageSwitcher("Portuguese")}>&nbsp;Portuguese&nbsp;</div>
                                             <div className="bg-success text-light rounded mx-2 pointer" onClick={() => languageSwitcher("English")}>&nbsp;English&nbsp;</div>
                                         </div>
+                                    </Col>
+                                    <Col xs={3} className="p-2">
+                                        €2,000 / year
+                                        <br />
+                                        <span className="text-muted">3 years</span>
+                                        <br />
+                                        {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
+                                        <span className="text-muted"> March 3rd deadline </span>
                                     </Col>
                                 </Row>
                             </Card>
