@@ -21,6 +21,7 @@ import { useStore } from '../state/searchResults';
 import 'font-awesome/css/font-awesome.css';
 import Navibar from "./microComponents/navbar";
 import '../css/search.css';
+import { Helmet } from "react-helmet";
 
 export default function Search() {
     const [loading, setLoading] = useState(0);
@@ -35,6 +36,9 @@ export default function Search() {
     }
     return (
         <>
+            <Helmet>
+                <title>Study Portugal - {searchQuery} results </title>
+            </Helmet>
             <Navibar />
             <Container>
                 <form method="POST">
