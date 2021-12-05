@@ -128,7 +128,7 @@ export default function Search() {
                                 <Button variant="secondary" className="border-0 bg-white" type="submit">
                                     { loading ? 
                                     <Spinner animation="border" role="status" style={{color:'grey'}} className="d-flex align-items-center">
-                                    <span className="visually-hidden">Loading...</span>
+                                        <span className="visually-hidden">Loading...</span>
                                     </Spinner>
                                     :
                                     <FontAwesomeIcon icon={faSearch} flip="horizontal" color="grey"/>
