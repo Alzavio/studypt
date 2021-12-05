@@ -26,6 +26,7 @@ export default function Search() {
     const [loading, setLoading] = useState(0);
     const [language, setLanguage] = useState("Any");
     const results = useStore(state => state.results);
+    const searchQuery = useStore(state => state.search);
     console.log(results);
     function languageSwitcher(language) {
         console.log(language);
@@ -76,6 +77,7 @@ export default function Search() {
                                     aria-describedby="searchbtn"
                                     className="p-2 border-0"
                                     name="search"
+                                    value={searchQuery}
                                 />
                                 <Button variant="secondary" className="border-0 bg-white" type="submit">
                                     { loading ? 
