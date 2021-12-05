@@ -40,7 +40,7 @@ export default function Search() {
                 <form method="POST">
                     <Row className="mt-nav">
                         <Col xs={3}>
-                            <div className="bg-success position-relative" style={{marginLeft: '-10px', minHeight: '265px'}}>
+                            <div className="bg-success position-relative" style={{marginLeft: '-10px', minHeight: '342px'}}>
                                 <div className="bg-light position-absolute w-100 px-4 py-3" style={{marginTop: '-10px', marginLeft: '10px'}}> 
                                     <h5 className="pb-1">
                                         Filters
@@ -65,6 +65,15 @@ export default function Search() {
                                         <option>English</option>
                                         <option>Portuguese</option>
                                         <option>French</option>
+                                    </select>
+                                    <div className="my-2">
+                                        Degree
+                                    </div>
+                                    <select class="form-select" aria-label="Select degree">
+                                        <option>Bachelor's</option>
+                                        <option>Master's</option>
+                                        <option>PHd</option>
+                                        <option>Other</option>
                                     </select>
                                 </div>
                             </div>
@@ -98,12 +107,12 @@ export default function Search() {
                                         </div>
                                     </div>
                                     <Col className="mt-2" xs={7}>
-                                        <h4>Computer Science </h4>
+                                        <h5>Bachelor's Degree in Computer Science </h5>
                                         University of Braga
                                         <p className="text-muted">
                                             Braga
                                         </p>
-                                        <div className="d-flex">
+                                        <div className="d-flex mb-2">
                                             <div className="bg-success text-light rounded pointer" onClick={() => languageSwitcher("Portuguese")}>&nbsp;Portuguese&nbsp;</div>
                                             <div className="bg-success text-light rounded mx-2 pointer" onClick={() => languageSwitcher("English")}>&nbsp;English&nbsp;</div>
                                         </div>
