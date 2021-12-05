@@ -50,6 +50,16 @@ export default function Search() {
         // filter the .map in the future
         setLanguage(language);
     }
+
+    function citizenshipSwitcher(citizen) {
+        setCitizenship(citizen);
+        localStorage.setItem('citizenship', citizen);
+    }
+
+    function descentSwitcher(descendent) {
+        setDescent(descendent);
+        localStorage.setItem('descent', descendent);
+    }
     return (
         <>
             <Helmet>
@@ -73,13 +83,13 @@ export default function Search() {
                                     <div className="mb-2">
                                         Citizenship
                                     </div>
-                                    <select class="form-select mb-2" aria-label="Whether relative of EU member" value={citizenship} onChange={e => setCitizenship(e.target.value)}>
+                                    <select class="form-select mb-2" aria-label="Whether relative of EU member" value={citizenship} onChange={e => citizenshipSwitcher(e.target.value)}>
                                         <option>Non-EU citizen</option>
                                         <option>CPLP citizen</option>
                                         <option>EU citizen</option>
                                     </select>
                                     { citizenship == "Non-EU citizen" &&
-                                        <select class="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => setDescent(e.target.value)}>
+                                        <select class="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => descentSwitcher(e.target.value)}>
                                             <option value={0}>Non-relative of EU member</option>
                                             <option value={1}>Relative of EU member</option>
                                         </select>
