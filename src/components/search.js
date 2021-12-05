@@ -68,7 +68,7 @@ export default function Search() {
                                     <div className="mb-2">
                                         Citizenship
                                     </div>
-                                    <select class="form-select mb-2" aria-label="Whether relative of EU member">
+                                    <select class="form-select mb-2" aria-label="Whether relative of EU member" value={citizenship} onChange={e => setCitizenship(e.target.value)}>
                                         <option>Non-EU citizen</option>
                                         <option>CPLP citizen</option>
                                         <option>EU citizen</option>
