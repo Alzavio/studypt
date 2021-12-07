@@ -67,6 +67,9 @@ function App() {
         useStore.setState({ search: search, results: response.data.data });
         setLoading(2);
       }
+    }).catch(function (error) {
+      // Do something if error
+      
     });
     e.preventDefault();
   }

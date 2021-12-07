@@ -94,6 +94,10 @@ export default function Search() {
         setDescent(descendent);
         localStorage.setItem('descent', descendent);
     }
+
+    function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+    }
     return (
         <>
             <Helmet>
@@ -179,15 +183,15 @@ export default function Search() {
                                 <Card className="shadow-sm p-2 mb-2">
                                     <Row className="mx-1">
                                         <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
-                                            <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
+                                            <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
 
                                             </div>
                                         </div>
                                         <Col className="mt-2" xs={7}>
-                                            <h5>{results.degree} {results.programName} </h5>
+                                            <h5>{results.degree} {results.programName.replace('Degree', '')} </h5>
                                             {results.universitiesName}
                                             <p className="text-muted">
-                                                Braga
+                                                {capitalizeFirstLetter(results.city)}
                                             </p>
                                             <div className="d-flex mb-2">
                                                 <div className="bg-success text-light rounded pointer" onClick={() => languageSwitcher("Portuguese")}>&nbsp;Portuguese&nbsp;</div>
@@ -200,7 +204,7 @@ export default function Search() {
                                                     parseInt(results.tuition).toLocaleString() : (citizenship == "CPLP citizen") ? parseInt(results.CPLPtuition).toLocaleString() : parseInt(results.intTuition).toLocaleString()
                                             } / year
                                             <br />
-                                            <span className="text-muted">3 years</span>
+                                            <span className="text-muted">{parseFloat(results.duration).toLocaleString()} years</span>
                                             <br />
                                             {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
                                             <span className="text-muted"> March 3rd deadline </span>
