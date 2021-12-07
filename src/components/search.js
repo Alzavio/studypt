@@ -27,6 +27,7 @@ import axios from "axios";
 export default function Search() {
     const [loading, setLoading] = useState(0);
     const [language, setLanguage] = useState("Any");
+    const [degree, setDegree] = useState("Any");
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
@@ -145,7 +146,7 @@ export default function Search() {
                                     <div className="my-2">
                                         Degree
                                     </div>
-                                    <select class="form-select" aria-label="Select degree">
+                                    <select class="form-select" aria-label="Select degree" value={degree} onChange={e => setDegree(e.target.value)}>
                                         <option>Any</option>
                                         <option>Bachelor's</option>
                                         <option>Master's</option>
@@ -180,7 +181,11 @@ export default function Search() {
 
 
                             {results &&
-                                results.filter(tag => language == "Any" ? 1 : tag.tagName.includes(language)).map((results) =>
+                                results.filter(tag => language == "Any" ? 
+                                                            degree == "Any" ?  1 : tag.degree == degree
+                                                        : 
+                                                        (tag.tagName.includes(language) && (degree != "Any" ? tag.degree == degree : 1))
+                                              ).map((results) =>
                                 <Card className="shadow-sm p-2 mb-2">
                                     <Row className="mx-1">
                                         <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
