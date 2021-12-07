@@ -7,4 +7,10 @@
     .navbar-expand .navbar-nav .nav-link {
         margin-left: unset !important;
     }
+    #wrapper {
+        height: 100%;
+    }
+    #megaWrapper > div {
+        height: 100%;
+    }
 }
