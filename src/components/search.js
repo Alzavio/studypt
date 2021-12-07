@@ -49,26 +49,32 @@ export default function Search() {
 
     const requestData = function (e) {
         setLoading(1);
-        axios.get('https://api.studyportugal.pt/search.php', {
-            params: {
-              search: searchQuery,
-              citizenship: citizenship,
-              descent: descent
-            }
-        }).then(function (response) {
-            if (response.data.success) {
-                console.log(response.data.data);
-                localStorage.setItem('citizenship', citizenship);
-                localStorage.setItem('descent', descent);
-                localStorage.setItem('searchQuery', searchQuery);
-                localStorage.setItem('searchResults', response.data.data);
-                useStore.setState({ search: searchQuery, results: response.data.data });
-                setLoading(0);
-            }
-        });
-        // check if succeeded, then reset loading
         e.preventDefault();
     }
+
+    // useEffect used to prevent spamming enter, wasting server resources
+    useEffect(() => { 
+        if (loading == 1) {
+            axios.get('https://api.studyportugal.pt/search.php', {
+                params: {
+                    search: searchQuery,
+                    citizenship: citizenship,
+                    descent: descent
+                }
+            }).then(function (response) {
+                if (response.data.success) {
+                    console.log(response.data.data);
+                    localStorage.setItem('citizenship', citizenship);
+                    localStorage.setItem('descent', descent);
+                    localStorage.setItem('searchQuery', searchQuery);
+                    localStorage.setItem('searchResults', response.data.data);
+                    useStore.setState({ search: searchQuery, results: response.data.data });
+                    setLoading(0);
+                }
+            });
+            // Do something if error
+        }
+    }, [loading]);
 
     function languageSwitcher(language) {
         console.log(language);
