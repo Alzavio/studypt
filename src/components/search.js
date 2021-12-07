@@ -111,8 +111,8 @@ export default function Search() {
             <Container>
                 <form onSubmit={requestData}>
                     <Row className="mt-nav">
-                        <Col xs={3}>
-                            <div className="bg-success position-relative" 
+                        <Col md={3} xs={12}>
+                            <div className="bg-success position-relative mb-4" 
                                 style={{
                                     marginLeft: '-10px', 
                                     minHeight: citizenship != "Non-EU citizen" ? '295px': '342px'
@@ -158,7 +158,7 @@ export default function Search() {
                                 </div>
                             </div>
                         </Col>
-                        <Col xs={9} style={{minHeight: '20rem'}}>
+                        <Col md={9} xs={12} style={{minHeight: '20rem'}}>
                             <InputGroup className="mb-3 shadow-sm rounded border">
                                 <FormControl
                                     placeholder="Search a degree or course..."
