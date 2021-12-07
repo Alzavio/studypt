@@ -23,3 +23,33 @@
 .h4 {
     white-space: nowrap;
 }
+@media only screen and (max-width: 1000px) {
+    #image {
+        display: none !important;
+    }
+    #tooltip {
+        display: none;
+    }
+    #wrapper {
+        flex-basis: 100% !important;
+    }
+}
+@media only screen and (max-width: 720px) {
+    #megaWrapper {
+        margin-left: unset !important;
+        margin-right: unset !important;
+    }
+    #wrapper {
+        width: 100%;
+    }
+    #personalFilter {
+        display: unset !important;
+    }
+    .dropup {
+        margin-bottom: .25rem;
+    }
+    #scnd {
+        margin-left: unset !important;
+        margin-bottom: .5rem;
+    }
+}

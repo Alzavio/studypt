@@ -28,6 +28,7 @@ import { useCookies } from 'react-cookie';
 import Cookies from 'universal-cookie';
 import { Helmet } from "react-helmet";
 import { SetState } from "zustand";
+import '../css/global.css';
 import axios from "axios";
 
 function App() {
@@ -89,9 +90,9 @@ function App() {
 
       <Navibar />
 
-      <div className="w-100 mx-5" style={{marginTop: '7.5rem'}}>
+      <div className="w-100 mx-5" style={{marginTop: '7.5rem'}} id="megaWrapper">
         <div className="d-flex" style={{flex:1, flexDirection: 'row', position: 'relative', backgroundColor: '#046535', padding: '20px'}}>
-          <div style={{padding: '87px 42px 87px 55px', flexBasis:'45%', backgroundColor: '#e6f7f5', marginTop:'-40px', zIndex: '2'}}>
+          <div style={{padding: '87px 42px 87px 55px', flexBasis:'45%', backgroundColor: '#e6f7f5', marginTop:'-40px', zIndex: '2'}} id="wrapper">
               <h1 className="position-relative bold">
                 Discover Portugal
               </h1>
@@ -100,6 +101,7 @@ function App() {
               </h3>
               <div
                 className="d-flex mb-2"
+                id="personalFilter"
               >
                 <h4 style={{whiteSpace:'nowrap', marginRight:'.25rem'}}>I'm a...</h4>
                 <Dropdown drop="up" className="ml-2">
@@ -114,7 +116,7 @@ function App() {
                   </Dropdown.Menu>
                 </Dropdown>
                 { activeVal == "Non-EU citizen" &&
-                <Dropdown drop="up" className="mx-2">
+                <Dropdown drop="up" className="mx-2" id="scnd">
                   <Dropdown.Toggle variant="success" id="dropdown-basic">
                     {descent ? "Relative of EU member" : "Not a relative of an EU member"} 
                   </Dropdown.Toggle>
@@ -152,11 +154,11 @@ function App() {
                 </InputGroup>
               </form>
           </div>  
-          <div bg="dark" className="d-flex" style={{position: 'absolute', top: '-60px', alignItems:'center', width:'70%', height:'calc(100% + 100px)', right: '0', padding: 'inherit', objectFit:'cover'}}>
+          <div bg="dark" className="d-flex" style={{position: 'absolute', top: '-60px', alignItems:'center', width:'70%', height:'calc(100% + 100px)', right: '0', padding: 'inherit', objectFit:'cover'}} id="image">
               <Image cloudName="studyportugal-pt" className="h-100 w-100" publicId="castle" alt="Background">
                 <Transformation fetchFormat="auto" />
               </Image>
-              <div style={{position:'absolute', bottom: '1.5rem', right: '25px', opacity: '.7'}} className="bg-light rounded">
+              <div style={{position:'absolute', bottom: '1.5rem', right: '25px', opacity: '.7'}} className="bg-light rounded" id="tooltip">
                 &nbsp;Sintra, Portugal&nbsp;
               </div>
           </div>
