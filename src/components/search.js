@@ -195,7 +195,7 @@ export default function Search() {
 
                                             </div>
                                         </div>
-                                        <Col className="mt-2" xs={7}>
+                                        <Col className="mt-2" md={7} xs={12}>
                                             <h5>{results.degree} {results.programName.replace('Degree', '')} </h5>
                                             {results.universitiesName}
                                             <p className="text-muted">
@@ -209,7 +209,7 @@ export default function Search() {
                                                 }
                                             </div>
                                         </Col>
-                                        <Col xs={3} className="p-2">
+                                        <Col md={3} xs={12} className="p-2">
                                             €{
                                                 (descent == 1 || citizenship == "EU citizen") ?
                                                     parseInt(results.tuition).toLocaleString() : (citizenship == "CPLP citizen") ? parseInt(results.CPLPtuition).toLocaleString() : parseInt(results.intTuition).toLocaleString()
