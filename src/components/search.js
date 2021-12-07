@@ -31,7 +31,6 @@ export default function Search() {
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
-    let resultsMap;
 
     // For if the user refreshes, data is recovered from localstorage
     useEffect(() => { 
@@ -53,19 +52,6 @@ export default function Search() {
         setLoading(1);
         e.preventDefault();
     }
-
-    useEffect(() => { 
-        console.log(results);
-        console.log(results.length);
-        if (results.length > 0) {
-            resultsMap = results.map((results) =>
-                <div>   
-                    test       
-                </div>
-            )
-        }
-    }, [results]);
-
 
     // useEffect used to prevent spamming enter, wasting server resources
     useEffect(() => { 
@@ -186,36 +172,43 @@ export default function Search() {
                                 </Button>
                             </InputGroup>
 
-                            <Card className="shadow-sm p-2">
-                                <Row className="mx-1">
-                                    <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
-                                        <div style={{minWidth:'7rem', backgroundImage:'url("https://upload.wikimedia.org/wikipedia/commons/5/50/Ual_600px.png")', backgroundSize:'cover', aspectRatio: '1 / 1'}} className="rounded shadow-sm">
 
-                                        </div>
-                                    </div>
-                                    <Col className="mt-2" xs={7}>
-                                        <h5>Bachelor's Degree in Computer Science </h5>
-                                        University of Braga
-                                        <p className="text-muted">
-                                            Braga
-                                        </p>
-                                        <div className="d-flex mb-2">
-                                            <div className="bg-success text-light rounded pointer" onClick={() => languageSwitcher("Portuguese")}>&nbsp;Portuguese&nbsp;</div>
-                                            <div className="bg-success text-light rounded mx-2 pointer" onClick={() => languageSwitcher("English")}>&nbsp;English&nbsp;</div>
-                                        </div>
-                                    </Col>
-                                    <Col xs={3} className="p-2">
-                                        €2,000 / year
-                                        <br />
-                                        <span className="text-muted">3 years</span>
-                                        <br />
-                                        {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
-                                        <span className="text-muted"> March 3rd deadline </span>
-                                    </Col>
-                                </Row>
-                            </Card>
 
-                            {resultsMap}
+                            {results &&
+                                results.map((results) =>
+                                <Card className="shadow-sm p-2 mb-2">
+                                    <Row className="mx-1">
+                                        <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
+                                            <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
+
+                                            </div>
+                                        </div>
+                                        <Col className="mt-2" xs={7}>
+                                            <h5>{results.degree} {results.programName} </h5>
+                                            {results.universitiesName}
+                                            <p className="text-muted">
+                                                Braga
+                                            </p>
+                                            <div className="d-flex mb-2">
+                                                <div className="bg-success text-light rounded pointer" onClick={() => languageSwitcher("Portuguese")}>&nbsp;Portuguese&nbsp;</div>
+                                                <div className="bg-success text-light rounded mx-2 pointer" onClick={() => languageSwitcher("English")}>&nbsp;English&nbsp;</div>
+                                            </div>
+                                        </Col>
+                                        <Col xs={3} className="p-2">
+                                            €{
+                                                (descent == 1 || citizenship == "EU citizen") ?
+                                                    parseInt(results.tuition).toLocaleString() : (citizenship == "CPLP citizen") ? parseInt(results.CPLPtuition).toLocaleString() : parseInt(results.intTuition).toLocaleString()
+                                            } / year
+                                            <br />
+                                            <span className="text-muted">3 years</span>
+                                            <br />
+                                            {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
+                                            <span className="text-muted"> March 3rd deadline </span>
+                                        </Col>
+                                    </Row>
+                                </Card>
+                                )
+                            }
 
                         </Col>
                     </Row>
