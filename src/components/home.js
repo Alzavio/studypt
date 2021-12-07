@@ -63,7 +63,7 @@ function App() {
         localStorage.setItem('citizenship', citizenship);
         localStorage.setItem('descent', byDescent);
         localStorage.setItem('searchQuery', search);
-        localStorage.setItem('searchResults', response.data.data);
+        localStorage.setItem('searchResults', JSON.stringify(response.data.data));
         useStore.setState({ search: search, results: response.data.data });
         setLoading(2);
       }

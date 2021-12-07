@@ -31,6 +31,7 @@ export default function Search() {
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
+    let resultsMap;
 
     // For if the user refreshes, data is recovered from localstorage
     useEffect(() => { 
@@ -38,8 +39,8 @@ export default function Search() {
         // this will probably erase the other value if only one is "missing"
         // learn to fix
         if (!results.length) {
-            setResults(localStorage.getItem('searchResults'));
-            useStore.setState({ results: localStorage.getItem('searchResults')});
+            setResults(JSON.parse(localStorage.getItem('searchResults')));
+            useStore.setState({ results: JSON.parse(localStorage.getItem('searchResults'))});
         }
         if (searchQuery == "" || searchQuery == null) {
             setSearchQuery(localStorage.getItem('searchQuery'));
@@ -47,10 +48,24 @@ export default function Search() {
         }
     }, []);
 
+    // On submit
     const requestData = function (e) {
         setLoading(1);
         e.preventDefault();
     }
+
+    useEffect(() => { 
+        console.log(results);
+        console.log(results.length);
+        if (results.length > 0) {
+            resultsMap = results.map((results) =>
+                <div>   
+                    test       
+                </div>
+            )
+        }
+    }, [results]);
+
 
     // useEffect used to prevent spamming enter, wasting server resources
     useEffect(() => { 
@@ -67,12 +82,14 @@ export default function Search() {
                     localStorage.setItem('citizenship', citizenship);
                     localStorage.setItem('descent', descent);
                     localStorage.setItem('searchQuery', searchQuery);
-                    localStorage.setItem('searchResults', response.data.data);
+                    localStorage.setItem('searchResults', JSON.stringify(response.data.data));
                     useStore.setState({ search: searchQuery, results: response.data.data });
                     setLoading(0);
                 }
+            }).catch(function (error) {
+                // Do something if error
+                
             });
-            // Do something if error
         }
     }, [loading]);
 
@@ -198,11 +215,7 @@ export default function Search() {
                                 </Row>
                             </Card>
 
-
-                            {/*results.map((results) =>
-                                <div>   reee       
-                                </div>
-                            )*/}
+                            {resultsMap}
 
                         </Col>
                     </Row>
