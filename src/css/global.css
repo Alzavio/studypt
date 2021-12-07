@@ -3,3 +3,8 @@
         display: none;
     }
 }
+@media only screen and (max-width: 400px) {
+    .navbar-expand .navbar-nav .nav-link {
+        margin-left: unset !important;
+    }
+}
