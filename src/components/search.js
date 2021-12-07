@@ -180,7 +180,7 @@ export default function Search() {
 
 
                             {results &&
-                                results.map((results) =>
+                                results.filter(tag => language == "Any" ? 1 : tag.tagName.includes(language)).map((results) =>
                                 <Card className="shadow-sm p-2 mb-2">
                                     <Row className="mx-1">
                                         <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
