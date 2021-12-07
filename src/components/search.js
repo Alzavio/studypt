@@ -197,7 +197,7 @@ export default function Search() {
                                             <div className="d-flex mb-2">
                                                 {
                                                     results.tagName.split(",").map((tag) =>
-                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher({tag})}>&nbsp;{tag}&nbsp;</div>
+                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher(`${tag}`)}>&nbsp;{tag}&nbsp;</div>
                                                     )
                                                 }
                                             </div>
