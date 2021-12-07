@@ -33,7 +33,8 @@ export default function Search() {
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
 
     // For if the user refreshes, data is recovered from localstorage
-    useEffect(() => {
+    useEffect(() => { 
+        console.log(results);
         // this will probably erase the other value if only one is "missing"
         // learn to fix
         if (!results.length) {
@@ -56,12 +57,13 @@ export default function Search() {
             }
         }).then(function (response) {
             if (response.data.success) {
+                console.log(response.data.data);
                 localStorage.setItem('citizenship', citizenship);
                 localStorage.setItem('descent', descent);
                 localStorage.setItem('searchQuery', searchQuery);
                 localStorage.setItem('searchResults', response.data.data);
                 useStore.setState({ search: searchQuery, results: response.data.data });
-                setLoading(2);
+                setLoading(0);
             }
         });
         // check if succeeded, then reset loading
@@ -190,6 +192,11 @@ export default function Search() {
                                 </Row>
                             </Card>
 
+
+                            {/*results.map((results) =>
+                                <div>   reee       
+                                </div>
+                            )*/}
 
                         </Col>
                     </Row>
