@@ -8,7 +8,7 @@
         margin-left: unset !important;
     }
     #wrapper {
-        height: 100%;
+        height: fit-content;
     }
     #megaWrapper > div {
         height: 100%;
