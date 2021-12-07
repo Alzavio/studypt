@@ -69,6 +69,7 @@ export default function Search() {
                     localStorage.setItem('descent', descent);
                     localStorage.setItem('searchQuery', searchQuery);
                     localStorage.setItem('searchResults', JSON.stringify(response.data.data));
+                    setResults(response.data.data);
                     useStore.setState({ search: searchQuery, results: response.data.data });
                     setLoading(0);
                 }
