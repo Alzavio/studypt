@@ -148,6 +148,7 @@ export default function Search() {
                                     className="p-2 border-0"
                                     name="search"
                                     value={searchQuery}
+                                    onChange={e => setSearchQuery(e.target.value)}
                                 />
                                 <Button variant="secondary" className="border-0 bg-white" type="submit">
                                     { loading ? 
@@ -188,6 +189,8 @@ export default function Search() {
                                     </Col>
                                 </Row>
                             </Card>
+
+
                         </Col>
                     </Row>
                 </form>
