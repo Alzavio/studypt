@@ -15,17 +15,17 @@ export default function Navibar() {
                         Developed in <Twemoji options={{ className: 'twemoji' }} style={{margin: '0 .25rem 0 .25rem'}}>🇵🇹</Twemoji> by&nbsp;<a className="text-decoration-none text-muted" href="https://www.linkedin.com/in/luiz-r-02391992/" target="_blank">Luiz</a>
                     </Nav>
                     <Nav>
-                        <Nav.Link href="#deets" className="mx-2 text-dark">
-                        Visa info
+                        <Nav.Link className="mx-2 text-dark">
+                            Visa info
                         </Nav.Link>
-                        <Nav.Link href="#deets" className="mx-2 text-dark">
-                        Universities
+                        <Nav.Link className="mx-2 text-dark">
+                            Universities
                         </Nav.Link>
-                        <Nav.Link href="#deets" className="mx-2 text-dark">
-                        FAQ
+                        <Nav.Link className="mx-2 text-dark">
+                            FAQ
                         </Nav.Link>
-                        <Nav.Link href="#memes" className="mx-2 text-dark">
-                        Contact
+                        <Nav.Link className="mx-2 text-dark">
+                            Contact
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
