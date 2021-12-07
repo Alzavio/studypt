@@ -195,8 +195,11 @@ export default function Search() {
                                                 {capitalizeFirstLetter(results.city)}
                                             </p>
                                             <div className="d-flex mb-2">
-                                                <div className="bg-success text-light rounded pointer" onClick={() => languageSwitcher("Portuguese")}>&nbsp;Portuguese&nbsp;</div>
-                                                <div className="bg-success text-light rounded mx-2 pointer" onClick={() => languageSwitcher("English")}>&nbsp;English&nbsp;</div>
+                                                {
+                                                    results.tagName.split(",").map((tag) =>
+                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher({tag})}>&nbsp;{tag}&nbsp;</div>
+                                                    )
+                                                }
                                             </div>
                                         </Col>
                                         <Col xs={3} className="p-2">

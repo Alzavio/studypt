@@ -10,3 +10,6 @@
 .pointer {
     cursor: pointer; 
 }
+.mr-1 {
+    margin-right: .25rem;
+}
