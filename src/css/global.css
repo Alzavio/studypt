@@ -1,6 +1,9 @@
 .bold {
     font-weight: bold;
 }
+.italic {
+    font-style: italic;
+}
 .mt-nav {
     margin-top: 5rem;
 }

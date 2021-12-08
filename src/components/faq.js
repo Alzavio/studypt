@@ -52,9 +52,53 @@ export default function Faq() {
                     </div>
                 <Row className="mt-4">
                     <Col>
-                        <h4 className="bold">
-                            General
-                        </h4>
+                        <div className="mb-4">
+                            <h4 className="bold">
+                                General
+                            </h4>
+                            <br />
+                            <div className="mb-4">
+                                <h5 className="bold">
+                                    Can I apply for a student visa if I apply for a language program?
+                                </h5>
+                                It's always best to check with the program organizers, but if it is an annual course organized by a university, 
+                                chances are that you can. For short term courses under 3 months, you may not even need a visa, depending on your passport.
+                            </div>
+                            <div className="mb-4">
+                                <h5 className="bold">
+                                    What degrees exist in Portugal? What's is a licenciatura?
+                                </h5>
+                                There are several types of Degrees in Portugal.
+                                <ul>
+                                    <li>
+                                        <span className="italic"> 
+                                            Licienciaturas (1st Cycle) 
+                                        </span> - 
+                                        This is the first degree you will typically obtain in Portugal. 
+                                        Also known a Bachelor's degree outside of Portugal, most licenciaturas take 3 years.
+                                    </li>
+                                    <li>
+                                        <span className="italic"> 
+                                            Mestrado (2nd Cycle) 
+                                        </span> - 
+                                        Mestrados, aka Masters degrees, are the second degree you will obtain, and typically take 2 years.
+                                    </li>
+                                    <li>
+                                        <span className="italic"> 
+                                            Doutoramento (3rd Cycle) 
+                                        </span> - 
+                                        Doutoramentos, are also known as Doctorates or PHd's. They typically take 3-4 years in Portugal.
+                                    </li>
+                                </ul> 
+                                <a 
+                                    href="https://www.study-research.pt/en/study/degrees-and-diplomas/" 
+                                    className="text-decoration-none"
+                                    target="_blank"
+                                > 
+                                    More information 
+                                </a>
+                            </div>
+                        </div>
                         <div id="americans" className="my-5">
                             <h4 className="bold">
                                 American Q&A
@@ -108,6 +152,8 @@ export default function Faq() {
                                 <br /><br />
                                 There are special vacancy quotas for students of different backgrounds such as students from the autonomous regions, and for emigrants with different
                                 admission requirements.
+                                <br /> <br />
+                                <a href="https://www.dges.gov.pt/en/pagina/general-information-national-call" target="_blank"> You can find more details here</a>
                             </div>
                             <h5 className="bold">
                                 How can I apply to the National Competition for Higher Education as a Portuguese descendent?
