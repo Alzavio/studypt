@@ -68,7 +68,7 @@ export default function Faq() {
                                 <h5 className="bold">
                                     What degrees exist in Portugal? What's is a licenciatura?
                                 </h5>
-                                There are several types of Degrees in Portugal.
+                                There are several types of Degrees in Portugal. Of the main types, there are:
                                 <ul>
                                     <li>
                                         <span className="italic"> 
@@ -81,7 +81,7 @@ export default function Faq() {
                                         <span className="italic"> 
                                             Mestrado (2nd Cycle) 
                                         </span> - 
-                                        Mestrados, aka Masters degrees, are the second degree you will obtain, and typically take 2 years.
+                                        Mestrados, aka Master's degrees, are the second degree you will obtain, and typically take 2 years.
                                     </li>
                                     <li>
                                         <span className="italic"> 
@@ -89,7 +89,24 @@ export default function Faq() {
                                         </span> - 
                                         Doutoramentos, are also known as Doctorates or PHd's. They typically take 3-4 years in Portugal.
                                     </li>
-                                </ul> 
+                                </ul>
+                                There are also two other, less common degrees:
+                                <ul>
+                                    <li>
+                                        <span className="italic"> 
+                                            TeSP, Curso Técnico Superior Profissional (Short Cycle) 
+                                        </span> - This is a diploma only offered by polytechnics, and typically only takes 2 years.
+                                    </li>
+                                    <li>
+                                        <span className="italic"> 
+                                            Mestrado Integrado (1st and 2nd Cycle) 
+                                        </span> - This is an integrated masters, which is both a Master's and a Bachelor's. It usually taked 5 years to complete. 
+                                    </li>
+                                </ul>
+                                <Twemoji options={{ className: 'twemoji' }}> 
+                                    🇺🇸: Associates Degrees don't exist in Portugal
+                                </Twemoji>
+                                <br />
                                 <a 
                                     href="https://www.study-research.pt/en/study/degrees-and-diplomas/" 
                                     className="text-decoration-none"
@@ -153,7 +170,7 @@ export default function Faq() {
                                 There are special vacancy quotas for students of different backgrounds such as students from the autonomous regions, and for emigrants with different
                                 admission requirements.
                                 <br /> <br />
-                                <a href="https://www.dges.gov.pt/en/pagina/general-information-national-call" target="_blank"> You can find more details here</a>
+                                <a href="https://www.dges.gov.pt/en/pagina/general-information-national-call" target="_blank" className="text-decoration-none"> You can find more details here</a>
                             </div>
                             <h5 className="bold">
                                 How can I apply to the National Competition for Higher Education as a Portuguese descendent?
