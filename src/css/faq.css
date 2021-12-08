@@ -1,0 +1,9 @@
+#articleWrap {
+    font-family: 'acumin-pro',sans-serif;
+    letter-spacing: 1px;
+    line-height: 1.7;
+    background: #fbfdff;
+    position: absolute;
+    width: 100%;
+    top: 0
+}

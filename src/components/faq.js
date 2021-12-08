@@ -11,11 +11,12 @@ import Navibar from "./microComponents/navbar";
 import Twemoji from 'react-twemoji';
 import '../css/global.css';
 import { ReactSVG } from 'react-svg'
+import '../css/faq.css'
 
 export default function Faq() {
     const [selected, setSelected] = useState();
     return (
-        <div>
+        <div id="articleWrap">
             <Helmet>
                 <title>Study in Portugal - FAQ</title>
             </Helmet>
@@ -51,75 +52,77 @@ export default function Faq() {
                         </button>
                     </div>
                 <Row className="mt-4">
-                    <Col>
+                    <Col md={8} xs={12}>
                         <div className="mb-4">
-                            <h4 className="bold">
+                            <h2 className="bold">
                                 General
-                            </h4>
+                            </h2>
                             <br />
                             <div className="mb-4">
                                 <h5 className="bold">
                                     Can I apply for a student visa if I apply for a language program?
                                 </h5>
                                 It's always best to check with the program organizers, but if it is an annual course organized by a university, 
-                                chances are that you can. For short term courses under 3 months, you may not even need a visa, depending on your passport.
+                                chances are that you can. For courses under 3 months, you may not even need a visa, depending on your passport.
                             </div>
                             <div className="mb-4">
                                 <h5 className="bold">
                                     What degrees exist in Portugal? What's is a licenciatura?
                                 </h5>
-                                There are several types of Degrees in Portugal. Of the main types, there are:
-                                <ul>
-                                    <li>
-                                        <span className="italic"> 
-                                            Licienciaturas (1st Cycle) 
-                                        </span> - 
-                                        This is the first degree you will typically obtain in Portugal. 
-                                        Also known a Bachelor's degree outside of Portugal, most licenciaturas take 3 years.
-                                    </li>
-                                    <li>
-                                        <span className="italic"> 
-                                            Mestrado (2nd Cycle) 
-                                        </span> - 
-                                        Mestrados, aka Master's degrees, are the second degree you will obtain, and typically take 2 years.
-                                    </li>
-                                    <li>
-                                        <span className="italic"> 
-                                            Doutoramento (3rd Cycle) 
-                                        </span> - 
-                                        Doutoramentos, are also known as Doctorates or PHd's. They typically take 3-4 years in Portugal.
-                                    </li>
-                                </ul>
-                                There are also two other, less common degrees:
-                                <ul>
-                                    <li>
-                                        <span className="italic"> 
-                                            TeSP, Curso Técnico Superior Profissional (Short Cycle) 
-                                        </span> - This is a diploma only offered by polytechnics, and typically only takes 2 years.
-                                    </li>
-                                    <li>
-                                        <span className="italic"> 
-                                            Mestrado Integrado (1st and 2nd Cycle) 
-                                        </span> - This is an integrated masters, which is both a Master's and a Bachelor's. It usually taked 5 years to complete. 
-                                    </li>
-                                </ul>
-                                <Twemoji options={{ className: 'twemoji' }}> 
-                                    🇺🇸: Associates Degrees don't exist in Portugal
-                                </Twemoji>
-                                <br />
-                                <a 
-                                    href="https://www.study-research.pt/en/study/degrees-and-diplomas/" 
-                                    className="text-decoration-none"
-                                    target="_blank"
-                                > 
-                                    More information 
-                                </a>
+                                <span>
+                                    There are several types of Degrees in Portugal. Of the main types, there are:
+                                    <ul>
+                                        <li>
+                                            <span className="italic bold"> 
+                                                Licienciaturas (1st Cycle) 
+                                            </span> - 
+                                            This is the first degree you will typically obtain in Portugal. 
+                                            Also known a Bachelor's degree outside of Portugal, most licenciaturas take 3 years.
+                                        </li>
+                                        <li>
+                                            <span className="italic bold"> 
+                                                Mestrado (2nd Cycle) 
+                                            </span> - 
+                                            Mestrados, aka Master's degrees, are the second degree you will obtain, and typically take 2 years.
+                                        </li>
+                                        <li>
+                                            <span className="italic bold"> 
+                                                Doutoramento (3rd Cycle) 
+                                            </span> - 
+                                            Doutoramentos, are also known as Doctorates or PHd's. They typically take 3-4 years in Portugal.
+                                        </li>
+                                    </ul>
+                                    There are also two other, less common degrees:
+                                    <ul>
+                                        <li>
+                                            <span className="italic bold"> 
+                                                TeSP, Curso Técnico Superior Profissional (Short Cycle) 
+                                            </span> - This is a diploma only offered by polytechnics, and typically only takes 2 years.
+                                        </li>
+                                        <li>
+                                            <span className="italic bold"> 
+                                                Mestrado Integrado (1st and 2nd Cycle) 
+                                            </span> - This is an integrated masters, which is both a Master's and a Bachelor's. It usually taked 5 years to complete. 
+                                        </li>
+                                    </ul>
+                                    <Twemoji options={{ className: 'twemoji' }}> 
+                                        🇺🇸: Associates Degrees don't exist in Portugal
+                                    </Twemoji>
+                                    <br />
+                                    <a 
+                                        href="https://www.study-research.pt/en/study/degrees-and-diplomas/" 
+                                        className="text-decoration-none"
+                                        target="_blank"
+                                    > 
+                                        More information 
+                                    </a>
+                                </span>
                             </div>
                         </div>
                         <div id="americans" className="my-5">
-                            <h4 className="bold">
+                            <h2 className="bold">
                                 American Q&A
-                            </h4>
+                            </h2>
                             <br />
                             <div className="mb-4">
                                 <h5 className="bold">
@@ -139,9 +142,9 @@ export default function Faq() {
                             </div>
                         </div>
                         <div id="descendents" className="my-5">
-                            <h4 className="bold">
+                            <h2 className="bold">
                                 Portuguese Descendents
-                            </h4>
+                            </h2>
                             <p className="text-muted"> 
                                 Those with a parent or grandparent with Portuguese citizenship.
                             </p>
@@ -150,12 +153,12 @@ export default function Faq() {
                                 <h5 className="bold">
                                     Can I apply to a university as a foreigner?
                                 </h5>
-                                No. EU descendents, whether they have citizenship or not, must go through the National Competition.
+                                No. Portuguese descendents, whether they have citizenship or not, must go through the National Competition.
                                 <br /><br />
                                 <Twemoji options={{ className: 'twemoji' }}> 
                                     🇺🇸: As of 2021, if you've graduated prior to 2019, you cannot enter a Portuguese university. 
                                     Portugal requires the now discontinued SAT Subject tests (Not the standard SAT) 
-                                    for American EU descendents. Exceptions to this rule only exist for those that have graduated 
+                                    for American Portuguese descendents. Exceptions to this rule only exist for those that have graduated 
                                     after 2018. 
                                 </Twemoji>
                             </div>
@@ -170,14 +173,14 @@ export default function Faq() {
                                 There are special vacancy quotas for students of different backgrounds such as students from the autonomous regions, and for emigrants with different
                                 admission requirements.
                                 <br /> <br />
-                                <a href="https://www.dges.gov.pt/en/pagina/general-information-national-call" target="_blank" className="text-decoration-none"> You can find more details here</a>
+                                <a href="https://www.dges.gov.pt/en/pagina/general-information-national-call" target="_blank" className="text-decoration-none"> Find more details here</a>
                             </div>
                             <h5 className="bold">
                                 How can I apply to the National Competition for Higher Education as a Portuguese descendent?
                             </h5>
                         </div>
                     </Col>
-                    <Col></Col>
+                    <Col md={4} xs={12}></Col>
                     <br />
                 </Row>
             </Container>
