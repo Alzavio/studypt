@@ -5,13 +5,13 @@ import {
     Col,
     Container,
     Button
-  } from 'react-bootstrap';
+} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navibar from "./microComponents/navbar"; 
 import Twemoji from 'react-twemoji';
+import { ReactSVG } from 'react-svg';
 import '../css/global.css';
-import { ReactSVG } from 'react-svg'
-import '../css/faq.css'
+import '../css/faq.css';
 
 export default function Faq() {
     const [selected, setSelected] = useState();
@@ -22,37 +22,37 @@ export default function Faq() {
             </Helmet>
             <Navibar />
             <Container className="mt-nav">
-                    <h1 className="bold">
-                        FAQ
-                    </h1>
-                    <div className="d-flex">
-                        <button type="button" class="btn btn-light border">
-                            <Twemoji options={{ className: 'twemoji' }}>
-                                🇪🇺 Questions
-                            </Twemoji>
-                        </button>
-                        <a href="#americans">
-                            <button type="button" class="btn btn-light mx-2 border">
-                                <Twemoji options={{ className: 'twemoji' }}>
-                                    🇺🇸 Questions
-                                </Twemoji>
-                            </button>
-                        </a>
-                        <a href="#descendents">
-                            <button type="button" class="btn btn-light border">
-                                <Twemoji options={{ className: 'twemoji' }}>
-                                    🇵🇹 Descendents
-                                </Twemoji>
-                            </button>
-                        </a>
-                        <button type="button" class="btn btn-light border mx-2">
-                            <div className="d-flex">
-                                CPLP Members
-                            </div>
-                        </button>
-                    </div>
+                <h1 className="bold">
+                    FAQ
+                </h1>                
                 <Row className="mt-4">
                     <Col md={8} xs={12}>
+                        <div className="d-md-flex d-sm-block mb-4">
+                            <button type="button" class="btn btn-light border mt-2">
+                                <Twemoji options={{ className: 'twemoji' }}>
+                                    🇪🇺 Questions
+                                </Twemoji>
+                            </button>
+                            <a href="#americans">
+                                <button type="button" class="btn btn-light mx-2 border mt-2">
+                                    <Twemoji options={{ className: 'twemoji' }}>
+                                        🇺🇸 Questions
+                                    </Twemoji>
+                                </button>
+                            </a>
+                            <a href="#descendents">
+                                <button type="button" class="btn btn-light border mt-2">
+                                    <Twemoji options={{ className: 'twemoji' }}>
+                                        🇵🇹 Descendents
+                                    </Twemoji>
+                                </button>
+                            </a>
+                            <button type="button" class="btn btn-light border mx-2 mt-2">
+                                <div className="d-flex">
+                                    CPLP Members
+                                </div>
+                            </button>
+                        </div>
                         <div className="mb-4">
                             <h2 className="bold">
                                 General
