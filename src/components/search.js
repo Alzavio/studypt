@@ -105,7 +105,7 @@ export default function Search() {
     return (
         <>
             <Helmet>
-                <title>Study Portugal - {searchQuery} results </title>
+                <title>Study Portugal - {capitalizeFirstLetter(searchQuery)} results </title>
             </Helmet>
             <Navibar />
             <Container>
