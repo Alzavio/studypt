@@ -1,3 +1,9 @@
+.bold {
+    font-weight: bold;
+}
+.mt-nav {
+    margin-top: 5rem;
+}
 @media only screen and (max-width: 770px) {
     #label {
         display: none;
@@ -6,11 +12,5 @@
 @media only screen and (max-width: 400px) {
     .navbar-expand .navbar-nav .nav-link {
         margin-left: unset !important;
-    }
-    #wrapper {
-        height: fit-content;
-    }
-    #megaWrapper > div {
-        height: 100%;
     }
 }

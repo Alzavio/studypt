@@ -5,6 +5,7 @@ import {
     Nav, 
   } from 'react-bootstrap';
 import Twemoji from 'react-twemoji';
+import { Link } from "react-router-dom";
 
 export default function Navibar() {
     return (
@@ -22,7 +23,9 @@ export default function Navibar() {
                             Universities
                         </Nav.Link>
                         <Nav.Link className="mx-2 text-dark">
-                            FAQ
+                            <Link to="/faq" class="text-dark text-decoration-none">
+                                FAQ
+                            </Link>
                         </Nav.Link>
                         <Nav.Link className="mx-2 text-dark">
                             Contact

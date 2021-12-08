@@ -15,6 +15,7 @@ import {
     OverlayTrigger,
     Spinner,
   } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faExclamationCircle } from '@fortawesome/free-solid-svg-icons';
 import { useStore } from '../state/searchResults';
@@ -23,6 +24,7 @@ import Navibar from "./microComponents/navbar";
 import '../css/search.css';
 import { Helmet } from "react-helmet";
 import axios from "axios";
+import '../css/global.css';
 
 export default function Search() {
     const [loading, setLoading] = useState(0);

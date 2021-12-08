@@ -24,8 +24,6 @@ import { useStore } from '../state/searchResults';
 import Navibar from "./microComponents/navbar"; 
 import { useNavigate } from "react-router-dom";
 import 'font-awesome/css/font-awesome.css';
-import { useCookies } from 'react-cookie';
-import Cookies from 'universal-cookie';
 import { Helmet } from "react-helmet";
 import { SetState } from "zustand";
 import '../css/global.css';
@@ -36,7 +34,6 @@ function App() {
   const [activeVal, setActiveVal] = useState("Non-EU citizen");
   const [descent, setDescent] = useState(0);
   const [loading, setLoading] = useState(0);
-  const [cookies, setCookie] = useCookies();
   const navigate = useNavigate();
   function changeActiveVal(value) {
     // value is the item clicked
@@ -155,7 +152,7 @@ function App() {
               </form>
           </div>  
           <div bg="dark" className="d-flex" style={{position: 'absolute', top: '-60px', alignItems:'center', width:'70%', height:'calc(100% + 100px)', right: '0', padding: 'inherit', objectFit:'cover'}} id="image">
-              <Image cloudName="studyportugal-pt" className="h-100 w-100" publicId="castle" alt="Background">
+              <Image cloudName="studyportugal-pt" className="h-100 w-100" publicId="castle" alt="Sintra, Portugal background image">
                 <Transformation fetchFormat="auto" />
               </Image>
               <div style={{position:'absolute', bottom: '1.5rem', right: '25px', opacity: '.7'}} className="bg-light rounded" id="tooltip">
