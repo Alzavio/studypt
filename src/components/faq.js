@@ -155,12 +155,6 @@ export default function Faq() {
                                 </h5>
                                 No. Portuguese descendents, whether they have citizenship or not, must go through the National Competition.
                                 <br /><br />
-                                <Twemoji options={{ className: 'twemoji' }}> 
-                                    🇺🇸: As of 2021, if you've graduated prior to 2019, you cannot enter a Portuguese university. 
-                                    Portugal requires the now discontinued SAT Subject tests (Not the standard SAT) 
-                                    for American Portuguese descendents. Exceptions to this rule only exist for those that have graduated 
-                                    after 2018. 
-                                </Twemoji>
                             </div>
                             <div className="mb-4">
                                 <h5 className="bold">
@@ -175,9 +169,38 @@ export default function Faq() {
                                 <br /> <br />
                                 <a href="https://www.dges.gov.pt/en/pagina/general-information-national-call" target="_blank" className="text-decoration-none"> Find more details here</a>
                             </div>
-                            <h5 className="bold">
-                                How can I apply to the National Competition for Higher Education as a Portuguese descendent?
-                            </h5>
+                            <div className="mb-4">
+                                <h5 className="bold">
+                                    How can I apply to the National Competition for Higher Education as a Portuguese descendent?
+                                </h5>
+                                While it might seem that the process for Portuguese descendents is easier due to the available vacancies,
+                                the requirements may make it much more difficult than if you were a foreigner. You should plan at least a year or two in advance. 
+                                <br /><br />
+                                <span className="bold"> First, </span> you must request an equivelancy to your secondary education grades. 
+                                This can be requested at your the nearest secondary school in Portugal if you already reside in the country, and may take several months. 
+                                The secondary school may a request proof of residence called a "Atestado de residência".
+                                <br /><br />
+                                <span className="bold">
+                                    If you live outside of Portugal, an equivilancy can only be requested by post. 
+                                </span>
+                                <br /><br />
+                                For more information <a href="https://www.dge.mec.pt/faq-equivalence-foreign-qualifications" target="_blank">click here</a>
+                                <br /><br />
+                                <Twemoji options={{ className: 'twemoji' }}>
+                                    🇺🇸: One of the many requirements for proof of completion of High School is your Diploma.
+                                    The Portuguese government does not understand that these documents are often purely ceremonial, and usually cannot be replaced.
+                                    If you've graduated recently, ask if your High School if they can print a secondary copy, as it may not be returned.
+                                </Twemoji>
+                                <br /><br />
+                                <span className="bold">Second,</span>
+                                <br /><br />
+                                <a 
+                                    href="https://www.dges.gov.pt/pt/pagina/contingente-especial-para-candidatos-emigrantes-portugueses-e-familiares-que-com-eles-residam"
+                                    className="text-decoration-none"    
+                                >
+                                    Further information on the process can be found here
+                                </a> (Available in Portuguese only)
+                            </div>
                         </div>
                     </Col>
                     <Col md={4} xs={12}></Col>
