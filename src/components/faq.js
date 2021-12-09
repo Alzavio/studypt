@@ -197,6 +197,7 @@ export default function Faq() {
                                 <a 
                                     href="https://www.dges.gov.pt/pt/pagina/contingente-especial-para-candidatos-emigrantes-portugueses-e-familiares-que-com-eles-residam"
                                     className="text-decoration-none"    
+                                    target="_blank"
                                 >
                                     Further information on the process can be found here
                                 </a> (Available in Portuguese only)
