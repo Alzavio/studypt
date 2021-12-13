@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { 
@@ -10,12 +10,26 @@ import {
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
 import '../css/program.css';
+import ReactMapGL from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 export default function Program() {
+    const [viewport, setViewport] = useState({
+        width: '100%',
+        height: 200,
+        latitude: 37.7577,
+        longitude: -122.4376,
+        zoom: 8
+    });
     return (
         <div id="fullWrapper">
+            <ReactMapGL
+                {...viewport}
+                onViewportChange={nextViewport => setViewport(nextViewport)}
+                mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
+            />
             <Navibar />
-            <Container className="mt-nav">
+            <Container className="mt-5">
                 <Row>
                     <Col xs={3}>
                         <div>
