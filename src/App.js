@@ -8,12 +8,14 @@ import {
 import Home from './components/home';
 import Search from './components/search';
 import Faq from './components/faq';
+import Program from './components/program';
 
 
 function App() {
   return (
     <Router>
       <Routes>
+        <Route path="/:university/:degree" element={<Program />} />
         <Route path="/faq" element={<Faq />} />
         <Route path="/search" element={<Search />} />
         <Route exact path="/" element={<Home />} />

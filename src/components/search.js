@@ -25,6 +25,10 @@ import '../css/search.css';
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import '../css/global.css';
+import {
+    Link
+} from "react-router-dom";
+
 
 export default function Search() {
     const [loading, setLoading] = useState(0);
@@ -191,16 +195,20 @@ export default function Search() {
                                 <Card className="shadow-sm p-2 mb-2">
                                     <Row className="mx-1">
                                         <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
-                                            <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
+                                            <Link to={`/${results.universitiesName}/${results.programName}`}>
+                                                <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
 
-                                            </div>
+                                                </div>
+                                            </Link>
                                         </div>
                                         <Col className="mt-2" md={7} xs={12}>
-                                            <h5>{results.degree} {results.programName.replace('Degree', '')} </h5>
-                                            {results.universitiesName}
-                                            <p className="text-muted">
-                                                {capitalizeFirstLetter(results.city)}
-                                            </p>
+                                            <Link to={`/${results.universitiesName}/${results.programName}`} className="text-decoration-none">
+                                                <h5 className="text-dark">{results.degree} {results.programName.replace('Degree', '')} </h5>
+                                                <span className="text-dark">{results.universitiesName}</span>
+                                                <p className="text-muted">
+                                                    {capitalizeFirstLetter(results.city)}
+                                                </p>
+                                            </Link>
                                             <div className="d-flex mb-2">
                                                 {
                                                     results.tagName.split(",").map((tag) =>
