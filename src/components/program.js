@@ -13,6 +13,9 @@ import '../css/program.css';
 import ReactMapGL from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useParams } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import 'font-awesome/css/font-awesome.css';
 
 export default function Program() {
     const [viewport, setViewport] = useState({
@@ -65,6 +68,7 @@ export default function Program() {
         <div id="fullWrapper">
             <ReactMapGL
                 {...viewport}
+                mapStyle="mapbox://styles/mapbox/outdoors-v11"
                 onViewportChange={nextViewport => setViewport(nextViewport)}
                 mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
             />
@@ -73,7 +77,7 @@ export default function Program() {
                 <Row>
                     <Col xs={3}>
                         <div className="position-relative">
-                            <div className="rounded border shadow-sm position-absolute bg-white" style={{minWidth:'80%', backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
+                            <div className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
                             </div>
                             <div className="mt-5">
@@ -100,11 +104,11 @@ export default function Program() {
                                 </div>
                                 <div className="mb-2">
                                     <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                        Contact
+                                        Contacts
                                     </span>
                                     <br />
                                     <span>
-                                        julia@coimbra.pt
+                                        <FontAwesomeIcon icon={faEnvelope} /> &nbsp; <FontAwesomeIcon icon={faExternalLinkAlt} />
                                     </span>
                                 </div>
                             </div>
