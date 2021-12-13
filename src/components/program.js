@@ -31,7 +31,7 @@ export default function Program() {
     const [startDate, setStartDate] = useState();
     const [uniName, setUniName] = useState(university);
     const [programName, setProgramName] = useState(degree);
-    const [data, setData] = useState(localStorage.getItem('searchResults'));
+    const [data, setData] = useState(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
 
     function verifyData() {
 
@@ -43,8 +43,7 @@ export default function Program() {
 
     useEffect(() => { 
         // Checking localstorage for data so it doesn't need to waste bandwidth
-        console.log(JSON.parse(localStorage.getItem('searchResults')))
-
+        
         // Check data
     }, []);
 
