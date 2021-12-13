@@ -200,14 +200,14 @@ export default function Search() {
                                 <Card className="shadow-sm p-2 mb-2">
                                     <Row className="mx-1">
                                         <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
-                                            <Link to={`/${results.universitiesName}/${results.programName}`}>
+                                            <Link to={`/${results.universitiesName}/${results.programName.replace("Degree", results.degree)}`}>
                                                 <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
 
                                                 </div>
                                             </Link>
                                         </div>
                                         <Col className="mt-2" md={7} xs={12}>
-                                            <Link to={`/${results.universitiesName}/${results.programName}`} className="text-decoration-none">
+                                            <Link to={`/${results.universitiesName}/${results.programName.replace("Degree", results.degree)}`} className="text-decoration-none">
                                                 <h5 className="text-dark">{results.degree} {results.programName.replace('Degree', '')} </h5>
                                                 <span className="text-dark">{results.universitiesName}</span>
                                                 <p className="text-muted">

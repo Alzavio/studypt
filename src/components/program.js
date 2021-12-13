@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { 
@@ -12,6 +12,7 @@ import '../css/global.css';
 import '../css/program.css';
 import ReactMapGL from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import { useParams } from 'react-router-dom';
 
 export default function Program() {
     const [viewport, setViewport] = useState({
@@ -21,6 +22,32 @@ export default function Program() {
         longitude: -122.4376,
         zoom: 8
     });
+    const { university, degree } = useParams();
+    const [tuition, setTuition] = useState();
+    const [languages, setLanguages] = useState();
+    const [link, setLink] = useState();
+    const [years, setYears] = useState();
+    const [appDate, setAppDate] = useState();
+    const [startDate, setStartDate] = useState();
+    const [uniName, setUniName] = useState(university);
+    const [programName, setProgramName] = useState(degree);
+    const [data, setData] = useState(localStorage.getItem('searchResults'));
+
+    function verifyData() {
+
+    }
+
+    function retrieveData() {
+        
+    }
+
+    useEffect(() => { 
+        // Checking localstorage for data so it doesn't need to waste bandwidth
+        console.log(JSON.parse(localStorage.getItem('searchResults')))
+
+        // Check data
+    }, []);
+
     return (
         <div id="fullWrapper">
             <ReactMapGL
@@ -36,7 +63,7 @@ export default function Program() {
 
                         </div>
                         <h5 className="bold">
-                            University of Braga
+                            {uniName}
                         </h5>
                         <div className="mb-2">
                             <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
@@ -69,7 +96,7 @@ export default function Program() {
                     <Col xs={9}>
                         <div className="mb-3">
                             <h3>
-                                Bachelor's in Computer Science
+                                {programName}
                             </h3>
                         </div>
                         <Card className="p-3 shadow-sm">
@@ -91,7 +118,10 @@ export default function Program() {
                         <div>
                             <div className="mt-4">
                                 <h5>
-                                    About us
+                                    About program
+                                </h5>
+                                <h5>
+                                    Nearby apartments
                                 </h5>
                             </div>
                         </div>
