@@ -23,15 +23,19 @@ export default function Program() {
         zoom: 8
     });
     const { university, degree } = useParams();
-    const [tuition, setTuition] = useState();
+    const [programName, setProgramName] = useState(degree);
+    const [uniName, setUniName] = useState(university);
+    const [data, setData] = useState(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
+    const [tuition, setTuition] = useState(data.tuition);
     const [languages, setLanguages] = useState();
     const [link, setLink] = useState();
-    const [years, setYears] = useState();
+    const [years, setYears] = useState(data.duration);
     const [appDate, setAppDate] = useState();
     const [startDate, setStartDate] = useState();
-    const [uniName, setUniName] = useState(university);
-    const [programName, setProgramName] = useState(degree);
-    const [data, setData] = useState(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
+    const [pic, setPic] = useState(data.picture);
+    // maybe use state
+    const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
+    const [descent, setDescent] = useState(localStorage.getItem('descent'));
 
     function verifyData() {
 
@@ -43,7 +47,17 @@ export default function Program() {
 
     useEffect(() => { 
         // Checking localstorage for data so it doesn't need to waste bandwidth
-        
+
+        // Set tuition based on user. Check citizenship name accuracy
+        console.log(data);
+        if (descent == 1 || citizenship == "EU citizen") {
+            setTuition(data.tuition);
+        } else if (citizenship == "CPLP citizen") {
+            setTuition(data.CPLPtuition);
+        } else {
+            setTuition(data.intTuition);
+        }
+
         // Check data
     }, []);
 
@@ -58,38 +72,42 @@ export default function Program() {
             <Container className="mt-5">
                 <Row>
                     <Col xs={3}>
-                        <div>
+                        <div className="position-relative">
+                            <div className="rounded border shadow-sm position-absolute bg-white" style={{minWidth:'80%', backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
-                        </div>
-                        <h5 className="bold">
-                            {uniName}
-                        </h5>
-                        <div className="mb-2">
-                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                Program tuition
-                            </span>
-                            <br />
-                            <span className="bold">
-                                $2,500
-                            </span>
-                        </div>
-                        <div className="mb-2">
-                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                Program language
-                            </span>
-                            <br />
-                            <span className="bold">
-                                Portuguese
-                            </span>
-                        </div>
-                        <div className="mb-2">
-                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                Contact
-                            </span>
-                            <br />
-                            <span>
-                                julia@coimbra.pt
-                            </span>
+                            </div>
+                            <div className="mt-5">
+                                <h5 className="bold">
+                                    {uniName}
+                                </h5>
+                                <div className="mb-2">
+                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                        Program tuition
+                                    </span>
+                                    <br />
+                                    <span className="bold">
+                                        €{parseFloat(tuition)}
+                                    </span>
+                                </div>
+                                <div className="mb-2">
+                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                        Program language
+                                    </span>
+                                    <br />
+                                    <span className="bold">
+                                        Portuguese
+                                    </span>
+                                </div>
+                                <div className="mb-2">
+                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                        Contact
+                                    </span>
+                                    <br />
+                                    <span>
+                                        julia@coimbra.pt
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </Col>
                     <Col xs={9}>
@@ -101,7 +119,7 @@ export default function Program() {
                         <Card className="p-3 shadow-sm">
                             <Row>
                                 <Col className="text-center">
-                                    <h5 className="">3 years</h5>
+                                    <h5 className="">{parseFloat(years)} years</h5>
                                     <span className="text-muted">Duration</span>
                                 </Col>
                                 <Col className="text-center">
