@@ -70,7 +70,7 @@ export default function Program() {
                 {...viewport}
                 mapStyle="mapbox://styles/mapbox/outdoors-v11"
                 onViewportChange={nextViewport => setViewport(nextViewport)}
-                mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
+                mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3g0N2NxZ2QxeWs4MnZxMzNxdTk2ZzA0In0.SFeeuBT2MH8T571oWRwbhQ"
             />
             <Navibar />
             <Container className="mt-5">
