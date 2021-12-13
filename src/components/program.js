@@ -29,13 +29,13 @@ export default function Program() {
     const [programName, setProgramName] = useState(degree);
     const [uniName, setUniName] = useState(university);
     const [data, setData] = useState(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
-    const [tuition, setTuition] = useState(data.tuition);
+    const [tuition, setTuition] = useState();
     const [languages, setLanguages] = useState();
     const [link, setLink] = useState();
-    const [years, setYears] = useState(data.duration);
+    const [years, setYears] = useState();
     const [appDate, setAppDate] = useState();
     const [startDate, setStartDate] = useState();
-    const [pic, setPic] = useState(data.picture);
+    const [pic, setPic] = useState();
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
@@ -50,15 +50,19 @@ export default function Program() {
 
     useEffect(() => { 
         // Checking localstorage for data so it doesn't need to waste bandwidth
-
-        // Set tuition based on user. Check citizenship name accuracy
-        console.log(data);
-        if (descent == 1 || citizenship == "EU citizen") {
-            setTuition(data.tuition);
-        } else if (citizenship == "CPLP citizen") {
-            setTuition(data.CPLPtuition);
+        if (localStorage.getItem('searchResults') == null) {
+            // retrieve all data
         } else {
-            setTuition(data.intTuition);
+            setYears(data.duration);
+            setPic(data.picture);
+            // Set tuition based on user. Check citizenship name accuracy
+            if (descent == 1 || citizenship == "EU citizen") {
+                setTuition(data.tuition);
+            } else if (citizenship == "CPLP citizen") {
+                setTuition(data.CPLPtuition);
+            } else {
+                setTuition(data.intTuition);
+            }
         }
 
         // Check data
@@ -70,7 +74,7 @@ export default function Program() {
                 {...viewport}
                 mapStyle="mapbox://styles/mapbox/outdoors-v11"
                 onViewportChange={nextViewport => setViewport(nextViewport)}
-                mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3g0N2NxZ2QxeWs4MnZxMzNxdTk2ZzA0In0.SFeeuBT2MH8T571oWRwbhQ"
+                mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
             />
             <Navibar />
             <Container className="mt-5">
