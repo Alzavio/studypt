@@ -88,6 +88,13 @@ export default function Program() {
                                 </Col>
                             </Row>
                         </Card>
+                        <div>
+                            <div className="mt-4">
+                                <h5>
+                                    About us
+                                </h5>
+                            </div>
+                        </div>
                     </Col>
                 </Row>
             </Container>

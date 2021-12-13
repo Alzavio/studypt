@@ -28,6 +28,7 @@ import '../css/global.css';
 import {
     Link
 } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 export default function Search() {
@@ -38,19 +39,23 @@ export default function Search() {
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
+    const navigate = useNavigate();
 
     // For if the user refreshes, data is recovered from localstorage
     useEffect(() => { 
-        console.log(results);
         // this will probably erase the other value if only one is "missing"
         // learn to fix
-        if (!results.length) {
-            setResults(JSON.parse(localStorage.getItem('searchResults')));
-            useStore.setState({ results: JSON.parse(localStorage.getItem('searchResults'))});
-        }
-        if (searchQuery == "" || searchQuery == null) {
-            setSearchQuery(localStorage.getItem('searchQuery'));
-            useStore.setState({ search: localStorage.getItem('searchQuery')});
+        if (localStorage.getItem('searchResults') == null && localStorage.getItem('searchQuery') == null) {
+            navigate('/');
+        } else {
+            if (!results.length) {
+                setResults(JSON.parse(localStorage.getItem('searchResults')));
+                useStore.setState({ results: JSON.parse(localStorage.getItem('searchResults'))});
+            }
+            if (searchQuery == "" || searchQuery == null) {
+                setSearchQuery(localStorage.getItem('searchQuery'));
+                useStore.setState({ search: localStorage.getItem('searchQuery')});
+            }
         }
     }, []);
 
