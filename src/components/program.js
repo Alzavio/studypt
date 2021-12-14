@@ -128,9 +128,9 @@ export default function Program() {
             <Navibar />
             <Container className="mt-5">
                 <Row>
-                    <Col xs={3}>
+                    <Col xs={12} md={3}>
                         <div className="position-relative">
-                            <div className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
+                            <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
                             </div>
                             <div className="mt-5">
@@ -174,7 +174,7 @@ export default function Program() {
                             </div>
                         </div>
                     </Col>
-                    <Col xs={9}>
+                    <Col xs={12} md={9}>
                         <div className="mb-3">
                             <h3>
                                 {programName}

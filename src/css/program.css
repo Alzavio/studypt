@@ -5,3 +5,9 @@
     min-height: 100vh;
     top: 0
 }
+@media only screen and (max-width: 770px) {
+    #picture {
+        min-width: 45% !important;
+        margin-top: -55% !important
+    }
+}
