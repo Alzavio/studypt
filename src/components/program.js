@@ -116,6 +116,9 @@ export default function Program() {
 
     return (
         <div id="fullWrapper">
+            <Helmet>
+                <title>Study Portugal - {uniName}, {programName} </title>
+            </Helmet>
             <ReactMapGL
                 {...viewport}
                 mapStyle="mapbox://styles/mapbox/outdoors-v11"
