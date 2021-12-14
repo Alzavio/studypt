@@ -191,10 +191,10 @@ export default function Program() {
                                     </span>
                                     <br />
                                     <div className="d-flex">
-                                        <div>
+                                        {/*<div>
                                             <FontAwesomeIcon icon={faEnvelope} />
-                                        </div>
-                                        <div className="mx-2">
+                                        </div>*/}
+                                        <div>
                                             <a href={link} target="_blank" className="text-dark">
                                                 <FontAwesomeIcon icon={faExternalLinkAlt} />
                                             </a>
