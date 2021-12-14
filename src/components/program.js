@@ -64,19 +64,17 @@ export default function Program() {
                 if (response.data.success) {
                     setPic(response.data.data[0].picture);
                     setLink(response.data.data[0].link);
-                    setTuition(response.data.data[0].tuition);
+                    setTuition([response.data.data[0].tuition, response.data.data[0].intTuition, response.data.data[0].CPLPtuition]);
                     setYears(response.data.data[0].duration);
                     setProgramName(response.data.data[0].programName)
                     setUniName(response.data.data[0].universitiesName);
                     setLink(response.data.data[0].link);
                     
-                    console.log(response.data.data[0].YuniCoords);
-                    console.log(response.data.data[0].XuniCoords);
+                    console.log(response.data.data[0]);
                     setViewport({
                         ...viewport,
                         longitude: parseFloat(response.data.data[0].YuniCoords),
                         latitude: parseFloat(response.data.data[0].XuniCoords),
-                        zoom: 11,
                         transitionDuration: 1000,
                         transitionInterpolator: new FlyToInterpolator(),
                     });
@@ -109,7 +107,6 @@ export default function Program() {
                 ...viewport,
                 longitude: parseFloat(data.YuniCoords),
                 latitude: parseFloat(data.XuniCoords),
-                zoom: 11,
                 transitionDuration: 1000,
                 transitionInterpolator: new FlyToInterpolator(),
             });
@@ -137,15 +134,45 @@ export default function Program() {
                                 <h5 className="bold">
                                     {uniName}
                                 </h5>
-                                <div className="mb-2">
-                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                        Program tuition
-                                    </span>
-                                    <br />
-                                    <span className="bold">
-                                        €{parseFloat(tuition)}
-                                    </span>
-                                </div>
+
+
+
+                                {Array.isArray(tuition) ? 
+                                    <div>
+                                        <div className="mb-2">
+                                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                                EU tuition
+                                            </span>
+                                            <br />
+                                            <span className="bold">€{parseFloat(tuition[0]).toLocaleString()}</span>
+                                        </div>
+                                        <div className="mb-2">
+                                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                                CPLP tuition
+                                            </span>
+                                            <br />
+                                            <span className="bold">€{parseFloat(tuition[1]).toLocaleString()}</span>
+                                        </div>
+                                        <div className="mb-2">
+                                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                                International tuition
+                                            </span>
+                                            <br />
+                                            <span className="bold">€{parseFloat(tuition[2]).toLocaleString()}</span>
+                                        </div>
+                                    </div>
+                                        :
+                                    <div className="mb-2">
+                                        <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                            Program tuition
+                                        </span>
+                                        <br />
+                                        <span className="bold">€{parseFloat(tuition)}</span>
+                                    </div>
+                                    
+                                }
+
+
                                 <div className="mb-2">
                                     <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                         Program language
