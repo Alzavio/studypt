@@ -10,7 +10,7 @@ import {
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
 import '../css/program.css';
-import ReactMapGL from 'react-map-gl';
+import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,13 +19,6 @@ import 'font-awesome/css/font-awesome.css';
 import axios from "axios";
 
 export default function Program() {
-    const [viewport, setViewport] = useState({
-        width: '100%',
-        height: 200,
-        latitude: 37.7577,
-        longitude: -122.4376,
-        zoom: 8
-    });
     const { university, degree } = useParams();
     const [programName, setProgramName] = useState(degree);
     const [uniName, setUniName] = useState(university);
@@ -41,6 +34,14 @@ export default function Program() {
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
+
+    const [viewport, setViewport] = useState({
+        width: '100%',
+        height: 200,
+        latitude: 40.1989647,
+        longitude: -2.4041716,
+        zoom: 11
+    });
 
     function verifyData() {
 
@@ -61,7 +62,6 @@ export default function Program() {
                 }
             }).then(function (response) {
                 if (response.data.success) {
-                    console.log(response.data.data);
                     setPic(response.data.data[0].picture);
                     setLink(response.data.data[0].link);
                     setTuition(response.data.data[0].tuition);
@@ -69,6 +69,17 @@ export default function Program() {
                     setProgramName(response.data.data[0].programName)
                     setUniName(response.data.data[0].universitiesName);
                     setLink(response.data.data[0].link);
+                    
+                    console.log(response.data.data[0].YuniCoords);
+                    console.log(response.data.data[0].XuniCoords);
+                    setViewport({
+                        ...viewport,
+                        longitude: parseFloat(response.data.data[0].YuniCoords),
+                        latitude: parseFloat(response.data.data[0].XuniCoords),
+                        zoom: 11,
+                        transitionDuration: 1000,
+                        transitionInterpolator: new FlyToInterpolator(),
+                    });
                 }
             }).catch(function (error) {
                 // Do something if error
@@ -84,6 +95,7 @@ export default function Program() {
             setYears(data.duration);
             setPic(data.picture);
             setLink(data.link);
+            
             // Set tuition based on user. Check citizenship name accuracy
             if (descent == 1 || citizenship == "EU citizen") {
                 setTuition(data.tuition);
@@ -92,6 +104,15 @@ export default function Program() {
             } else {
                 setTuition(data.intTuition);
             }
+
+            setViewport({
+                ...viewport,
+                longitude: parseFloat(data.YuniCoords),
+                latitude: parseFloat(data.XuniCoords),
+                zoom: 11,
+                transitionDuration: 1000,
+                transitionInterpolator: new FlyToInterpolator(),
+            });
             // Verify data
         }
     }, [dataFetch]);
@@ -139,9 +160,16 @@ export default function Program() {
                                         Contacts
                                     </span>
                                     <br />
-                                    <span>
-                                        <FontAwesomeIcon icon={faEnvelope} /> &nbsp; <FontAwesomeIcon icon={faExternalLinkAlt} />
-                                    </span>
+                                    <div className="d-flex">
+                                        <div>
+                                            <FontAwesomeIcon icon={faEnvelope} />
+                                        </div>
+                                        <div className="mx-2">
+                                            <a href={link} target="_blank" className="text-dark">
+                                                <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                            </a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +206,7 @@ export default function Program() {
                                 </div>
                                 <div className="mb-4">
                                     <h5>
-                                        Nearby apartments
+                                        Nearby housing
                                     </h5>
                                 </div>
                             </div>
