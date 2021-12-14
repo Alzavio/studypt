@@ -128,7 +128,7 @@ export default function Program() {
             <Navibar />
             <Container className="mt-5">
                 <Row>
-                    <Col xs={12} md={3}>
+                    <Col xs={12} sm={10} md={3}>
                         <div className="position-relative">
                             <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
