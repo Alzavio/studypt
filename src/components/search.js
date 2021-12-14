@@ -134,13 +134,13 @@ export default function Search() {
                                     <div className="mb-2">
                                         Citizenship
                                     </div>
-                                    <select class="form-select mb-2" aria-label="Whether relative of EU member" value={citizenship} onChange={e => citizenshipSwitcher(e.target.value)}>
+                                    <select className="form-select mb-2" aria-label="Whether relative of EU member" value={citizenship} onChange={e => citizenshipSwitcher(e.target.value)}>
                                         <option>Non-EU citizen</option>
                                         <option>CPLP citizen</option>
                                         <option>EU citizen</option>
                                     </select>
                                     { citizenship == "Non-EU citizen" &&
-                                        <select class="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => descentSwitcher(e.target.value)}>
+                                        <select className="form-select" aria-label="Whether relative of EU member" value={descent} onChange={e => descentSwitcher(e.target.value)}>
                                             <option value={0}>Non-relative of EU member</option>
                                             <option value={1}>Relative of EU member</option>
                                         </select>
@@ -148,7 +148,7 @@ export default function Search() {
                                     <div className="my-2">
                                         Language
                                     </div>
-                                    <select class="form-select" aria-label="Select language" value={language} onChange={e => setLanguage(e.target.value)}>
+                                    <select className="form-select" aria-label="Select language" value={language} onChange={e => setLanguage(e.target.value)}>
                                         <option>Any</option>
                                         <option>English</option>
                                         <option>Portuguese</option>
@@ -157,7 +157,7 @@ export default function Search() {
                                     <div className="my-2">
                                         Degree
                                     </div>
-                                    <select class="form-select" aria-label="Select degree" value={degree} onChange={e => setDegree(e.target.value)}>
+                                    <select className="form-select" aria-label="Select degree" value={degree} onChange={e => setDegree(e.target.value)}>
                                         <option>Any</option>
                                         <option>Bachelor's</option>
                                         <option>Master's</option>
