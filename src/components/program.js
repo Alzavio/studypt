@@ -95,7 +95,7 @@ export default function Program() {
             setYears(data.duration);
             setPic(data.picture);
             setLink(data.link);
-            
+            console.log(data);
             // Set tuition based on user. Check citizenship name accuracy
             if (descent == 1 || citizenship == "EU citizen") {
                 setTuition(data.tuition);
@@ -123,7 +123,6 @@ export default function Program() {
                 {...viewport}
                 mapStyle="mapbox://styles/mapbox/outdoors-v11"
                 onViewportChange={nextViewport => setViewport(nextViewport)}
-                mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
             />
             <Navibar />
             <Container className="mt-5">
