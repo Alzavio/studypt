@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.css';
+import axios from "axios";
 
 export default function Program() {
     const [viewport, setViewport] = useState({
@@ -28,7 +29,7 @@ export default function Program() {
     const { university, degree } = useParams();
     const [programName, setProgramName] = useState(degree);
     const [uniName, setUniName] = useState(university);
-    const [data, setData] = useState(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
+    const [data, setData] = useState();
     const [tuition, setTuition] = useState();
     const [languages, setLanguages] = useState();
     const [link, setLink] = useState();
@@ -36,6 +37,7 @@ export default function Program() {
     const [appDate, setAppDate] = useState();
     const [startDate, setStartDate] = useState();
     const [pic, setPic] = useState();
+    const [dataFetch, setDataFetch] = useState(0);
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
@@ -48,13 +50,40 @@ export default function Program() {
         
     }
 
-    useEffect(() => { 
+    useEffect(() => {
         // Checking localstorage for data so it doesn't need to waste bandwidth
-        if (localStorage.getItem('searchResults') == null) {
+        if (localStorage.getItem('searchResults') == null || JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName) == null) {
             // retrieve all data
+            axios.get('https://api.studyportugal.pt/programLookup.php', {
+                params: {
+                    university: university,
+                    program: degree,
+                }
+            }).then(function (response) {
+                if (response.data.success) {
+                    console.log(response.data.data);
+                    setPic(response.data.data[0].picture);
+                    setLink(response.data.data[0].link);
+                    setTuition(response.data.data[0].tuition);
+                    setYears(response.data.data[0].duration);
+                    setProgramName(response.data.data[0].programName)
+                    setUniName(response.data.data[0].universitiesName);
+                    setLink(response.data.data[0].link);
+                }
+            }).catch(function (error) {
+                // Do something if error
+                
+            });
         } else {
+            setData(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
+            setDataFetch(1);
+        }
+    }, []);
+    useEffect(() => {
+        if (dataFetch == 1) {
             setYears(data.duration);
             setPic(data.picture);
+            setLink(data.link);
             // Set tuition based on user. Check citizenship name accuracy
             if (descent == 1 || citizenship == "EU citizen") {
                 setTuition(data.tuition);
@@ -63,10 +92,9 @@ export default function Program() {
             } else {
                 setTuition(data.intTuition);
             }
+            // Verify data
         }
-
-        // Check data
-    }, []);
+    }, [dataFetch]);
 
     return (
         <div id="fullWrapper">
