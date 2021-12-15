@@ -20,6 +20,15 @@
 .h4 {
     white-space: nowrap;
 }
+#homeMegaWrap {
+    max-width: 1353px
+}
+.max-vw-100 {
+    max-width: 100vw;
+}
+.text-left {
+    text-align: left !important;
+}
 @media only screen and (max-width: 1000px) {
     #image {
         display: none !important;
