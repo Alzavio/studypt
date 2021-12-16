@@ -233,10 +233,10 @@ export default function Program() {
                                             : deadline}
                                         </Moment>
                                     </h5>
-                                    <span className="text-muted">First application deadline</span>
+                                    <span className="text-muted">Initial application deadline</span>
                                 </Col>
                                 <Col className="text-center">
-                                    <h5>October 15<sup>th</sup> 2020</h5>
+                                    <h5>Unknown</h5>
                                     <span className="text-muted">Start date</span>
                                 </Col>
                             </Row>
