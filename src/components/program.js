@@ -38,6 +38,23 @@ export default function Program() {
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
 
+    const [isHovering, setIsHovering] = useState(false);
+    const handleMouseOver = () => {
+        if (isHovering == false) {
+            setIsHovering(true);
+        }
+    };
+  
+    const handleMouseOut = () => {
+        if (isHovering == true) {
+            setIsHovering(false);
+        }
+    };
+
+    useEffect(() => {
+        console.log(isHovering)
+    }, [isHovering]);
+
     const [viewport, setViewport] = useState({
         width: '100%',
         height: 200,
@@ -50,8 +67,58 @@ export default function Program() {
 
     }
 
-    function retrieveData() {
-        
+
+    const SmallDeadline = ({ handleMouseOver, handleMouseOut }) => {
+        return (
+            <div className="bg-light-hover" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+                <h5>{/* Change once local deadline is a thing */}
+                    <Moment format="MMMM Do YYYY">
+                        {deadline.length == 2 ? 
+                        deadline[1] 
+                        : deadline}
+                    </Moment>
+                </h5>
+                <span className="text-muted">Initial application deadline</span>
+            </div>
+        );
+    }
+
+
+    const ExtendedDeadlines = ({ handleMouseOver, handleMouseOut }) => {
+        return (
+            <div className="position-absolute rounded shadow border bg-white" id="deadlinesDropdown" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+                <div className="px-4 py-3 bg-light-hover">
+                    <h5>{/* Change once local deadline is a thing */}
+                        <Moment format="MMMM Do YYYY">
+                            {deadline.length == 2 ? 
+                            deadline[1] 
+                            : deadline}
+                        </Moment>
+                    </h5>
+                <span className="text-muted">Initial application deadline</span>
+                </div>
+                <div className="px-4 py-3 bg-light-hover">
+                    <h5>{/* Change once local deadline is a thing */}
+                        <Moment format="MMMM Do YYYY">
+                            {deadline.length == 2 ? 
+                            deadline[1] 
+                            : deadline}
+                        </Moment>
+                    </h5>
+                    <span className="text-muted">Second Round</span>
+                </div>
+                <div className="px-4 py-3 bg-light-hover">
+                    <h5>{/* Change once local deadline is a thing */}
+                        <Moment format="MMMM Do YYYY">
+                            {deadline.length == 2 ? 
+                            deadline[1] 
+                            : deadline}
+                        </Moment>
+                    </h5>
+                    <span className="text-muted">Third Round</span>
+                </div>
+            </div>
+        );
     }
 
     useEffect(() => {
@@ -229,15 +296,11 @@ export default function Program() {
                                     <h5>{parseFloat(years)} years</h5>
                                     <span className="text-muted">Duration</span>
                                 </Col>
-                                <Col className="text-center">
-                                    <h5>{/* Change once local deadline is a thing */}
-                                        <Moment format="MMMM Do YYYY">
-                                            {deadline.length == 2 ? 
-                                            deadline[1] 
-                                            : deadline}
-                                        </Moment>
-                                    </h5>
-                                    <span className="text-muted">Initial application deadline</span>
+                                <Col className="text-center position-relative">
+                                    <div>
+                                        {isHovering ? <ExtendedDeadlines handleMouseOver={isHovering && handleMouseOver} handleMouseOut={isHovering && handleMouseOut} /> : 
+                                        <SmallDeadline handleMouseOver={!isHovering && handleMouseOver} handleMouseOut={!isHovering && handleMouseOut} />}
+                                    </div>
                                 </Col>
                                 <Col className="text-center">
                                     <h5>Unknown</h5>
