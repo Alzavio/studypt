@@ -68,9 +68,9 @@ export default function Program() {
     }
 
 
-    const SmallDeadline = ({ handleMouseOver, handleMouseOut }) => {
+    const SmallDeadline = () => {
         return (
-            <div className="bg-light-hover" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+            <div className="bg-light-hover">
                 <h5>{/* Change once local deadline is a thing */}
                     <Moment format="MMMM Do YYYY">
                         {deadline.length == 2 ? 
@@ -84,9 +84,9 @@ export default function Program() {
     }
 
 
-    const ExtendedDeadlines = ({ handleMouseOver, handleMouseOut }) => {
+    const ExtendedDeadlines = () => {
         return (
-            <div className="position-absolute rounded shadow border bg-white" id="deadlinesDropdown" onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+            <div className="rounded shadow border bg-white" id="deadlinesDropdown">
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
@@ -296,10 +296,10 @@ export default function Program() {
                                     <h5>{parseFloat(years)} years</h5>
                                     <span className="text-muted">Duration</span>
                                 </Col>
-                                <Col className="text-center position-relative">
-                                    <div>
-                                        {isHovering ? <ExtendedDeadlines handleMouseOver={isHovering && handleMouseOver} handleMouseOut={isHovering && handleMouseOut} /> : 
-                                        <SmallDeadline handleMouseOver={!isHovering && handleMouseOver} handleMouseOut={!isHovering && handleMouseOut} />}
+                                <Col className="text-center position-relative d-flex justify-content-center">
+                                    <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="position-absolute" style={{width:'fit-content', height:'fit-content'}}>
+                                        {isHovering ? <ExtendedDeadlines /> : 
+                                        <SmallDeadline />}
                                     </div>
                                 </Col>
                                 <Col className="text-center">
