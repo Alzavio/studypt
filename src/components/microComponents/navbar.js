@@ -7,13 +7,13 @@ import {
 import Twemoji from 'react-twemoji';
 import { Link } from "react-router-dom";
 
-export default function Navibar() {
+export default function Navibar(props) {
     return (
         <Navbar style={{position: 'absolute', width: '100%', marginTop: '.75rem', top: 0}}>
             <Container>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto text-secondary" id="label"> 
-                        Developed in <Twemoji options={{ className: 'twemoji' }} style={{margin: '0 .25rem 0 .25rem'}}>🇵🇹</Twemoji> by&nbsp;<a className="text-decoration-none text-muted" href="https://www.linkedin.com/in/luizrm/" target="_blank">Luiz</a>
+                        {props.homeArea}
                     </Nav>
                     <Nav>
                         <Nav.Link className="mx-2 text-dark">

@@ -11,6 +11,7 @@ import Navibar from "./microComponents/navbar";
 import Twemoji from 'react-twemoji';
 import { ReactSVG } from 'react-svg';
 import '../css/global.css';
+import { Link } from "react-router-dom";
 import '../css/faq.css';
 
 export default function Faq() {
@@ -20,7 +21,7 @@ export default function Faq() {
             <Helmet>
                 <title>Study in Portugal - FAQ</title>
             </Helmet>
-            <Navibar />
+            <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>} />
             <Container className="mt-nav">
                 <h1 className="bold">
                     FAQ

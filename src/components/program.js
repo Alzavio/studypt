@@ -16,6 +16,7 @@ import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.css';
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function Program() {
@@ -125,7 +126,7 @@ export default function Program() {
                 onViewportChange={nextViewport => setViewport(nextViewport)}
                 mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
             />
-            <Navibar />
+            <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>} />
             <Container className="mt-5">
                 <Row>
                     <Col xs={12} sm={10} md={3}>

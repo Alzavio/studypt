@@ -25,6 +25,7 @@ import Navibar from "./microComponents/navbar";
 import { useNavigate } from "react-router-dom";
 import 'font-awesome/css/font-awesome.css';
 import { Helmet } from "react-helmet";
+import Twemoji from 'react-twemoji';
 import { SetState } from "zustand";
 import '../css/global.css';
 import axios from "axios";
@@ -78,6 +79,7 @@ function App() {
      }
   }, [loading]);
 
+
   return (
     <center>
       <div id="homeMegaWrap">
@@ -87,7 +89,7 @@ function App() {
             <meta name="description" content="Find information on how to study in Portugal at any of the more than 130 universities and polytechnics. From bachelors degrees, to language programs, to student visa information." />
           </Helmet>
 
-          <Navibar />
+          <Navibar homeArea={["Developed in ", <Twemoji options={{ className: 'twemoji' }} style={{margin: '0 .25rem 0 .25rem'}}>🇵🇹</Twemoji>," by ", <a className="text-decoration-none text-muted" href="https://www.linkedin.com/in/luizrm/" target="_blank">&nbsp;Luiz</a>]} />
 
           <div className="w-100 mx-5" style={{marginTop: '7.5rem'}} id="megaWrapper">
             <div className="d-flex" style={{flex:1, flexDirection: 'row', position: 'relative', backgroundColor: '#046535', padding: '20px'}}>
