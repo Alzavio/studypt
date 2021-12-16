@@ -10,7 +10,7 @@ import {
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
 import '../css/program.css';
-import ReactMapGL, { FlyToInterpolator } from 'react-map-gl';
+import ReactMapGL, { FlyToInterpolator, Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -33,6 +33,7 @@ export default function Program() {
     const [pic, setPic] = useState("");
     const [deadline, setDeadline] = useState("Unknown");
     const [dataFetch, setDataFetch] = useState(0);
+    const [coords, setCoords] = useState({lat: 37.78, lon: -22.41});
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
@@ -82,6 +83,7 @@ export default function Program() {
                         transitionDuration: 1000,
                         transitionInterpolator: new FlyToInterpolator(),
                     });
+                    setCoords({lat: response.data.data[0].YuniCoords, long: response.data.data[0].XuniCoords});
                 }
             }).catch(function (error) {
                 // Do something if error
@@ -119,6 +121,8 @@ export default function Program() {
                 transitionDuration: 1000,
                 transitionInterpolator: new FlyToInterpolator(),
             });
+            setCoords({lat: data.YuniCoords, long: data.XuniCoords});
+            console.log("lat: " + coords.lat);
             // Verify data
         }
     }, [dataFetch]);
@@ -216,7 +220,7 @@ export default function Program() {
                     <Col xs={12} md={9}>
                         <div className="mb-3">
                             <h3>
-                                {programName}
+                                {programName.replace("Degree", "Bachelor's")}
                             </h3>
                         </div>
                         <Card className="p-3 shadow-sm">
