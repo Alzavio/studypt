@@ -29,12 +29,14 @@ import {
     Link
 } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import Moment from 'react-moment';
 
 
 export default function Search() {
     const [loading, setLoading] = useState(0);
     const [language, setLanguage] = useState("Any");
     const [degree, setDegree] = useState("Any");
+    const [deadline, setDeadline] = useState("");
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
@@ -84,6 +86,7 @@ export default function Search() {
                     setResults(response.data.data);
                     useStore.setState({ search: searchQuery, results: response.data.data });
                     setLoading(0);
+                    console.log(results);
                 }
             }).catch(function (error) {
                 // Do something if error
@@ -231,7 +234,11 @@ export default function Search() {
                                             <span className="text-muted">{parseFloat(results.duration).toLocaleString()} years</span>
                                             <br />
                                             {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
-                                            <span className="text-muted"> March 3rd deadline </span>
+                                            <span className="text-muted"> 
+                                                <Moment format="MMMM Do YYYY">
+                                                    {results.intAppDeadline}
+                                                </Moment>
+                                            </span>
                                         </Col>
                                     </Row>
                                 </Card>

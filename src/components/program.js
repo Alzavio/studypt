@@ -18,6 +18,7 @@ import { faEnvelope, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons
 import 'font-awesome/css/font-awesome.css';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Moment from 'react-moment';
 
 export default function Program() {
     const { university, degree } = useParams();
@@ -25,12 +26,12 @@ export default function Program() {
     const [uniName, setUniName] = useState(university);
     const [data, setData] = useState();
     const [tuition, setTuition] = useState();
-    const [languages, setLanguages] = useState();
-    const [link, setLink] = useState();
+    const [languages, setLanguages] = useState("");
+    const [link, setLink] = useState("");
     const [years, setYears] = useState();
-    const [appDate, setAppDate] = useState();
     const [startDate, setStartDate] = useState();
-    const [pic, setPic] = useState();
+    const [pic, setPic] = useState("");
+    const [deadline, setDeadline] = useState("Unknown");
     const [dataFetch, setDataFetch] = useState(0);
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
@@ -70,8 +71,10 @@ export default function Program() {
                     setProgramName(response.data.data[0].programName)
                     setUniName(response.data.data[0].universitiesName);
                     setLink(response.data.data[0].link);
-                    
-                    console.log(response.data.data[0]);
+                    setDeadline([response.data.data[0].appDeadline, response.data.data[0].intAppDeadline]);
+                    console.log(deadline[1]);
+                    console.log(deadline.length);
+
                     setViewport({
                         ...viewport,
                         longitude: parseFloat(response.data.data[0].YuniCoords),
@@ -94,15 +97,20 @@ export default function Program() {
             setYears(data.duration);
             setPic(data.picture);
             setLink(data.link);
-            console.log(data);
+            
             // Set tuition based on user. Check citizenship name accuracy
+            console.log(citizenship);
             if (descent == 1 || citizenship == "EU citizen") {
                 setTuition(data.tuition);
+                setDeadline(data.appDeadline);
             } else if (citizenship == "CPLP citizen") {
                 setTuition(data.CPLPtuition);
+                setDeadline(data.appDeadline);
             } else {
                 setTuition(data.intTuition);
+                setDeadline(data.intAppDeadline);
             }
+            console.log(deadline.length);
 
             setViewport({
                 ...viewport,
@@ -214,15 +222,21 @@ export default function Program() {
                         <Card className="p-3 shadow-sm">
                             <Row>
                                 <Col className="text-center">
-                                    <h5 className="">{parseFloat(years)} years</h5>
+                                    <h5>{parseFloat(years)} years</h5>
                                     <span className="text-muted">Duration</span>
                                 </Col>
                                 <Col className="text-center">
-                                    <h5 className="">August 5<sup>th</sup> 2020</h5>
-                                    <span className="text-muted">Application deadline</span>
+                                    <h5>{/* Change once local deadline is a thing */}
+                                        <Moment format="MMMM Do YYYY">
+                                            {deadline.length == 2 ? 
+                                            deadline[1] 
+                                            : deadline}
+                                        </Moment>
+                                    </h5>
+                                    <span className="text-muted">First application deadline</span>
                                 </Col>
                                 <Col className="text-center">
-                                    <h5 className="">October 15<sup>th</sup> 2020</h5>
+                                    <h5>October 15<sup>th</sup> 2020</h5>
                                     <span className="text-muted">Start date</span>
                                 </Col>
                             </Row>
