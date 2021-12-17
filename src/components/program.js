@@ -99,9 +99,90 @@ export default function Program() {
       }
 
 
+      const InfoBox = () => {
+          return (
+            <div>
+                <div className="position-relative">
+                    <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
+
+                    </div>
+                    <div className="mt-5">
+                        <h5 className="bold">
+                            {uniName}
+                        </h5>
+
+
+
+                        {Array.isArray(tuition) ? 
+                            <div>
+                                <div className="mb-2">
+                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                        EU tuition
+                                    </span>
+                                    <br />
+                                    <span className="bold">€{parseFloat(tuition[0]).toLocaleString()}</span>
+                                </div>
+                                <div className="mb-2">
+                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                        CPLP tuition
+                                    </span>
+                                    <br />
+                                    <span className="bold">€{parseFloat(tuition[1]).toLocaleString()}</span>
+                                </div>
+                                <div className="mb-2">
+                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                        International tuition
+                                    </span>
+                                    <br />
+                                    <span className="bold">€{parseFloat(tuition[2]).toLocaleString()}</span>
+                                </div>
+                            </div>
+                                :
+                            <div className="mb-2">
+                                <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                    Program tuition
+                                </span>
+                                <br />
+                                <span className="bold">€{parseFloat(tuition)}</span>
+                            </div>
+                            
+                        }
+
+
+                        <div className="mb-2">
+                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                Program language
+                            </span>
+                            <br />
+                            <span className="bold">
+                                Portuguese
+                            </span>
+                        </div>
+                        <div className="mb-2">
+                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                Contacts
+                            </span>
+                            <br />
+                            <div className="d-flex">
+                                {/*<div>
+                                    <FontAwesomeIcon icon={faEnvelope} />
+                                </div>*/}
+                                <div>
+                                    <a href={link} target="_blank" className="text-dark">
+                                        <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+          )
+      }
+
     const ExtendedDeadlines = () => {
         return (
-            <div className="rounded shadow border bg-white" id="deadlinesDropdown">
+            <div className="rounded shadow border bg-white position-absolute w-100" id="deadlinesDropdown">
                 { newUser ?
                     <Row className="py-3 mx-0 bg-light">
                         <Col className="px-2">
@@ -344,7 +425,7 @@ export default function Program() {
                                     <span className="text-muted">Duration</span>
                                 </Col>
                                 <Col className="text-center position-relative d-flex justify-content-center">
-                                    <div onMouseOver={handleMouseOver} onMouseLeave={handleMouseOut} className="position-absolute" style={{width:'fit-content', height:'fit-content'}}>
+                                    <div onMouseOver={handleMouseOver} onMouseLeave={handleMouseOut} className="w-100" style={{height:'fit-content'}}>
                                         {isHovering ? <ExtendedDeadlines /> : <SmallDeadline />}
                                     </div>
                                 </Col>
