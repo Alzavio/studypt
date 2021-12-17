@@ -7,7 +7,8 @@ import {
     Container,
     Card,
     Button,
-    Dropdown
+    Dropdown,
+    Collapse
 } from 'react-bootstrap';
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
@@ -37,6 +38,7 @@ export default function Program() {
     const [dataFetch, setDataFetch] = useState(0);
     const [coords, setCoords] = useState({lat: 37.78, lon: -22.41});
     const [newUser, setNewUser] = useState(0);
+    const [open, setOpen] = useState(false);
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
@@ -102,80 +104,89 @@ export default function Program() {
       const InfoBox = () => {
           return (
             <div>
-                <div className="position-relative">
-                    <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
+                <Button
+                    onClick={() => setOpen(!open)}
+                    aria-controls="example-collapse-text"
+                    aria-expanded={open}
+                >
+                    University info
+                </Button>
+                <Collapse in={open}>
+                    <div className="position-relative">
+                        <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
-                    </div>
-                    <div className="mt-5">
-                        <h5 className="bold">
-                            {uniName}
-                        </h5>
+                        </div>
+                        <div className="my-5">
+                            <h5 className="bold">
+                                {uniName}
+                            </h5>
 
 
 
-                        {Array.isArray(tuition) ? 
-                            <div>
+                            {Array.isArray(tuition) ? 
+                                <div>
+                                    <div className="mb-2">
+                                        <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                            EU tuition
+                                        </span>
+                                        <br />
+                                        <span className="bold">€{parseFloat(tuition[0]).toLocaleString()}</span>
+                                    </div>
+                                    <div className="mb-2">
+                                        <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                            CPLP tuition
+                                        </span>
+                                        <br />
+                                        <span className="bold">€{parseFloat(tuition[1]).toLocaleString()}</span>
+                                    </div>
+                                    <div className="mb-2">
+                                        <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                            International tuition
+                                        </span>
+                                        <br />
+                                        <span className="bold">€{parseFloat(tuition[2]).toLocaleString()}</span>
+                                    </div>
+                                </div>
+                                    :
                                 <div className="mb-2">
                                     <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                        EU tuition
+                                        Program tuition
                                     </span>
                                     <br />
-                                    <span className="bold">€{parseFloat(tuition[0]).toLocaleString()}</span>
+                                    <span className="bold">€{parseFloat(tuition)}</span>
                                 </div>
-                                <div className="mb-2">
-                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                        CPLP tuition
-                                    </span>
-                                    <br />
-                                    <span className="bold">€{parseFloat(tuition[1]).toLocaleString()}</span>
-                                </div>
-                                <div className="mb-2">
-                                    <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                        International tuition
-                                    </span>
-                                    <br />
-                                    <span className="bold">€{parseFloat(tuition[2]).toLocaleString()}</span>
-                                </div>
-                            </div>
-                                :
+                                
+                            }
+
+
                             <div className="mb-2">
                                 <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                    Program tuition
+                                    Program language
                                 </span>
                                 <br />
-                                <span className="bold">€{parseFloat(tuition)}</span>
+                                <span className="bold">
+                                    Portuguese
+                                </span>
                             </div>
-                            
-                        }
-
-
-                        <div className="mb-2">
-                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                Program language
-                            </span>
-                            <br />
-                            <span className="bold">
-                                Portuguese
-                            </span>
-                        </div>
-                        <div className="mb-2">
-                            <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
-                                Contacts
-                            </span>
-                            <br />
-                            <div className="d-flex">
-                                {/*<div>
-                                    <FontAwesomeIcon icon={faEnvelope} />
-                                </div>*/}
-                                <div>
-                                    <a href={link} target="_blank" className="text-dark">
-                                        <FontAwesomeIcon icon={faExternalLinkAlt} />
-                                    </a>
+                            <div className="mb-2">
+                                <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
+                                    Contacts
+                                </span>
+                                <br />
+                                <div className="d-flex">
+                                    {/*<div>
+                                        <FontAwesomeIcon icon={faEnvelope} />
+                                    </div>*/}
+                                    <div>
+                                        <a href={link} target="_blank" className="text-dark">
+                                            <FontAwesomeIcon icon={faExternalLinkAlt} />
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </Collapse>
             </div>
           )
       }
@@ -327,16 +338,16 @@ export default function Program() {
             <Helmet>
                 <title>Study Portugal - {uniName}, {programName} </title>
             </Helmet>
+            <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>}/>
             <ReactMapGL
                 {...viewport}
                 mapStyle="mapbox://styles/mapbox/outdoors-v11"
                 onViewportChange={nextViewport => setViewport(nextViewport)}
                 mapboxApiAccessToken="pk.eyJ1IjoibHVpem1iciIsImEiOiJja3BuNm9qaWcwcDVvMndxcWRycThiejM1In0.d31VTLX71MVqhvuTCHuWIQ"
             />
-            <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>} />
             <Container className="mt-5">
                 <Row>
-                    <Col xs={12} sm={10} md={3}>
+                    <Col xs={12} sm={10} md={3} className="mb-4">
                         <div className="position-relative">
                             <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 

@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 export default function Navibar(props) {
     return (
-        <Navbar style={{position: 'absolute', width: '100%', marginTop: '.75rem', top: 0}}>
+        <Navbar style={{position: 'absolute', width: '100%', marginTop: '.75rem', top: 0, zIndex: 20}}>
             <Container>
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto text-secondary" id="label"> 
