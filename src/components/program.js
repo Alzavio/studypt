@@ -5,7 +5,8 @@ import {
     Row,
     Col,
     Container,
-    Card
+    Card,
+    Button
 } from 'react-bootstrap';
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
@@ -29,7 +30,7 @@ export default function Program() {
     const [languages, setLanguages] = useState("");
     const [link, setLink] = useState("");
     const [years, setYears] = useState();
-    const [startDate, setStartDate] = useState();
+    const [startDate, setStartDate] = useState("");
     const [pic, setPic] = useState("");
     const [deadline, setDeadline] = useState("Unknown");
     const [dataFetch, setDataFetch] = useState(0);
@@ -87,6 +88,14 @@ export default function Program() {
     const ExtendedDeadlines = () => {
         return (
             <div className="rounded shadow border bg-white" id="deadlinesDropdown">
+                <Row className="py-3 mx-0 bg-light">
+                    <Col className="px-2">
+                        <Button variant="success" className="w-100">Non-EU</Button>
+                    </Col>
+                    <Col className="px-2">
+                        <Button variant="success" className="w-100">Descendent</Button>
+                    </Col>
+                </Row>
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
@@ -140,9 +149,8 @@ export default function Program() {
                     setUniName(response.data.data[0].universitiesName);
                     setLink(response.data.data[0].link);
                     setDeadline([response.data.data[0].appDeadline, response.data.data[0].intAppDeadline]);
-                    console.log(deadline[1]);
-                    console.log(deadline.length);
-
+                    setStartDate(response.data.data[0].startDate);
+                    console.log(response.data.data[0].startDate);
                     setViewport({
                         ...viewport,
                         longitude: parseFloat(response.data.data[0].YuniCoords),
@@ -166,9 +174,9 @@ export default function Program() {
             setYears(data.duration);
             setPic(data.picture);
             setLink(data.link);
+            setStartDate(data.startDate);
             
             // Set tuition based on user. Check citizenship name accuracy
-            console.log(citizenship);
             if (descent == 1 || citizenship == "EU citizen") {
                 setTuition(data.tuition);
                 setDeadline(data.appDeadline);
@@ -179,7 +187,6 @@ export default function Program() {
                 setTuition(data.intTuition);
                 setDeadline(data.intAppDeadline);
             }
-            console.log(deadline.length);
 
             setViewport({
                 ...viewport,
@@ -189,7 +196,6 @@ export default function Program() {
                 transitionInterpolator: new FlyToInterpolator(),
             });
             setCoords({lat: data.YuniCoords, long: data.XuniCoords});
-            console.log("lat: " + coords.lat);
             // Verify data
         }
     }, [dataFetch]);
@@ -297,13 +303,18 @@ export default function Program() {
                                     <span className="text-muted">Duration</span>
                                 </Col>
                                 <Col className="text-center position-relative d-flex justify-content-center">
-                                    <div onMouseOver={handleMouseOver} onMouseOut={handleMouseOut} className="position-absolute" style={{width:'fit-content', height:'fit-content'}}>
-                                        {isHovering ? <ExtendedDeadlines /> : 
-                                        <SmallDeadline />}
+                                    <div onMouseOver={handleMouseOver} onMouseLeave={handleMouseOut} className="position-absolute" style={{width:'fit-content', height:'fit-content'}}>
+                                        {isHovering ? <ExtendedDeadlines /> : <SmallDeadline />}
                                     </div>
                                 </Col>
                                 <Col className="text-center">
-                                    <h5>Unknown</h5>
+                                    <h5>
+                                        { startDate != "0000-00-00" ?
+                                        <Moment format="MMMM Do YYYY">
+                                            {startDate}
+                                        </Moment>: "Unknown"
+                                        }
+                                    </h5>
                                     <span className="text-muted">Start date</span>
                                 </Col>
                             </Row>
