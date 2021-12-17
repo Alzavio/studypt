@@ -16,7 +16,7 @@ import ReactMapGL, { FlyToInterpolator, Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope, faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope, faExternalLinkAlt, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import 'font-awesome/css/font-awesome.css';
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -76,7 +76,7 @@ export default function Program() {
 
     const SmallDeadline = () => {
         return (
-            <div className="bg-light-hover">
+            <div className="bg-light-hover position-relative">
                 <h5>{/* Change once local deadline is a thing */}
                     <Moment format="MMMM Do YYYY">
                         {deadline.length == 2 ? 
@@ -85,6 +85,7 @@ export default function Program() {
                     </Moment>
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
+                <FontAwesomeIcon icon={faInfoCircle} className="position-absolute" style={{top:0, marginTop:'-5px', marginRight: '-10px'}} />
             </div>
         );
     }
