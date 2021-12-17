@@ -85,7 +85,7 @@ export default function Program() {
                     </Moment>
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
-                <FontAwesomeIcon icon={faInfoCircle} className="position-absolute" style={{top:0, marginTop:'-5px', marginRight: '-15px', right: '0px'}} />
+                <FontAwesomeIcon icon={faInfoCircle} onClick={handleMouseOver} className="position-absolute" style={{top:0, marginTop:'-5px', marginRight: '-15px', right: '0px'}} />
             </div>
         );
     }
@@ -182,7 +182,7 @@ export default function Program() {
 
     const ExtendedDeadlines = () => {
         return (
-            <div className="rounded shadow border bg-white position-absolute w-100" id="deadlinesDropdown">
+            <div className="rounded shadow border bg-white position-absolute" id="deadlinesDropdown" style={{width:'120%', marginLeft: '-20px', marginRight: '-20px'}}>
                 { newUser ?
                     <Row className="py-3 mx-0 bg-light">
                         <Col className="px-2">
