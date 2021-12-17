@@ -36,12 +36,13 @@ export default function Program() {
     const [deadline, setDeadline] = useState("Unknown");
     const [dataFetch, setDataFetch] = useState(0);
     const [coords, setCoords] = useState({lat: 37.78, lon: -22.41});
+    const [newUser, setNewUser] = useState(0);
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [userCitizenship, setUserCitizenship] = useState(["EU citizen", "CPLP citizen"]);
     const [activeVal, setActiveVal] = useState("Non-EU");
-    const [descendent, setDescendent] = useState(0);
+    const [descendent, setDescendent] = useState(false);
 
     const [isHovering, setIsHovering] = useState(false);
     const handleMouseOver = () => {
@@ -100,38 +101,40 @@ export default function Program() {
     const ExtendedDeadlines = () => {
         return (
             <div className="rounded shadow border bg-white" id="deadlinesDropdown">
-                <Row className="py-3 mx-0 bg-light">
-                    <Col className="px-2">
-                        <Dropdown drop="up" className="ml-2">
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                {activeVal}
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                                {userCitizenship.map((citizenship) =>        
-                                    <Dropdown.Item onClick={() => changeActiveVal(citizenship)}>{citizenship}</Dropdown.Item>
-                                )}
-                            </Dropdown.Menu>
-                        </Dropdown>
-                    </Col>
-                    <Col className="px-2">
-                        { activeVal == "Non-EU" && 
-                            <Dropdown drop="up" className="mx-2" id="scnd">
+                { newUser ?
+                    <Row className="py-3 mx-0 bg-light">
+                        <Col className="px-2">
+                            <Dropdown drop="up" className="ml-2">
                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                    {descent ? "EU relative" : "Non-relative"} 
+                                    {activeVal}
                                 </Dropdown.Toggle>
-                          
+
                                 <Dropdown.Menu>
-                                    <div className="mx-3">
-                                        The application process is different if you have a parent or grandparent who's a EU citizen
-                                        <hr />
-                                    </div>
-                                    <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "EU relative" : "Relative of EU member"}</Dropdown.Item>
+                                    {userCitizenship.map((citizenship) =>        
+                                        <Dropdown.Item onClick={() => changeActiveVal(citizenship)}>{citizenship}</Dropdown.Item>
+                                    )}
                                 </Dropdown.Menu>
                             </Dropdown>
-                        }
-                    </Col>
-                </Row>
+                        </Col>
+                        <Col className="px-2">
+                            { activeVal == "Non-EU" && 
+                                <Dropdown drop="up" className="mx-2" id="scnd">
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        {descent ? "EU relative" : "Non-relative"} 
+                                    </Dropdown.Toggle>
+                            
+                                    <Dropdown.Menu>
+                                        <div className="mx-3">
+                                            The application process is different if you have a parent or grandparent who's a EU citizen
+                                            <hr />
+                                        </div>
+                                        <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "EU relative" : "Relative of EU member"}</Dropdown.Item>
+                                    </Dropdown.Menu>
+                                </Dropdown>
+                            }
+                        </Col>
+                    </Row>:""
+                }
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
@@ -170,6 +173,7 @@ export default function Program() {
         // Checking localstorage for data so it doesn't need to waste bandwidth
         if (localStorage.getItem('searchResults') == null || JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName) == null) {
             // retrieve all data
+            setNewUser(true);
             axios.get('https://api.studyportugal.pt/programLookup.php', {
                 params: {
                     university: university,
