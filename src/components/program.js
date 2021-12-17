@@ -6,7 +6,8 @@ import {
     Col,
     Container,
     Card,
-    Button
+    Button,
+    Dropdown
 } from 'react-bootstrap';
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
@@ -38,6 +39,9 @@ export default function Program() {
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
+    const [userCitizenship, setUserCitizenship] = useState(["EU citizen", "CPLP citizen"]);
+    const [activeVal, setActiveVal] = useState("Non-EU");
+    const [descendent, setDescendent] = useState(0);
 
     const [isHovering, setIsHovering] = useState(false);
     const handleMouseOver = () => {
@@ -84,16 +88,48 @@ export default function Program() {
         );
     }
 
+    function changeActiveVal(value) {
+        // For users that have no data
+        setUserCitizenship(userCitizenship.filter(userCitizenship => userCitizenship !== value));
+        setUserCitizenship(userCitizenship => [...userCitizenship, activeVal]);
+        setActiveVal(value);
+        setDescendent(0);
+      }
+
 
     const ExtendedDeadlines = () => {
         return (
             <div className="rounded shadow border bg-white" id="deadlinesDropdown">
                 <Row className="py-3 mx-0 bg-light">
                     <Col className="px-2">
-                        <Button variant="success" className="w-100">Non-EU</Button>
+                        <Dropdown drop="up" className="ml-2">
+                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                {activeVal}
+                            </Dropdown.Toggle>
+
+                            <Dropdown.Menu>
+                                {userCitizenship.map((citizenship) =>        
+                                    <Dropdown.Item onClick={() => changeActiveVal(citizenship)}>{citizenship}</Dropdown.Item>
+                                )}
+                            </Dropdown.Menu>
+                        </Dropdown>
                     </Col>
                     <Col className="px-2">
-                        <Button variant="success" className="w-100">Descendent</Button>
+                        { activeVal == "Non-EU" && 
+                            <Dropdown drop="up" className="mx-2" id="scnd">
+                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                    {descent ? "EU relative" : "Non-relative"} 
+                                </Dropdown.Toggle>
+                          
+                                <Dropdown.Menu>
+                                    <div className="mx-3">
+                                        The application process is different if you have a parent or grandparent who's a EU citizen
+                                        <hr />
+                                    </div>
+                                    <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "EU relative" : "Relative of EU member"}</Dropdown.Item>
+                                </Dropdown.Menu>
+                            </Dropdown>
+                        }
                     </Col>
                 </Row>
                 <div className="px-4 py-3 bg-light-hover">
