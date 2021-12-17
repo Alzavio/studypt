@@ -85,7 +85,7 @@ export default function Program() {
                     </Moment>
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
-                <FontAwesomeIcon icon={faInfoCircle} className="position-absolute" style={{top:0, marginTop:'-5px', marginRight: '-10px'}} />
+                <FontAwesomeIcon icon={faInfoCircle} className="position-absolute" style={{top:0, marginTop:'-5px', marginRight: '-15px', right: '0px'}} />
             </div>
         );
     }
