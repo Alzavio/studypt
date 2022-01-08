@@ -179,9 +179,9 @@ export default function Program() {
             <div className="bg-light-hover position-relative">
                 <h5>{/* Change once local deadline is a thing */}
                     <Moment format="MMMM Do YYYY">
-                        {values.deadline.length == 2 ? 
-                        values.deadline[1] 
-                        : values.deadline}
+                        {values.deadlines.length == 2 ? 
+                        values.deadlines[1] 
+                        : values.deadlines}
                     </Moment>
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
@@ -329,9 +329,9 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {values.deadline.length == 2 ? 
-                            values.deadline[1] 
-                            : values.deadline}
+                            {values.deadlines.length == 2 ? 
+                            values.deadlines[1] 
+                            : values.deadlines}
                         </Moment>
                     </h5>
                 <span className="text-muted">Initial application deadline</span>
@@ -339,9 +339,9 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {values.deadline.length == 2 ? 
-                            values.deadline[1] 
-                            : values.deadline}
+                            {values.deadlines.length == 2 ? 
+                            values.deadlines[1] 
+                            : values.deadlines}
                         </Moment>
                     </h5>
                     <span className="text-muted">Second Round</span>
@@ -360,7 +360,7 @@ export default function Program() {
         );
     }
     console.log("Deadline: " + values.deadline);
-
+    console.log(data);
 
 
     return (
