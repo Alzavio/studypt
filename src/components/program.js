@@ -25,28 +25,126 @@ import Moment from 'react-moment';
 
 export default function Program() {
     const { university, degree } = useParams();
-    const [programName, setProgramName] = useState(degree);
-    const [uniName, setUniName] = useState(university);
     const [data, setData] = useState();
-    const [tuition, setTuition] = useState();
     const [languages, setLanguages] = useState("");
-    const [link, setLink] = useState("");
-    const [years, setYears] = useState();
-    const [startDate, setStartDate] = useState("");
-    const [pic, setPic] = useState("");
-    const [deadline, setDeadline] = useState("Unknown");
     const [dataFetch, setDataFetch] = useState(0);
-    const [coords, setCoords] = useState({lat: 37.78, lon: -22.41});
     const [newUser, setNewUser] = useState(0);
     const [open, setOpen] = useState(false);
+
+    const [values, setValues] = useState({
+        programName: degree, 
+        uniName: university,
+        tuition: "",
+        languages: "",
+        link: "",
+        years: "",
+        startDate: "",
+        pic: "",
+        deadlines: {},
+        coords: {lat: 37.78, lon: -22.41},
+    });
     // maybe use state
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [userCitizenship, setUserCitizenship] = useState(["EU citizen", "CPLP citizen"]);
     const [activeVal, setActiveVal] = useState("Non-EU");
     const [descendent, setDescendent] = useState(false);
-
     const [isHovering, setIsHovering] = useState(false);
+
+
+    useEffect(() => {
+        // Checking localstorage for data so it doesn't need to waste bandwidth
+        if (localStorage.getItem('searchResults') == null || JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === values.programName.replace(values.programName.split(" ", 1), "Degree") && x.universitiesName === values.uniName) == null) {
+            // retrieve all data
+            setNewUser(true);
+            axios.get('https://api.studyportugal.pt/programLookup.php', {
+                params: {
+                    university: university,
+                    program: degree,
+                }
+            }).then(function (response) {
+                if (response.data.success) {
+                    setValues({ 
+                        ...values, 
+                        pic: response.data.data[0].picture,  
+                        years: response.data.data[0].duration,
+                        programName: response.data.data[0].programName,
+                        uniName: response.data.data[0].universitiesName,
+                        link: response.data.data[0].link,
+                        deadlines: [response.data.data[0].appDeadline, response.data.data[0].intAppDeadline],
+                        startDate: response.data.data[0].startDate.data, 
+                        tuition: [response.data.data[0].tuition, response.data.data[0].intTuition, response.data.data[0].CPLPtuition],
+                        coords: {lat: response.data.data[0].YuniCoords, long: response.data.data[0].XuniCoords}
+                    });
+
+                    setViewport({
+                        ...viewport,
+                        longitude: parseFloat(response.data.data[0].YuniCoords),
+                        latitude: parseFloat(response.data.data[0].XuniCoords),
+                        transitionDuration: 1000,
+                        transitionInterpolator: new FlyToInterpolator(),
+                    });
+                }
+            }).catch(function (error) {
+                // Do something if error
+                
+            });
+        } else {
+            setData(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === values.programName.replace(values.programName.split(" ", 1), "Degree") && x.universitiesName === values.uniName));
+            setDataFetch(1);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (dataFetch == 1) {
+            // Set tuition based on user. Check citizenship name accuracy
+            if (descent == 1 || citizenship == "EU citizen") {
+                setValues({ 
+                    ...values, 
+                    years: data.duration,
+                    pic: data.picture,
+                    link: data.link,
+                    startDate: data.startDate,
+                    deadline: data.appDeadline,
+                    tuition: data.tuition,
+                    coords: {lat: data.YuniCoords, long: data.XuniCoords}
+                });
+            } else if (citizenship == "CPLP citizen") {
+                setValues({ 
+                    ...values, 
+                    years: data.duration,
+                    pic: data.picture,
+                    link: data.link,
+                    startDate: data.startDate,
+                    deadline: data.appDeadline,
+                    tuition: data.CPLPtuition,
+                    coords: {lat: data.YuniCoords, long: data.XuniCoords}
+                });
+            } else {
+                setValues({ 
+                    ...values, 
+                    years: data.duration,
+                    pic: data.picture,
+                    link: data.link,
+                    startDate: data.startDate,
+                    deadline: data.intAppDeadline,
+                    tuition: data.intTuition,
+                    coords: {lat: data.YuniCoords, long: data.XuniCoords}
+                });
+            }
+
+            setViewport({
+                ...viewport,
+                longitude: parseFloat(data.YuniCoords),
+                latitude: parseFloat(data.XuniCoords),
+                transitionDuration: 1000,
+                transitionInterpolator: new FlyToInterpolator(),
+            });
+            // Verify data
+        }
+    }, [dataFetch]);
+
+
     const handleMouseOver = () => {
         if (isHovering == false) {
             setIsHovering(true);
@@ -81,9 +179,9 @@ export default function Program() {
             <div className="bg-light-hover position-relative">
                 <h5>{/* Change once local deadline is a thing */}
                     <Moment format="MMMM Do YYYY">
-                        {deadline.length == 2 ? 
-                        deadline[1] 
-                        : deadline}
+                        {values.deadline.length == 2 ? 
+                        values.deadline[1] 
+                        : values.deadline}
                     </Moment>
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
@@ -113,38 +211,38 @@ export default function Program() {
                 </Button>
                 <Collapse in={open}>
                     <div className="position-relative">
-                        <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
+                        <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${values.pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
                         </div>
                         <div className="my-5">
                             <h5 className="bold">
-                                {uniName}
+                                {values.uniName}
                             </h5>
 
 
 
-                            {Array.isArray(tuition) ? 
+                            {Array.isArray(values.tuition) ? 
                                 <div>
                                     <div className="mb-2">
                                         <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                             EU tuition
                                         </span>
                                         <br />
-                                        <span className="bold">€{parseFloat(tuition[0]).toLocaleString()}</span>
+                                        <span className="bold">€{parseFloat(values.tuition[0]).toLocaleString()}</span>
                                     </div>
                                     <div className="mb-2">
                                         <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                             CPLP tuition
                                         </span>
                                         <br />
-                                        <span className="bold">€{parseFloat(tuition[1]).toLocaleString()}</span>
+                                        <span className="bold">€{parseFloat(values.tuition[1]).toLocaleString()}</span>
                                     </div>
                                     <div className="mb-2">
                                         <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                             International tuition
                                         </span>
                                         <br />
-                                        <span className="bold">€{parseFloat(tuition[2]).toLocaleString()}</span>
+                                        <span className="bold">€{parseFloat(values.tuition[2]).toLocaleString()}</span>
                                     </div>
                                 </div>
                                     :
@@ -153,7 +251,7 @@ export default function Program() {
                                         Program tuition
                                     </span>
                                     <br />
-                                    <span className="bold">€{parseFloat(tuition)}</span>
+                                    <span className="bold">€{parseFloat(values.tuition)}</span>
                                 </div>
                                 
                             }
@@ -178,7 +276,7 @@ export default function Program() {
                                         <FontAwesomeIcon icon={faEnvelope} />
                                     </div>*/}
                                     <div>
-                                        <a href={link} target="_blank" className="text-dark">
+                                        <a href={values.link} target="_blank" className="text-dark">
                                             <FontAwesomeIcon icon={faExternalLinkAlt} />
                                         </a>
                                     </div>
@@ -231,9 +329,9 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {deadline.length == 2 ? 
-                            deadline[1] 
-                            : deadline}
+                            {values.deadline.length == 2 ? 
+                            values.deadline[1] 
+                            : values.deadline}
                         </Moment>
                     </h5>
                 <span className="text-muted">Initial application deadline</span>
@@ -241,9 +339,9 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {deadline.length == 2 ? 
-                            deadline[1] 
-                            : deadline}
+                            {values.deadline.length == 2 ? 
+                            values.deadline[1] 
+                            : values.deadline}
                         </Moment>
                     </h5>
                     <span className="text-muted">Second Round</span>
@@ -251,9 +349,9 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {deadline.length == 2 ? 
-                            deadline[1] 
-                            : deadline}
+                            {values.deadline.length == 2 ? 
+                            values.deadline[1] 
+                            : values.deadline}
                         </Moment>
                     </h5>
                     <span className="text-muted">Third Round</span>
@@ -261,82 +359,14 @@ export default function Program() {
             </div>
         );
     }
+    console.log("Deadline: " + values.deadline);
 
-    useEffect(() => {
-        // Checking localstorage for data so it doesn't need to waste bandwidth
-        if (localStorage.getItem('searchResults') == null || JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName) == null) {
-            // retrieve all data
-            setNewUser(true);
-            axios.get('https://api.studyportugal.pt/programLookup.php', {
-                params: {
-                    university: university,
-                    program: degree,
-                }
-            }).then(function (response) {
-                if (response.data.success) {
-                    setPic(response.data.data[0].picture);
-                    setLink(response.data.data[0].link);
-                    setTuition([response.data.data[0].tuition, response.data.data[0].intTuition, response.data.data[0].CPLPtuition]);
-                    setYears(response.data.data[0].duration);
-                    setProgramName(response.data.data[0].programName)
-                    setUniName(response.data.data[0].universitiesName);
-                    setLink(response.data.data[0].link);
-                    setDeadline([response.data.data[0].appDeadline, response.data.data[0].intAppDeadline]);
-                    setStartDate(response.data.data[0].startDate);
-                    console.log(response.data.data[0].startDate);
-                    setViewport({
-                        ...viewport,
-                        longitude: parseFloat(response.data.data[0].YuniCoords),
-                        latitude: parseFloat(response.data.data[0].XuniCoords),
-                        transitionDuration: 1000,
-                        transitionInterpolator: new FlyToInterpolator(),
-                    });
-                    setCoords({lat: response.data.data[0].YuniCoords, long: response.data.data[0].XuniCoords});
-                }
-            }).catch(function (error) {
-                // Do something if error
-                
-            });
-        } else {
-            setData(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === programName.replace(programName.split(" ", 1), "Degree") && x.universitiesName === uniName));
-            setDataFetch(1);
-        }
-    }, []);
-    useEffect(() => {
-        if (dataFetch == 1) {
-            setYears(data.duration);
-            setPic(data.picture);
-            setLink(data.link);
-            setStartDate(data.startDate);
-            
-            // Set tuition based on user. Check citizenship name accuracy
-            if (descent == 1 || citizenship == "EU citizen") {
-                setTuition(data.tuition);
-                setDeadline(data.appDeadline);
-            } else if (citizenship == "CPLP citizen") {
-                setTuition(data.CPLPtuition);
-                setDeadline(data.appDeadline);
-            } else {
-                setTuition(data.intTuition);
-                setDeadline(data.intAppDeadline);
-            }
 
-            setViewport({
-                ...viewport,
-                longitude: parseFloat(data.YuniCoords),
-                latitude: parseFloat(data.XuniCoords),
-                transitionDuration: 1000,
-                transitionInterpolator: new FlyToInterpolator(),
-            });
-            setCoords({lat: data.YuniCoords, long: data.XuniCoords});
-            // Verify data
-        }
-    }, [dataFetch]);
 
     return (
         <div id="fullWrapper">
             <Helmet>
-                <title>Study Portugal - {uniName}, {programName} </title>
+                <title>Study Portugal - {values.uniName}, {values.programName} </title>
             </Helmet>
             <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>}/>
             <ReactMapGL
@@ -349,38 +379,38 @@ export default function Program() {
                 <Row>
                     <Col xs={12} sm={10} md={3} className="mb-4">
                         <div className="position-relative">
-                            <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
+                            <div id="picture" className="rounded shadow-sm position-absolute bg-white" style={{minWidth:'80%', zIndex: 20, backgroundImage:`url("${values.pic}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1', marginTop: '-85%'}}>
 
                             </div>
                             <div className="mt-5">
                                 <h5 className="bold">
-                                    {uniName}
+                                    {values.uniName}
                                 </h5>
 
 
 
-                                {Array.isArray(tuition) ? 
+                                {Array.isArray(values.tuition) ? 
                                     <div>
                                         <div className="mb-2">
                                             <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                                 EU tuition
                                             </span>
                                             <br />
-                                            <span className="bold">€{parseFloat(tuition[0]).toLocaleString()}</span>
+                                            <span className="bold">€{parseFloat(values.tuition[0]).toLocaleString()}</span>
                                         </div>
                                         <div className="mb-2">
                                             <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                                 CPLP tuition
                                             </span>
                                             <br />
-                                            <span className="bold">€{parseFloat(tuition[1]).toLocaleString()}</span>
+                                            <span className="bold">€{parseFloat(values.tuition[1]).toLocaleString()}</span>
                                         </div>
                                         <div className="mb-2">
                                             <span className="sideLabel text-muted" style={{fontSize:'.9rem'}}>
                                                 International tuition
                                             </span>
                                             <br />
-                                            <span className="bold">€{parseFloat(tuition[2]).toLocaleString()}</span>
+                                            <span className="bold">€{parseFloat(values.tuition[2]).toLocaleString()}</span>
                                         </div>
                                     </div>
                                         :
@@ -389,7 +419,7 @@ export default function Program() {
                                             Program tuition
                                         </span>
                                         <br />
-                                        <span className="bold">€{parseFloat(tuition)}</span>
+                                        <span className="bold">€{parseFloat(values.tuition)}</span>
                                     </div>
                                     
                                 }
@@ -414,7 +444,7 @@ export default function Program() {
                                             <FontAwesomeIcon icon={faEnvelope} />
                                         </div>*/}
                                         <div>
-                                            <a href={link} target="_blank" className="text-dark">
+                                            <a href={values.link} target="_blank" className="text-dark">
                                                 <FontAwesomeIcon icon={faExternalLinkAlt} />
                                             </a>
                                         </div>
@@ -426,13 +456,13 @@ export default function Program() {
                     <Col xs={12} md={9}>
                         <div className="mb-3">
                             <h3>
-                                {programName.replace("Degree", "Bachelor's")}
+                                {values.programName.replace("Degree", "Bachelor's")}
                             </h3>
                         </div>
                         <Card className="p-3 shadow-sm">
                             <Row>
                                 <Col className="text-center">
-                                    <h5>{parseFloat(years)} years</h5>
+                                    <h5>{parseFloat(values.years)} years</h5>
                                     <span className="text-muted">Duration</span>
                                 </Col>
                                 <Col className="text-center position-relative d-flex justify-content-center">
@@ -442,9 +472,9 @@ export default function Program() {
                                 </Col>
                                 <Col className="text-center">
                                     <h5>
-                                        { startDate != "0000-00-00" ?
+                                        { values.startDate != "0000-00-00" ?
                                         <Moment format="MMMM Do YYYY">
-                                            {startDate}
+                                            {values.startDate}
                                         </Moment>: "Unknown"
                                         }
                                     </h5>
