@@ -71,7 +71,7 @@ export default function Program() {
                         programName: response.data.data[0].programName,
                         uniName: response.data.data[0].universitiesName,
                         link: response.data.data[0].link,
-                        deadlines: [response.data.data[0].appDeadline, response.data.data[0].intAppDeadline],
+                        deadlines: response.data.data[0].deadlines,
                         startDate: response.data.data[0].startDate.data, 
                         tuition: [response.data.data[0].tuition, response.data.data[0].intTuition, response.data.data[0].CPLPtuition],
                         coords: {lat: response.data.data[0].YuniCoords, long: response.data.data[0].XuniCoords}
@@ -105,7 +105,7 @@ export default function Program() {
                     pic: data.picture,
                     link: data.link,
                     startDate: data.startDate,
-                    deadline: data.appDeadline,
+                    deadlines: data.deadlines,
                     tuition: data.tuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
@@ -116,7 +116,7 @@ export default function Program() {
                     pic: data.picture,
                     link: data.link,
                     startDate: data.startDate,
-                    deadline: data.appDeadline,
+                    deadlines: data.deadlines,
                     tuition: data.CPLPtuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
@@ -127,7 +127,7 @@ export default function Program() {
                     pic: data.picture,
                     link: data.link,
                     startDate: data.startDate,
-                    deadline: data.intAppDeadline,
+                    deadlines: data.deadlines,
                     tuition: data.intTuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
@@ -179,9 +179,12 @@ export default function Program() {
             <div className="bg-light-hover position-relative">
                 <h5>{/* Change once local deadline is a thing */}
                     <Moment format="MMMM Do YYYY">
-                        {values.deadlines.length == 2 ? 
-                        values.deadlines[1] 
-                        : values.deadlines}
+                            {
+                                (descent == 1 || citizenship == "EU citizen") ? 
+                                    values.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline
+                                        :
+                                    values.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline
+                            }
                     </Moment>
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
@@ -327,11 +330,14 @@ export default function Program() {
                     </Row>:""
                 }
                 <div className="px-4 py-3 bg-light-hover">
-                    <h5>{/* Change once local deadline is a thing */}
+                    <h5>
                         <Moment format="MMMM Do YYYY">
-                            {values.deadlines.length == 2 ? 
-                            values.deadlines[1] 
-                            : values.deadlines}
+                            {
+                                (descent == 1 || citizenship == "EU citizen") ? 
+                                    values.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline
+                                        :
+                                    values.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline
+                            }
                         </Moment>
                     </h5>
                 <span className="text-muted">Initial application deadline</span>
@@ -339,9 +345,12 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {values.deadlines.length == 2 ? 
-                            values.deadlines[1] 
-                            : values.deadlines}
+                            {
+                                (descent == 1 || citizenship == "EU citizen") ? 
+                                    values.deadlines.filter(date => date.type == 1 && date.round == 2)[0].deadline
+                                        :
+                                    values.deadlines.filter(date => date.type == 2 && date.round == 2)[0].deadline
+                            }
                         </Moment>
                     </h5>
                     <span className="text-muted">Second Round</span>
@@ -349,9 +358,12 @@ export default function Program() {
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>{/* Change once local deadline is a thing */}
                         <Moment format="MMMM Do YYYY">
-                            {values.deadline.length == 2 ? 
-                            values.deadline[1] 
-                            : values.deadline}
+                            {
+                                (descent == 1 || citizenship == "EU citizen") ? 
+                                    values.deadlines.filter(date => date.type == 1 && date.round == 3)[0].deadline
+                                        :
+                                    values.deadlines.filter(date => date.type == 2 && date.round == 3)[0].deadline
+                            }
                         </Moment>
                     </h5>
                     <span className="text-muted">Third Round</span>
