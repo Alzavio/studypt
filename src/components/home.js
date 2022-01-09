@@ -53,9 +53,7 @@ function App() {
 
     axios.get('https://api.studyportugal.pt/search.php', {
       params: {
-        search: search,
-        citizenship: citizenship,
-        descent: byDescent
+        search: search
       }
     }).then(function (response) {
       if (response.data.success) {
@@ -68,7 +66,7 @@ function App() {
       }
     }).catch(function (error) {
       // Do something if error
-      
+      console.log("error");
     });
     e.preventDefault();
   }
