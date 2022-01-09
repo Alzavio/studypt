@@ -189,7 +189,7 @@ export default function Faq() {
                                 <br /><br />
                                 <Twemoji options={{ className: 'twemoji' }}>
                                     🇺🇸: One of the many requirements for proof of completion of High School is your Diploma.
-                                    The Portuguese government does not understand that these documents are often purely ceremonial, and usually cannot be replaced.
+                                    While it is purely cerimonial and cannot be replaced in much of the US, the Portugal considers it an official document.
                                     If you've graduated recently, ask if your High School if they can print a secondary copy, as it may not be returned.
                                 </Twemoji>
                                 <br /><br />
