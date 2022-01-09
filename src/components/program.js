@@ -175,7 +175,7 @@ export default function Program() {
     function DateConfigerer(props) {
         return (
             <>
-                { values.deadlines.length && (
+                { typeof values.deadlines !== 'undefined' && values.deadlines.length && (
                     (descent == 1 || citizenship == "EU citizen") ? 
                         values.deadlines.filter(date => date.type == 1 && date.round == props.round).length ? 
                             console.log(values.deadlines.filter(date => date.type == 1 && date.round == props.round))
