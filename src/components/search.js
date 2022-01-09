@@ -229,16 +229,25 @@ export default function Search() {
                                             <br />
                                             <span className="text-muted">{parseFloat(results.duration).toLocaleString()} years</span>
                                             <br />
-                                            {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
+                                            {/*Check if past in future update <FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
+                                            {/*Account for CPLP in future update*/}
                                             <span className="text-muted"> 
-                                                <Moment format="MMMM Do YYYY">
                                                     {
                                                         (descent == 1 || citizenship == "EU citizen") ? 
-                                                            results.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline
+                                                            results.deadlines.filter(date => date.type == 1 && date.round == 1).length ? 
+                                                                <Moment format="MMMM Do YYYY">
+                                                                    {results.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline}
+                                                                </Moment>
+                                                                :
+                                                                "Unknown"
                                                             :
-                                                            results.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline
+                                                            results.deadlines.filter(date => date.type == 2 && date.round == 1).length ?
+                                                                <Moment format="MMMM Do YYYY">
+                                                                    {results.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline}
+                                                                </Moment>
+                                                                :
+                                                                "Unknown"
                                                     }
-                                                </Moment>
                                             </span>
                                         </Col>
                                     </Row>
