@@ -50,7 +50,9 @@ export default function Program() {
     const [activeVal, setActiveVal] = useState("Non-EU");
     const [descendent, setDescendent] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
-
+    useEffect(() => {
+        console.log(citizenship);
+    }, [citizenship]);
 
     useEffect(() => {
         // Checking localstorage for data so it doesn't need to waste bandwidth
@@ -178,7 +180,9 @@ export default function Program() {
                 { typeof values.deadlines !== 'undefined' && values.deadlines.length && (
                     (descent == 1 || citizenship == "EU citizen") ? 
                         values.deadlines.filter(date => date.type == 1 && date.round == props.round).length ? 
-                            console.log(values.deadlines.filter(date => date.type == 1 && date.round == props.round))
+                            <Moment format="MMMM Do YYYY">
+                                {values.deadlines.filter(date => date.type == 1 && date.round == props.round)[0].deadline}
+                            </Moment>
                             :
                             "Unknown"
                         :
@@ -211,6 +215,7 @@ export default function Program() {
         setUserCitizenship(userCitizenship.filter(userCitizenship => userCitizenship !== value));
         setUserCitizenship(userCitizenship => [...userCitizenship, activeVal]);
         setActiveVal(value);
+        setCitizenship(value);
         setDescendent(0);
       }
 
@@ -335,7 +340,7 @@ export default function Program() {
                                             The application process is different if you have a parent or grandparent who's a EU citizen
                                             <hr />
                                         </div>
-                                        <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "EU relative" : "Relative of EU member"}</Dropdown.Item>
+                                        <Dropdown.Item onClick={() => setDescent(descent ? 0 : 1)}>{descent ? "Non-relative" : "EU relative"}</Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
                             }
