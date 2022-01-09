@@ -172,20 +172,33 @@ export default function Program() {
     function verifyData() {
 
     }
-
+    function DateConfigerer(props) {
+        return (
+            <>
+                { values.deadlines.length && (
+                    (descent == 1 || citizenship == "EU citizen") ? 
+                        values.deadlines.filter(date => date.type == 1 && date.round == props.round).length ? 
+                            console.log(values.deadlines.filter(date => date.type == 1 && date.round == props.round))
+                            :
+                            "Unknown"
+                        :
+                        values.deadlines.filter(date => date.type == 2 && date.round == props.round).length ?
+                            <Moment format="MMMM Do YYYY">
+                                {values.deadlines.filter(date => date.type == 2 && date.round == props.round)[0].deadline}
+                            </Moment>
+                            :
+                            "Unknown"
+                    )
+                }
+            </>
+        )
+    }
 
     const SmallDeadline = () => {
         return (
             <div className="bg-light-hover position-relative">
-                <h5>{/* Change once local deadline is a thing */}
-                    <Moment format="MMMM Do YYYY">
-                            {
-                                (descent == 1 || citizenship == "EU citizen") ? 
-                                    values.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline
-                                        :
-                                    values.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline
-                            }
-                    </Moment>
+                <h5>
+                        <DateConfigerer round="1" />
                 </h5>
                 <span className="text-muted">Initial application deadline</span>
                 <FontAwesomeIcon icon={faInfoCircle} onClick={handleMouseOver} className="position-absolute" style={{top:0, marginTop:'-5px', marginRight: '-15px', right: '0px'}} />
@@ -331,40 +344,19 @@ export default function Program() {
                 }
                 <div className="px-4 py-3 bg-light-hover">
                     <h5>
-                        <Moment format="MMMM Do YYYY">
-                            {
-                                (descent == 1 || citizenship == "EU citizen") ? 
-                                    values.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline
-                                        :
-                                    values.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline
-                            }
-                        </Moment>
+                        <DateConfigerer round="1" />
                     </h5>
                 <span className="text-muted">Initial application deadline</span>
                 </div>
                 <div className="px-4 py-3 bg-light-hover">
-                    <h5>{/* Change once local deadline is a thing */}
-                        <Moment format="MMMM Do YYYY">
-                            {
-                                (descent == 1 || citizenship == "EU citizen") ? 
-                                    values.deadlines.filter(date => date.type == 1 && date.round == 2)[0].deadline
-                                        :
-                                    values.deadlines.filter(date => date.type == 2 && date.round == 2)[0].deadline
-                            }
-                        </Moment>
+                    <h5>
+                        <DateConfigerer round="2" />
                     </h5>
                     <span className="text-muted">Second Round</span>
                 </div>
                 <div className="px-4 py-3 bg-light-hover">
-                    <h5>{/* Change once local deadline is a thing */}
-                        <Moment format="MMMM Do YYYY">
-                            {
-                                (descent == 1 || citizenship == "EU citizen") ? 
-                                    values.deadlines.filter(date => date.type == 1 && date.round == 3)[0].deadline
-                                        :
-                                    values.deadlines.filter(date => date.type == 2 && date.round == 3)[0].deadline
-                            }
-                        </Moment>
+                    <h5>
+                        <DateConfigerer round="3" />
                     </h5>
                     <span className="text-muted">Third Round</span>
                 </div>
