@@ -359,8 +359,6 @@ export default function Program() {
             </div>
         );
     }
-    console.log("Deadline: " + values.deadline);
-    console.log(data);
 
 
     return (

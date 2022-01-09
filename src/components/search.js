@@ -39,6 +39,8 @@ export default function Search() {
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
+    //prep for infinite scroll
+    const [reachedBottom, setReachedBottom] = useState(0);
     const navigate = useNavigate();
 
     // For if the user refreshes, data is recovered from localstorage
@@ -230,7 +232,12 @@ export default function Search() {
                                             {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
                                             <span className="text-muted"> 
                                                 <Moment format="MMMM Do YYYY">
-                                                    {results.intAppDeadline}
+                                                    {
+                                                        (descent == 1 || citizenship == "EU citizen") ? 
+                                                            results.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline
+                                                            :
+                                                            results.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline
+                                                    }
                                                 </Moment>
                                             </span>
                                         </Col>
