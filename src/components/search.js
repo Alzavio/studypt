@@ -25,9 +25,7 @@ import '../css/search.css';
 import { Helmet } from "react-helmet";
 import axios from "axios";
 import '../css/global.css';
-import {
-    Link
-} from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Moment from 'react-moment';
 
@@ -41,6 +39,8 @@ export default function Search() {
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
+    //prep for infinite scroll
+    const [reachedBottom, setReachedBottom] = useState(0);
     const navigate = useNavigate();
 
     // For if the user refreshes, data is recovered from localstorage
@@ -60,21 +60,17 @@ export default function Search() {
             }
         }
     }, []);
-
     // On submit
     const requestData = function (e) {
         setLoading(1);
         e.preventDefault();
     }
-
     // useEffect used to prevent spamming enter, wasting server resources
     useEffect(() => { 
         if (loading == 1) {
             axios.get('https://api.studyportugal.pt/search.php', {
                 params: {
                     search: searchQuery,
-                    citizenship: citizenship,
-                    descent: descent
                 }
             }).then(function (response) {
                 if (response.data.success) {
@@ -198,7 +194,7 @@ export default function Search() {
                                 results.filter(tag => language == "Any" ? 
                                                             degree == "Any" ?  1 : tag.degree == degree
                                                         : 
-                                                        (tag.tagName.includes(language) && (degree != "Any" ? tag.degree == degree : 1))
+                                                        (JSON.stringify(tag.tags).includes(language) && (degree != "Any" ? tag.degree == degree : 1))
                                               ).map((results) =>
                                 <Card className="shadow-sm p-2 mb-2">
                                     <Row className="mx-1">
@@ -219,8 +215,8 @@ export default function Search() {
                                             </Link>
                                             <div className="d-flex mb-2">
                                                 {
-                                                    results.tagName.split(",").map((tag) =>
-                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher(`${tag}`)}>&nbsp;{tag}&nbsp;</div>
+                                                    results.tags.map((tag) =>
+                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher(`${tag.tagName}`)}>&nbsp;{tag.tagName}&nbsp;</div>
                                                     )
                                                 }
                                             </div>
@@ -233,11 +229,25 @@ export default function Search() {
                                             <br />
                                             <span className="text-muted">{parseFloat(results.duration).toLocaleString()} years</span>
                                             <br />
-                                            {/*<FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
+                                            {/*Check if past in future update <FontAwesomeIcon icon={faExclamationCircle} flip="horizontal" color="orange"/>*/}
+                                            {/*Account for CPLP in future update*/}
                                             <span className="text-muted"> 
-                                                <Moment format="MMMM Do YYYY">
-                                                    {results.intAppDeadline}
-                                                </Moment>
+                                                    {
+                                                        (descent == 1 || citizenship == "EU citizen") ? 
+                                                            results.deadlines.filter(date => date.type == 1 && date.round == 1).length ? 
+                                                                <Moment format="MMMM Do YYYY">
+                                                                    {results.deadlines.filter(date => date.type == 1 && date.round == 1)[0].deadline}
+                                                                </Moment>
+                                                                :
+                                                                "Unknown"
+                                                            :
+                                                            results.deadlines.filter(date => date.type == 2 && date.round == 1).length ?
+                                                                <Moment format="MMMM Do YYYY">
+                                                                    {results.deadlines.filter(date => date.type == 2 && date.round == 1)[0].deadline}
+                                                                </Moment>
+                                                                :
+                                                                "Unknown"
+                                                    }
                                             </span>
                                         </Col>
                                     </Row>
