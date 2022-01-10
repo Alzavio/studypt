@@ -44,6 +44,14 @@
     #megaWrapper {
         margin-left: unset !important;
         margin-right: unset !important;
+        margin-left: unset !important;
+        margin-right: unset !important;
+    }
+    #megaWrapper > div > div, #megaWrapper > div {
+        background-color: unset !important;
+    }
+    #megaWrapper > div {
+        padding: unset !important
     }
     #wrapper {
         width: 100%;
