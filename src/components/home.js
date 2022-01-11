@@ -19,6 +19,7 @@ import {
   Collapse
 } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Image, Transformation } from 'cloudinary-react';
 import { useStore } from '../state/searchResults';
@@ -88,7 +89,7 @@ function App() {
             <meta name="description" content="Find information on how to study in Portugal at any of the more than 130 universities and polytechnics. From bachelors degrees, to language programs, to student visa information." />
           </Helmet>
 
-          <Navibar homeArea={["Developed in ", <Twemoji options={{ className: 'twemoji' }} style={{margin: '0 .25rem 0 .25rem'}}>🇵🇹</Twemoji>," by ", <a className="text-decoration-none text-muted" href="https://www.linkedin.com/in/luizrm/" target="_blank">&nbsp;Luiz</a>]} />
+          <Navibar homeArea={["Developed in ", <Twemoji options={{ className: 'twemoji' }} style={{margin: '0 .25rem 0 .25rem'}}>🇵🇹</Twemoji>," on ", <a className="text-decoration-none text-muted" href="https://github.com/Alzavio/studypt" target="_blank" style={{fontSize:'1.1rem'}}> &nbsp;<FontAwesomeIcon icon={faGithub} color="#343a40" /></a>]} />
 
           <div className="w-100 mx-5" style={{marginTop: '7.5rem'}} id="megaWrapper">
             <div className="d-flex" style={{flex:1, flexDirection: 'row', position: 'relative', backgroundColor: '#046535', padding: '20px'}}>
