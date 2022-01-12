@@ -17,4 +17,8 @@
         min-width: 45% !important;
         margin-top: -55% !important
     }
+    #deadlinesDropdown {
+        margin-left: -55% !important;
+        width: 210% !important
+    }
 }
