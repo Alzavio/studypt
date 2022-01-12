@@ -28,7 +28,9 @@ export default function Navibar(props) {
                             </Link>
                         </Nav.Link>
                         <Nav.Link className="mx-2 text-dark">
-                            Contact
+                            <Link to="/contact" class="text-dark text-decoration-none">
+                                Contact
+                            </Link>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
