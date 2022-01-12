@@ -21,15 +21,15 @@ export default function Contact() {
                 <h1 className="bold my-3">Contact us</h1>
                 <Form>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Control type="email" placeholder="Subject" />
+                        <Form.Control type="email" placeholder="Subject" className="shadow-sm" />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
-                        <Form.Control type="email" placeholder="Email" />
+                        <Form.Control type="email" placeholder="Email" className="shadow-sm" />
                     </Form.Group>
                     <Form.Group className="mb-3">
-                        <Form.Control as="textarea" placeholder="Message" rows={3} />
+                        <Form.Control as="textarea" placeholder="Message" rows={3} className="shadow-sm" />
                     </Form.Group>
-                    <Button variant="success">Submit</Button>
+                    <Button variant="success" className="shadow-sm">Submit</Button>
                 </Form>
             </Container>
         </div>
