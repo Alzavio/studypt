@@ -8,7 +8,8 @@ import {
     Card,
     Button,
     Dropdown,
-    Collapse
+    Collapse,
+    Spinner
 } from 'react-bootstrap';
 import Navibar from "./microComponents/navbar"; 
 import '../css/global.css';
@@ -50,6 +51,8 @@ export default function Program() {
     const [activeVal, setActiveVal] = useState("Non-EU");
     const [descendent, setDescendent] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
+    const [isLoading, setLoading] = useState(0);
+
     useEffect(() => {
         console.log(citizenship);
     }, [citizenship]);
@@ -86,10 +89,11 @@ export default function Program() {
                         transitionDuration: 1000,
                         transitionInterpolator: new FlyToInterpolator(),
                     });
+                    setLoading(1);
                 }
             }).catch(function (error) {
                 // Do something if error
-                
+                console.log(error);
             });
         } else {
             setData(JSON.parse(localStorage.getItem('searchResults')).find(x => x.programName === values.programName.replace(values.programName.split(" ", 1), "Degree") && x.universitiesName === values.uniName));
@@ -111,6 +115,7 @@ export default function Program() {
                     tuition: data.tuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
+                setLoading(1);
             } else if (citizenship == "CPLP citizen") {
                 setValues({ 
                     ...values, 
@@ -122,6 +127,7 @@ export default function Program() {
                     tuition: data.CPLPtuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
+                setLoading(1);
             } else {
                 setValues({ 
                     ...values, 
@@ -133,6 +139,7 @@ export default function Program() {
                     tuition: data.intTuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
+                setLoading(1);
             }
 
             setViewport({
@@ -159,10 +166,6 @@ export default function Program() {
         }
     };
 
-    useEffect(() => {
-        console.log(isHovering)
-    }, [isHovering]);
-
     const [viewport, setViewport] = useState({
         width: '100%',
         height: 200,
@@ -171,9 +174,6 @@ export default function Program() {
         zoom: 11
     });
 
-    function verifyData() {
-
-    }
     function DateConfigerer(props) {
         return (
             <>
@@ -369,12 +369,22 @@ export default function Program() {
         );
     }
 
+    useEffect(() => {
+
+    }, [isLoading]);
 
     return (
         <div id="fullWrapper">
             <Helmet>
                 <title>Study Portugal - {values.uniName}, {values.programName} </title>
             </Helmet>
+            { !isLoading &&
+                <div className="position-absolute w-100 h-100 bg-light d-flex justify-content-center align-items-center" style={{zIndex: "2000"}}>
+                    <Spinner animation="border" role="status" style={{color:'grey'}} className="d-flex align-items-center">
+                        <span className="visually-hidden">Loading...</span>
+                    </Spinner>
+                </div>
+            }
             <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>}/>
             <ReactMapGL
                 {...viewport}
