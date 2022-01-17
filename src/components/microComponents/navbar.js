@@ -23,12 +23,12 @@ export default function Navibar(props) {
                             Universities
                         </Nav.Link>
                         <Nav.Link className="mx-2 text-dark">
-                            <Link to="/faq" class="text-dark text-decoration-none">
+                            <Link to="/faq" className="text-dark text-decoration-none">
                                 FAQ
                             </Link>
                         </Nav.Link>
                         <Nav.Link className="mx-2 text-dark">
-                            <Link to="/contact" class="text-dark text-decoration-none">
+                            <Link to="/contact" className="text-dark text-decoration-none">
                                 Contact
                             </Link>
                         </Nav.Link>
