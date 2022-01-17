@@ -130,7 +130,7 @@ export default function Search() {
             <Helmet>
                 <title>Study Portugal - {capitalizeFirstLetter(searchQuery)} results </title>
             </Helmet>
-            <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>} />
+            <Navibar homeArea={<Link to="/" className="text-dark text-decoration-none">Home</Link>} />
             <Container>
                 <form onSubmit={requestData}>
                     <Row className="mt-nav">
