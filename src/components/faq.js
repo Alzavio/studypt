@@ -21,7 +21,7 @@ export default function Faq() {
             <Helmet>
                 <title>Study in Portugal - FAQ</title>
             </Helmet>
-            <Navibar homeArea={<Link to="/" class="text-dark text-decoration-none">Home</Link>} />
+            <Navibar homeArea={<Link to="/" className="text-dark text-decoration-none">Home</Link>} />
             <Container className="mt-nav">
                 <h1 className="bold">
                     FAQ
