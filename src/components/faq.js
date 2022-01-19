@@ -23,9 +23,12 @@ export default function Faq() {
             </Helmet>
             <Navibar homeArea={<Link to="/" className="text-dark text-decoration-none">Home</Link>} />
             <Container className="mt-nav">
-                <h1 className="bold">
+                <h1 className="bold mb-1">
                     FAQ
-                </h1>                
+                </h1>
+                <p className="text-muted">
+                    General FAQ, search a program for program specific answers.
+                </p>
                 <Row className="mt-4">
                     <Col md={8} xs={12}>
                         <div className="d-md-flex d-sm-block mb-4">
