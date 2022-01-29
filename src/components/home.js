@@ -63,7 +63,8 @@ function App() {
         localStorage.setItem('descent', byDescent);
         localStorage.setItem('searchQuery', search);
         localStorage.setItem('searchResults', JSON.stringify(response.data.data));
-        useStore.setState({ search: search, results: response.data.data });
+        localStorage.setItem('imageLibrary', JSON.stringify(response.data.logos));
+        useStore.setState({ search: search, results: response.data.data, images: response.data.logos });
         setLoading(2);
       }
     }).catch(function (error) {

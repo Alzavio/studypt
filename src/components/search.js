@@ -32,9 +32,8 @@ export default function Search() {
     const [citizenship, setCitizenship] = useState(localStorage.getItem('citizenship'));
     const [descent, setDescent] = useState(localStorage.getItem('descent'));
     const [results, setResults] = useState(useStore(state => state.results));
+    const [imageRetriever, setImageRetriever] = useState(useStore(state => state.images));
     const [searchQuery, setSearchQuery] = useState(useStore(state => state.search));
-    //prep for infinite scroll
-    const [reachedBottom, setReachedBottom] = useState(false);
     const [open, setOpen] = useState(true);
     const [width, setWidth] = useState(window.innerWidth);
     const navigate = useNavigate();
@@ -53,6 +52,10 @@ export default function Search() {
             if (searchQuery == "" || searchQuery == null) {
                 setSearchQuery(localStorage.getItem('searchQuery'));
                 useStore.setState({ search: localStorage.getItem('searchQuery')});
+            }
+            if (imageRetriever == "" || imageRetriever == null) {
+                setImageRetriever(localStorage.getItem('imageLibrary'));
+                useStore.setState({ images: localStorage.getItem('imageLibrary')});
             }
         }
     }, []);
@@ -90,8 +93,9 @@ export default function Search() {
                     localStorage.setItem('descent', descent);
                     localStorage.setItem('searchQuery', searchQuery);
                     localStorage.setItem('searchResults', JSON.stringify(response.data.data));
+                    localStorage.setItem('imageLibrary', JSON.stringify(response.data.logos));
                     setResults(response.data.data);
-                    useStore.setState({ search: searchQuery, results: response.data.data });
+                    useStore.setState({ search: searchQuery, results: response.data.data, images: response.data.logos });
                     setLoading(0);
                     console.log(results);
                 }
