@@ -54,7 +54,7 @@ export default function Search() {
                 useStore.setState({ search: localStorage.getItem('searchQuery')});
             }
             if (imageRetriever == "" || imageRetriever == null) {
-                setImageRetriever(localStorage.getItem('imageLibrary'));
+                setImageRetriever(JSON.parse(localStorage.getItem('imageLibrary')));
                 useStore.setState({ images: localStorage.getItem('imageLibrary')});
             }
         }
