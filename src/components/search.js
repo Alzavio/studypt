@@ -88,16 +88,16 @@ export default function Search() {
                 }
             }).then(function (response) {
                 if (response.data.success) {
-                    console.log(response.data.data);
                     localStorage.setItem('citizenship', citizenship);
                     localStorage.setItem('descent', descent);
                     localStorage.setItem('searchQuery', searchQuery);
                     localStorage.setItem('searchResults', JSON.stringify(response.data.data));
                     localStorage.setItem('imageLibrary', JSON.stringify(response.data.logos));
                     setResults(response.data.data);
+                    setImageRetriever(response.data.logos);
+                    console.log(response.data.logos);
                     useStore.setState({ search: searchQuery, results: response.data.data, images: response.data.logos });
                     setLoading(0);
-                    console.log(results);
                 }
             }).catch(function (error) {
                 // Do something if error
@@ -107,7 +107,6 @@ export default function Search() {
     }, [loading]);
 
     function languageSwitcher(language) {
-        console.log(language);
         // filter the .map in the future
         setLanguage(language);
     }
@@ -128,6 +127,12 @@ export default function Search() {
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+    function imageFinder(uniID) {
+        if (Array.isArray(imageRetriever)) {
+            let result = imageRetriever.filter(obj => {   return obj.id === uniID });
+            return result[0]["picture"]
+        }
     }
     return (
         <>
@@ -228,7 +233,7 @@ export default function Search() {
                                     <Row className="mx-1">
                                         <div className="p-2 rounded d-flex" style={{width:'inherit'}}>
                                             <Link to={`/${results.universitiesName}/${results.programName.replace("Degree", results.degree)}`}>
-                                                <div style={{minWidth:'7rem', backgroundImage:`url("${results.picture}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
+                                                <div style={{minWidth:'7rem', backgroundImage:`url("${imageFinder(results.uniID)}")`, backgroundSize:'cover', backgroundPosition: 'center', aspectRatio: '1 / 1'}} className="rounded border shadow-sm">
 
                                                 </div>
                                             </Link>
