@@ -249,7 +249,7 @@ export default function Search() {
                                             <div className="d-flex mb-2">
                                                 {
                                                     results.tags.map((tag) =>
-                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher(`${tag.tagName}`)}>&nbsp;{tag.tagName}&nbsp;</div>
+                                                        <div className="bg-success text-light rounded pointer mr-1" onClick={() => languageSwitcher(`${tag.tagName}`)} style={{padding:'.05rem'}}>&nbsp;{tag.tagName}&nbsp;</div>
                                                     )
                                                 }
                                             </div>
