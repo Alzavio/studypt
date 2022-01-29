@@ -23,6 +23,7 @@ import 'font-awesome/css/font-awesome.css';
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Moment from 'react-moment';
+import { useStore } from '../state/searchResults';
 
 export default function Program() {
     const { university, degree } = useParams();
@@ -108,10 +109,10 @@ export default function Program() {
                 setValues({ 
                     ...values, 
                     years: data.duration,
-                    pic: data.picture,
                     link: data.link,
                     startDate: data.startDate,
                     deadlines: data.deadlines,
+                    pic: JSON.parse(localStorage.getItem('imageLibrary')).filter(obj => { return obj.id === data.uniID })[0]["picture"],
                     tuition: data.tuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
@@ -120,10 +121,10 @@ export default function Program() {
                 setValues({ 
                     ...values, 
                     years: data.duration,
-                    pic: data.picture,
                     link: data.link,
                     startDate: data.startDate,
                     deadlines: data.deadlines,
+                    pic: JSON.parse(localStorage.getItem('imageLibrary')).filter(obj => { return obj.id === data.uniID })[0]["picture"],
                     tuition: data.CPLPtuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
@@ -132,10 +133,10 @@ export default function Program() {
                 setValues({ 
                     ...values, 
                     years: data.duration,
-                    pic: data.picture,
                     link: data.link,
                     startDate: data.startDate,
                     deadlines: data.deadlines,
+                    pic: JSON.parse(localStorage.getItem('imageLibrary')).filter(obj => { return obj.id === data.uniID })[0]["picture"],
                     tuition: data.intTuition,
                     coords: {lat: data.YuniCoords, long: data.XuniCoords}
                 });
@@ -368,10 +369,6 @@ export default function Program() {
             </div>
         );
     }
-
-    useEffect(() => {
-
-    }, [isLoading]);
 
     return (
         <div id="fullWrapper">

@@ -130,7 +130,7 @@ export default function Search() {
     }
     function imageFinder(uniID) {
         if (Array.isArray(imageRetriever)) {
-            let result = imageRetriever.filter(obj => {   return obj.id === uniID });
+            let result = imageRetriever.filter(obj => { return obj.id === uniID });
             return result[0]["picture"]
         }
     }
