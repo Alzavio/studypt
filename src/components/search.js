@@ -132,6 +132,12 @@ export default function Search() {
         if (Array.isArray(imageRetriever)) {
             let result = imageRetriever.filter(obj => { return obj.id === uniID });
             return result[0]["picture"]
+        } else if (imageRetriever != null)  {
+            try {
+                setImageRetriever(JSON.parse(imageRetriever));
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
     return (
