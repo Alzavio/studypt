@@ -1330,6 +1330,11 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@hcaptcha/react-hcaptcha@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@hcaptcha/react-hcaptcha/-/react-hcaptcha-1.1.0.tgz#ca770c9fc1f456e3c6b057bedf01a94693b2ec96"
+  integrity sha512-+0JYxSFkZaHMOJ91YD9PUNiCUZhG5d9BzVAIye4vAWMyXzfD4b8Dx7EwAVUf1qfbf8KVCa33QwoTRt6EKfDDSA==
+
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.5.0.tgz#1407967d4c6eecd7388f83acf1eaf4d0c6e58ef9"
@@ -4629,6 +4634,11 @@ elliptic@^6.5.3:
     inherits "^2.0.4"
     minimalistic-assert "^1.0.1"
     minimalistic-crypto-utils "^1.0.1"
+
+emailjs-com@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/emailjs-com/-/emailjs-com-3.2.0.tgz#a53cb22f1bc433c701c84c53d8b56eefd5ce7111"
+  integrity sha512-Prbz3E1usiAwGjMNYRv6EsJ5c373cX7/AGnZQwOfrpNJrygQJ15+E9OOq4pU8yC977Z5xMetRfc3WmDX6RcjAA==
 
 emittery@^0.7.1:
   version "0.7.2"

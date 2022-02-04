@@ -15,7 +15,7 @@ export default function Navibar(props) {
                     <Nav className="me-auto text-secondary" id="label"> 
                         {props.homeArea}
                     </Nav>
-                    <Nav>
+                    <Nav>{/*
                         <Nav.Link className="mx-2 text-dark">
                             Visa info
                         </Nav.Link>
@@ -26,7 +26,7 @@ export default function Navibar(props) {
                             <Link to="/faq" className="text-dark text-decoration-none">
                                 FAQ
                             </Link>
-                        </Nav.Link>
+                        </Nav.Link>*/}
                         <Nav.Link className="mx-2 text-dark">
                             <Link to="/contact" className="text-dark text-decoration-none">
                                 Contact
