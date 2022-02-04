@@ -14,6 +14,7 @@ import { send } from 'emailjs-com';
 export default function Contact() {
     const onSubmit = (e) => {
         e.preventDefault();
+        console.log("trigger")
         send(
             'studypt',
             'template_py5bbum',
@@ -29,6 +30,7 @@ export default function Contact() {
     };
     const [toSend, setToSend] = useState({
         from_name: '',
+        to_name: '',
         message: '',
         reply_to: '',
     });
@@ -49,6 +51,7 @@ export default function Contact() {
                         <Form.Control
                             type="text"
                             placeholder="Name"
+                            name="from_name"
                             className="shadow-sm"
                             value={toSend.from_name}
                             onChange={handleChange}
@@ -58,6 +61,7 @@ export default function Contact() {
                         <Form.Control
                             type="email"
                             placeholder="Email"
+                            name="reply_to"
                             className="shadow-sm"
                             value={toSend.reply_to}
                             onChange={handleChange}
@@ -68,12 +72,13 @@ export default function Contact() {
                             as="textarea"
                             placeholder="Message"
                             rows={3}
+                            name="message"
                             className="shadow-sm"
                             value={toSend.message}
                             onChange={handleChange}
                         />
                     </Form.Group>
-                    <Button variant="success" className="shadow-sm">Submit</Button>
+                    <Button variant="success" type="submit" className="shadow-sm">Submit</Button>
                 </Form>
             </Container>
         </div>
